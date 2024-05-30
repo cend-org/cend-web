@@ -1,6 +1,7 @@
 export function LocalStorageGetItem(item: any) {
     if (process.client) {
         return localStorage.getItem(item)
+        
     } else {
         return undefined
     }

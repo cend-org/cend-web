@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { locale, setLocale } = useI18n();
+const loadingStore = useLoadingStore();
 const items = [
   [
     {
@@ -24,6 +25,7 @@ const items = [
 
 let selectedLanguage: string = "Français CA";
 function setLang(lang: string){
+  loadingStore.show();
   switch (lang) {
     case "ca":
         setLocale("ca");
@@ -38,6 +40,9 @@ function setLang(lang: string){
         selectedLanguage = "Anglais EN"
       break;
   }
+  setTimeout(() => {
+        loadingStore.hide();
+    }, 500);
 }
 
 </script>

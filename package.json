@@ -13,13 +13,20 @@
     "@nuxt/devtools": "latest",
     "@nuxt/ui": "^2.16.0",
     "@nuxtjs/i18n": "^8.3.1",
+    "@samk-dev/nuxt-vcalendar": "^1.0.3",
     "nuxt": "^3.10.1",
     "nuxt-graphql-client": "^0.2.34"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "date-fns": "^2.30.0",
     "jwt-decode": "^4.0.0",
     "nuxt-storage": "^1.2.2",
-    "v-calendar": "^3.1.2"
+    "pinia": "^2.1.7",
+    "v-calendar": "^3.1.2",
+    "yup": "^1.4.0"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

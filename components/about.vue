@@ -45,13 +45,12 @@ const items = [
         },
     ]
 ]
-console.log(locale.value)
 function getLang(ind: number){
     const lang = locale.value;
     switch (ind) {
         case 0:
            if(lang == 'fr'){
-            return fr.who
+           // return fr.who
            }
     }
 }

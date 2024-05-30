@@ -1,0 +1,37 @@
+
+*:focus {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+body{
+    font-family: 'poppins-medium', sans-serif;
+    scrollbar-width: none;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --primary-color: #3A9B23;
+    --break-phone: 576px;
+    --break-tablet: 768px;
+    --break-notebook: 992px;
+    --break-desktop: 1200px;
+}
+
+.bg-color-main{
+    background-color: var(--primary-color);
+}
+
+.border-color-main{
+    border: 2px;
+    border-color: var(--primary-color);
+}
+
+.text-color-main{
+    color: var(--primary-color);
+}
