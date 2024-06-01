@@ -45,8 +45,8 @@ function onClose(){
     <UCard>
         <VDatePicker v-model="date" :attributes="attrs" cssPath="w-full h-full" locale="fr"/>
         <div class="w-full flex justify-between flex-row-reverse">
-            <UButton @click="onConfirm()" label="Confirmer"  class="w-[150px]" block />
-            <UButton @click="onClose()" label="Retour" class="w-[150px]" block/>
+            <UButton @click="onConfirm()" label="Confirmer"  class="w-[150px] bg-green-300 hover:bg-green-500 text-gray-900" block />
+            <UButton @click="onClose()" label="Retour" class="w-[150px] bg-green-300 hover:bg-green-500 text-gray-900" block/>
         </div>
     </UCard>
   </UModal>

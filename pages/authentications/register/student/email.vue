@@ -50,27 +50,24 @@
 <script setup lang="ts">
 
 import { useValidation } from '~/composables/validations';
-import { IsAuthenticated } from '~/scripts/jwt';
-import { LocalStorageSetItem } from '~/scripts/local-storage';
-import { nextTick } from 'vue'
 
 const validation = useValidation();
 const toast = useToast();
 const loadingStore = useLoadingStore();
 function login() {
-    GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-        LocalStorageSetItem("AuthTkn", response.Login?.T);
-        //  useIsAuthenticated(true);
-        toast.add(
-            {
-                id: "1",
-                title: 'Connexion',
-                description: 'Connecte avec succes!',
-                icon: "i-heroicons-check-badge",
+    // GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
+    //     LocalStorageSetItem("AuthTkn", response.Login?.T);
+    //     //  useIsAuthenticated(true);
+    //     toast.add(
+    //         {
+    //             id: "1",
+    //             title: 'Connexion',
+    //             description: 'Connecte avec succes!',
+    //             icon: "i-heroicons-check-badge",
 
-            }
-        )
-    });
+    //         }
+    //     )
+    // });
 }
 
 const state = reactive({

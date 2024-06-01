@@ -35,3 +35,6 @@ body{
 .text-color-main{
     color: var(--primary-color);
 }
+.scroll-bar-none{
+    scrollbar-width: none !important;
+}

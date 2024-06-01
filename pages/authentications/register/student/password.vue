@@ -68,23 +68,23 @@ import { LocalStorageSetItem } from '~/scripts/local-storage';
 const validation = useValidation();
 const loadingStore = useLoadingStore();
 const toast = useToast();
-let showPasswords = ref(false);
+let showPasswords = ref(true);
 function togglePassword(){
     showPasswords.value = ! showPasswords.value;
 }
 function login() {
-    GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-        LocalStorageSetItem("AuthTkn", response.Login?.T);
-        toast.add(
-            {
-                id: "1",
-                title: 'Connexion',
-                description: 'Connecte avec succes!',
-                icon: "i-heroicons-check-badge",
+    // GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
+    //     LocalStorageSetItem("AuthTkn", response.Login?.T);
+    //     toast.add(
+    //         {
+    //             id: "1",
+    //             title: 'Connexion',
+    //             description: 'Connecte avec succes!',
+    //             icon: "i-heroicons-check-badge",
 
-            }
-        )
-    });
+    //         }
+    //     )
+    // });
 }
 
 const state = reactive({

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { locale, setLocale } = useI18n();
 const loadingStore = useLoadingStore();
+
 const items = [
   [
     {

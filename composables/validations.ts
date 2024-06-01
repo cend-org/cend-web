@@ -19,9 +19,23 @@ export function useValidation() {
         }
         return true;
     }
-
+    function joinWithHyphen(str1: string, str2: string): string {
+        if (!str1 && !str2) {
+          return '';
+        }
+        if (!str1) {
+          return str2;
+        }
+        if (!str2) {
+          return str1;
+        }
+        return `${str1}-${str2}`;
+      }
+      function normalizeString(str: string): string {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      }
     return {
-        checkEmail, checkPasswords
+        checkEmail, checkPasswords, joinWithHyphen, normalizeString
     };
 
 }
