@@ -1,28 +1,31 @@
 <script setup lang="ts">
 const registrationSexStore = useRegistrationSexStore();
+const langTransform = useLangTransform();
+const { locale, setLocale } = useI18n();
+
 const sexList =
     [
         [
             {
-                label: 'Homme',
+                label: langTransform.transform("sex_male", locale.value),
                 slot: 'sex',
                 click: () => {
-                    registrationSexStore.set({label: "Homme", value: 0})
+                    registrationSexStore.set({label: langTransform.transform("sex_male", locale.value), value: 0})
                 }
 
             },
             {
-                label: 'Femme',
+                label: langTransform.transform("sex_female", locale.value),
                 slot: 'sex',
                 click: () => {
-                    registrationSexStore.set({label: "Femme", value: 1})
+                    registrationSexStore.set({label: langTransform.transform("sex_female", locale.value), value: 1})
                 }
             },
             {
-                label: 'Autre',
+                label: langTransform.transform("sex_other", locale.value),
                 slot: 'sex',
                 click: () => {
-                    registrationSexStore.set({label: "Autre", value: 2})
+                    registrationSexStore.set({label: langTransform.transform("sex_other", locale.value), value: 2})
                 }
             }
         ]

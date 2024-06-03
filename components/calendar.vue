@@ -10,6 +10,7 @@ const attrs = ref([
         color: 'green',
         fillMode: 'solid'
       },
+      
       dates: new Date()
     }
   ])

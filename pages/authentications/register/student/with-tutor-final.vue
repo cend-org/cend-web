@@ -2,9 +2,13 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_fill_about') }}</h1>
-                <UForm :state="state" class="space-y-2" @submit="onSubmit">
-                    <selection-multiple />
+                <UForm :state="state" class="space-y-6" @submit="onSubmit">
+                    <div class="text-lg text-gray-900 poppins-medium pt-5">
+                        Félicitation d’avoir créé un compte CEND.
+                    </div>
+                    <div class="text-lg text-gray-900 poppins-medium py-1">
+                        Vous allez recevoir une confirmation de rendez-vous par le tuteur par messages sur notre plateforme et par couriel.
+                    </div>
                     <div
                         class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
                         <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
@@ -29,35 +33,19 @@
 <script setup lang="ts">
 
 import Calendar from '~/components/calendar.vue';
+import Time from '~/components/time.vue';
 import { useValidation } from '~/composables/validations';
-
-const validation = useValidation();
-const loadingStore = useLoadingStore();
-const toast = useToast();
-const isBirthDateCalendarOpen = ref(false);
+import { format } from 'date-fns';
+const time = useModal();
 const calendar = useModal();
+const loadingStore = useLoadingStore();
 const calendarStore = useCalendarStore();
-function login() {
-    // GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-    //     LocalStorageSetItem("AuthTkn", response.Login?.T);
-    //     toast.add(
-    //         {
-    //             id: "1",
-    //             title: 'Connexion',
-    //             description: 'Connecte avec succes!',
-    //             icon: "i-heroicons-check-badge",
-
-    //         }
-    //     )
-    // });
-}
-
+const timeStore = useTimeStore();
 const state = reactive({
     name: undefined,
     familyName: undefined,
     birthDate: '',
 })
-
 async function onSubmit() {
     // if (!validation.checkPasswords(state.password, state.passwordConfirm)) {
     //     toast.add(
@@ -77,20 +65,10 @@ async function onSubmit() {
     loadingStore.show();
     setTimeout(() => {
         loadingStore.hide();
-        navigateTo("/authentications/register/student/course-preference");
+        navigateTo("/authentications/register/student/suggested-tutor");
     }, 500);
 
-}
+    
 
-function focusBirthDate() {
-    calendar.open(Calendar, {
-        onClose() {
-            calendar.close();
-        },
-        onConfirm() {
-            state.birthDate = calendarStore.formatedDate;
-            calendar.close();
-        }
-    })
 }
 </script>

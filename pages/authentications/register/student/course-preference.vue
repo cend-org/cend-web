@@ -1,8 +1,8 @@
 <template>
     <div class="w-full flex justify-center mt-6">
-        <div class="p-2 w-full lg:w-[20rem] xl:w-[20rem] 2xl:w-[20rem] flex flex-col gap-2">
+        <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2">
-                <h1 class="text-center text-2xl text-gray-600 poppins-bold py-2">{{ $t('register_fill_about') }}</h1>
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_fill_about') }}</h1>
                 <UForm :state="state" class="space-y-2" @submit="onSubmit">
                     <course-preference />
                     <div
@@ -77,7 +77,7 @@ async function onSubmit() {
     loadingStore.show();
     setTimeout(() => {
         loadingStore.hide();
-        navigateTo("/authentications/register/student/academic-course");
+        navigateTo("/authentications/register/student/disponibility");
     }, 500);
 }
 

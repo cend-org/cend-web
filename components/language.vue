@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { LocalStorageSetItem } from '~/scripts/local-storage';
+
 const { locale, setLocale } = useI18n();
 const loadingStore = useLoadingStore();
 
@@ -30,14 +32,18 @@ function setLang(lang: string){
   switch (lang) {
     case "ca":
         setLocale("ca");
+        LocalStorageSetItem('lang', 'ca');
         selectedLanguage = "Français CA"
       break;
     case "fr":
         setLocale("fr");
-        selectedLanguage = "Français FR"
+        LocalStorageSetItem('lang', 'fr');
+        selectedLanguage = "Français FR";
+
       break;
     case "en":
         setLocale("en");
+        LocalStorageSetItem('lang', 'en');
         selectedLanguage = "Anglais EN"
       break;
   }

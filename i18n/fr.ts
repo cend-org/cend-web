@@ -32,6 +32,10 @@ export const fr = {
     register_name_label: "Votre nom",
     register_familyname: "Prénom", 
     register_familyname_label: "Votre prénom",
+    register_birthdate: "Date de naissance",
+    register_birthdate_label: "Votre date de naissance",
+    register_gender: "Sexe", 
+    register_gender_label: "Choisissez votre sexe",
 
 
 
@@ -41,4 +45,8 @@ export const fr = {
     auth_password_label: "Votre mots de passe",
     auth_password_confirmation: "Confirmation de mots de passe",
     auth_password_confirmation_label: "Confirmation mots de passe", 
+
+    sex_male: "Homme", 
+    sex_female:"Femme", 
+    sex_other: "Autre",
 }
