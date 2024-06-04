@@ -36,6 +36,20 @@ export const fr = {
     register_birthdate_label: "Votre date de naissance",
     register_gender: "Sexe", 
     register_gender_label: "Choisissez votre sexe",
+    register_academic_level: "Quel est votre niveau scolaire ?",
+    register_see_more: "Voir d'autres ?",
+    register_academic_courses: "Dans quelle(s) matière(s) avez-vous besoin d’aide ? ",
+    filter_list: "Filtre",
+    register_prefered_course: "Vous désirez une aide en ligne ou en présentielle ?",
+    register_disponibility: "Quelles sont vos disponibilités pour la première rencontre avec le tuteur ?",
+    register_you_prefer_at: " Vous préférez demain à",
+    at: "à",
+    back: "Retour",
+    confirm: "Confirmer",
+    register_suggested_tutor: "Voici le meilleur tuteur pour convenir à vos besoins :",
+    register_choose_suggested_tutor: "Choisir un autre tuteur ?",
+    register_continue_without_tutor: "Continuer sans tuteur pour le moment ?",
+    accept: "Accepter",
 
 
 

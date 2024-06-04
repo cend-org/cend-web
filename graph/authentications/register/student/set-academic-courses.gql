@@ -1,0 +1,3 @@
+mutation NewUserAcademicCourses ($courses: [UserAcademicCourseInput]!)  {
+    NewUserAcademicCourses(courses: $courses)
+}

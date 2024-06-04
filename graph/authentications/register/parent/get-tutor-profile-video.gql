@@ -1,0 +1,3 @@
+query UserVideoPresentation($tutorId : Int!) {
+    UserVideoPresentation(userId: $tutorId)
+}

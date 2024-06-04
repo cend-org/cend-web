@@ -1,8 +1,9 @@
 import { jwtDecode } from "jwt-decode";
 import { LocalStorageGetItem } from "./local-storage";
+import { environment } from "./environment";
 
 export function IsAuthenticated(): boolean{
-    let token = LocalStorageGetItem("AuthTkn");
+    let token = LocalStorageGetItem(environment.auth_token);
     if(!token){
         return false;
     }

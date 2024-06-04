@@ -1,0 +1,5 @@
+mutation UpdateMyProfile ($profile : UserInput!) {
+    UpdateMyProfile(profile : $profile) {
+        Name
+    }
+}

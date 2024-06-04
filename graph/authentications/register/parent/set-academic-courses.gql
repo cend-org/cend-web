@@ -1,0 +1,5 @@
+mutation NewStudentAcademicCoursesByParent($courses: [UserAcademicCourseInput]! ,$studentId: Int!)   {
+    NewStudentAcademicCoursesByParent(
+        courses: $courses,
+        studentId: $studentId)
+}

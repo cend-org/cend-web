@@ -1,0 +1,6 @@
+mutation UpdStudentAcademicCoursesPreferenceByParent($coursesPreferences: UserAcademicCoursePreferenceInput! , $studentId: Int!)  {
+    UpdStudentAcademicCoursesPreferenceByParent(
+        coursesPreferences: $coursesPreferences
+        studentId: $studentId
+    )
+}

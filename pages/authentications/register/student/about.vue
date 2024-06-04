@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2">
+            <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{$t('register_fill_about')}}</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <div class="flex flex-row gap-2">
@@ -50,31 +50,20 @@
 <script setup lang="ts">
 
 import Calendar from '~/components/calendar.vue';
+import { environment } from '~/scripts/environment';
+import { LocalStorageGetItem } from '~/scripts/local-storage';
 
 const loadingStore = useLoadingStore();
+loadingStore.hide();
 const toast = useToast();
 const calendar = useModal();
 const calendarStore = useCalendarStore();
 const registrationSexStore = useRegistrationSexStore();
 const registrationLangStore = useRegistrationLangStore();
-function login() {
-    // GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-    //     LocalStorageSetItem("AuthTkn", response.Login?.T);
-    //     toast.add(
-    //         {
-    //             id: "1",
-    //             title: 'Connexion',
-    //             description: 'Connecte avec succes!',
-    //             icon: "i-heroicons-check-badge",
-
-    //         }
-    //     )
-    // });
-}
-
+const selectionSingleStore = useSelectionSingleStore();
 const state = reactive({
-    name: undefined,
-    familyName: undefined,
+    name: '',
+    familyName: '',
     birthDate: '',
 })
 
@@ -94,7 +83,8 @@ async function onSubmit() {
         )
         return;
     }
-    if (registrationSexStore.sex.value == '') {
+    
+    if (typeof(registrationSexStore.sex.value) != 'number') {
         toast.add(
             {
                 id: "1",
@@ -109,7 +99,7 @@ async function onSubmit() {
         )
         return;
     }
-    if (registrationLangStore.lang.value == '') {
+    if (typeof(registrationLangStore.lang.value) != 'number') {
         toast.add(
             {
                 id: "1",
@@ -125,13 +115,53 @@ async function onSubmit() {
         return;
     }
     loadingStore.show();
-    setTimeout(() => {
+
+    useGqlToken({
+        token: `${LocalStorageGetItem(environment.auth_token)}`,
+        config: {
+            type: 'Bearer',
+            name: 'Authorization'
+        }
+    });
+    GqlUpdateMyProfile({ profile: { Name: state.name, FamilyName: state.familyName, Lang:  registrationLangStore.lang.value, Sex: registrationSexStore.sex.value} }).then(response => {
+        getAcademicLevels();
+    }, error => {
         loadingStore.hide();
-        navigateTo("/authentications/register/student/academic-level");
-    }, 500);
+        toast.add(
+            {
+                id: "1",
+                title: 'Erreur!',
+                description: 'Une erreur est survenue pendant l\'opérations!',
+                icon: "i-heroicons-exclamation-triangle",
+                color: "red",
+                ui: {
+                    background: "bg-red-100"
+                }
+            }
+        )
+    });
 
 }
-
+function getAcademicLevels(){
+    GqlAcademicLevels().then(response => {
+        selectionSingleStore.list = response.AcademicLevels as Array<never>;
+        navigateTo('/authentications/register/student/academic-level');
+    }, error => {
+        loadingStore.hide();
+        toast.add(
+            {
+                id: "1",
+                title: 'Erreur!',
+                description: 'Une erreur est survenue pendant l\'opérations!',
+                icon: "i-heroicons-exclamation-triangle",
+                color: "red",
+                ui: {
+                    background: "bg-red-100"
+                }
+            }
+        )
+    });
+}
 function focusBirthDate(){
     calendar.open(Calendar, {
     onClose(){

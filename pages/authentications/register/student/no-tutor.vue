@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2">
+            <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <UForm :state="state" class="space-y-6" @submit="onSubmit">
                     <div class="text-lg text-gray-900 poppins-medium py-5">
                         Malheureusement, nous n’avons pas trouver un tuteur qui comble vos attentes.
@@ -28,44 +28,17 @@
 }
 </style>
 <script setup lang="ts">
-
-import Calendar from '~/components/calendar.vue';
-import Time from '~/components/time.vue';
-import { useValidation } from '~/composables/validations';
-import { format } from 'date-fns';
-const time = useModal();
-const calendar = useModal();
 const loadingStore = useLoadingStore();
-const calendarStore = useCalendarStore();
-const timeStore = useTimeStore();
+loadingStore.hide();
 const state = reactive({
     name: undefined,
     familyName: undefined,
     birthDate: '',
 })
 async function onSubmit() {
-    // if (!validation.checkPasswords(state.password, state.passwordConfirm)) {
-    //     toast.add(
-    //         {
-    //             id: "1",
-    //             title: 'Validation',
-    //             description: 'Veillez vérifiez votre mots de passe!',
-    //             icon: "i-heroicons-check-badge",
-    //             color: "red",
-    //             ui: {
-    //                 background: "bg-red-100"
-    //             }
-    //         }
-    //     )
-    //     return;
-    // }
     loadingStore.show();
     setTimeout(() => {
-        loadingStore.hide();
-        navigateTo("/authentications/register/student/suggested-tutor");
+        navigateTo("/authentications/register/student/no-tutor-final");
     }, 500);
-
-    
-
 }
 </script>

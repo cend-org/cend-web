@@ -7,13 +7,13 @@ export default defineNuxtConfig({
   css: ['~/assets/css/base.css', '~/assets/css/poppins.css'],
   i18n: {
     vueI18n: './i18n.config.ts' // if you are using custom path, default
-  }
-  // runtimeConfig: {
-  //   public: {
-  //     GQL_HOST: 'http://cendapp.ca:8087/query' // overwritten by process.env.GQL_HOST
-  //   }
-  // },
-
-  
-  
+  },
+  runtimeConfig: {
+    public: {
+      GQL_HOST: 'http://cendapp.ca:8087/query',
+      'graphql-client': {
+        
+      } 
+    }
+  },
 })

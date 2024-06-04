@@ -1,0 +1,5 @@
+mutation NewStudent ($email :  String!) {
+    NewStudent(email: $email) {
+        T
+    }
+}

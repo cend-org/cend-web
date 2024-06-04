@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex justify-center mt-16">
-      <div class= "p-2 w-8/12 flex flex-col gap-20">
+      <div class= "p-2  w-full w-8/12 flex flex-col gap-20">
         <section class="flex gap-4 justify-between align-middle w-full">
             <h1 class="text-5xl poppins-bold flex flex-col gap-4 animate-pulse">
               <div>{{$t('landing_text_login')}}</div>

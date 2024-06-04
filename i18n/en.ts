@@ -37,6 +37,20 @@ export const en = {
     register_birthdate_label: "Your birth date",
     register_gender: "Gender", 
     register_gender_label: "Choose your gender",
+    register_academic_level: "What is your educational level?",
+    register_see_more: "See more ?",
+    register_academic_courses: "In what subject(s) do you need help?",
+    filter_list: "Filter list",
+    register_prefered_course: "Do you want help online or in person?",
+    register_disponibility: "What are your availability for the first meeting with the tutor?",
+    register_you_prefer_at: "You prefer tomorrow at",
+    at: "at",
+    back: "Cancel",
+    confirm: "Confirm",
+    register_suggested_tutor: "Here is the best tutor to suit your needs:",
+    register_choose_suggested_tutor: "Choose another tutor?",
+    register_continue_without_tutor: "Continue without a tutor for the moment?",
+    accept: "Accept",
     
 
     auth_email: "Email",
@@ -45,6 +59,7 @@ export const en = {
     auth_password_label: "Your Password",
     auth_password_confirmation: "Confirm your password",
     auth_password_confirmation_label: "Confirm your password", 
+    
 
     sex_male: "Male",
     sex_female:"Female", 

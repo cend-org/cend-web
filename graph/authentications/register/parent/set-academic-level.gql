@@ -1,0 +1,5 @@
+mutation SetStudentAcademicLevelByParent($academicLevelId : Int! , $studentId: Int!) {
+    SetStudentAcademicLevelByParent(
+        AcademicLevelId: $academicLevelId ,
+         studentId: $studentId)
+}

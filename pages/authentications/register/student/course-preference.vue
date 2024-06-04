@@ -1,8 +1,9 @@
 <template>
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_fill_about') }}</h1>
+            <form action="" class="w-full flex flex-col gap-2 pt-3">
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_prefered_course') }}
+                </h1>
                 <UForm :state="state" class="space-y-2" @submit="onSubmit">
                     <course-preference />
                     <div
@@ -27,58 +28,32 @@
 }
 </style>
 <script setup lang="ts">
-
-import Calendar from '~/components/calendar.vue';
-import { useValidation } from '~/composables/validations';
-
-const validation = useValidation();
 const loadingStore = useLoadingStore();
+loadingStore.hide();
 const toast = useToast();
-const isBirthDateCalendarOpen = ref(false);
-const calendar = useModal();
-const calendarStore = useCalendarStore();
-function login() {
-    // GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-    //     LocalStorageSetItem("AuthTkn", response.Login?.T);
-    //     toast.add(
-    //         {
-    //             id: "1",
-    //             title: 'Connexion',
-    //             description: 'Connecte avec succes!',
-    //             icon: "i-heroicons-check-badge",
-
-    //         }
-    //     )
-    // });
-}
-
+const coursePreferenceStore = useCoursePreferenceStore();
 const state = reactive({
-    name: undefined,
-    familyName: undefined,
-    birthDate: '',
-})
+});
 
 async function onSubmit() {
-    // if (!validation.checkPasswords(state.password, state.passwordConfirm)) {
-    //     toast.add(
-    //         {
-    //             id: "1",
-    //             title: 'Validation',
-    //             description: 'Veillez vérifiez votre mots de passe!',
-    //             icon: "i-heroicons-check-badge",
-    //             color: "red",
-    //             ui: {
-    //                 background: "bg-red-100"
-    //             }
-    //         }
-    //     )
-    //     return;
-    // }
-    loadingStore.show();
-    setTimeout(() => {
-        loadingStore.hide();
+    GqlUpdAcademicCoursePreference({ coursesPreferences: { IsOnline: coursePreferenceStore.selectedItem.value } }).then(response => {
         navigateTo("/authentications/register/student/disponibility");
-    }, 500);
+
+    }, error => {
+        loadingStore.hide();
+        toast.add(
+            {
+                id: "1",
+                title: 'Erreur!',
+                description: 'Une erreur est survenue pendant l\'opérations!',
+                icon: "i-heroicons-exclamation-triangle",
+                color: "red",
+                ui: {
+                    background: "bg-red-100"
+                }
+            }
+        )
+    });
 }
 
 </script>

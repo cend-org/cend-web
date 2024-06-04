@@ -1,0 +1,5 @@
+mutation NewParent($email: String!) {
+    NewParent(email:  $email) {
+        T
+    }
+}

@@ -1,77 +1,12 @@
 <script setup lang="ts">
 const validation  = useValidation();
 const selectionSingleStore = useSelectionSingleStore();
-let originalItems = [
-  {
-    "Id": "8",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Mathématiques",
-    "__typename": "AcademicCourse"
-  },
-  {
-    "Id": "9",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Français",
-    "__typename": "AcademicCourse"
-  },
-  {
-    "Id": "10",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Anglais",
-    "__typename": "AcademicCourse"
-  },
-  {
-    "Id": "11",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Science et technologie",
-    "__typename": "AcademicCourse"
-  },
-  {
-    "Id": "12",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Histoire / Géographie",
-    "__typename": "AcademicCourse"
-  },
-  {
-    "Id": "13",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Éthique  et culture religieuse",
-    "__typename": "AcademicCourse"
-  },
-  {
-    "Id": "14",
-    "CreatedAt": "2024-05-18T19:56:00Z",
-    "UpdatedAt": "2024-05-18T19:56:00Z",
-    "DeletedAt": "0001-01-01T00:00:00Z",
-    "AcademicLevelId": "2",
-    "Name": "Culture et citoyenneté québécoise (CCQ)",
-    "__typename": "AcademicCourse"
-  }
-];
-const items = ref([...originalItems]);
-//const selectedItem = ref({ Id: '' });
+let items = ref(selectionSingleStore.list as Array<any>);
+
+
 const filterText = ref('');
 const itemsPerPage = ref(6);
 const currentPage = ref(1);
-
 const filteredItems = computed(() => {
   if (filterText.value === '') {
     return items.value;
@@ -103,7 +38,8 @@ const isSelected = (item: any) => {
 watch(filterText, () => {
   currentPage.value = 1;
 });
-
+selectionSingleStore.selectedItem = paginatedItems.value[0];
+// 
 </script>
 
 <template>
@@ -134,6 +70,6 @@ watch(filterText, () => {
         </button>
     </div>
     <div class="w-full flex justify-end"  @click="loadMoreItems" :disabled="(currentPage * itemsPerPage) >= filteredItems.length">
-        <UButton class="" size="lg" color="white" label="voir d'autre?" />
+        <UButton class="" size="lg" color="white" :label="$t('register_see_more')"  />
     </div>
 </template>

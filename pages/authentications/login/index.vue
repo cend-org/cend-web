@@ -1,15 +1,15 @@
 <template>
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2">
+            <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">Veuillez-vous connecter à votre compte {{$t(`${personType}`)}}</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormGroup label="Email" name="email">
-                        <UInput class="" size="lg" v-model="state.email" placeholder="Votre email" />
+                        <UInput class="" size="lg" v-model="state.email" name="email" placeholder="Votre email" />
                     </UFormGroup>
 
                     <UFormGroup label="Mots de passe" name="password">
-                        <UInput size="lg" v-model="state.password" type="password" placeholder="Votre mots de passe" />
+                        <UInput size="lg" v-model="state.password" type="password" name="password" placeholder="Votre mots de passe" />
                     </UFormGroup>
 
                     <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
@@ -57,12 +57,14 @@ import { useValidation } from '~/composables/validations';
 import { IsAuthenticated } from '~/scripts/jwt';
 import { LocalStorageSetItem } from '~/scripts/local-storage';
 import { nextTick } from 'vue'
+import { environment } from '~/scripts/environment';
 
 const validation = useValidation();
 const toast = useToast();
 const route = useRoute();
-console.log(route.query.label);
 let personType = ref('student');
+const loadingStore = useLoadingStore();
+loadingStore.hide();
 onUpdated(async () => {
     if(route.query.label){
         personType.value = route.query.label as string;
@@ -70,24 +72,12 @@ onUpdated(async () => {
 });
 
 function login() {
-    GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-        LocalStorageSetItem("AuthTkn", response.Login?.T);
-        //  useIsAuthenticated(true);
-        toast.add(
-            {
-                id: "1",
-                title: 'Connexion',
-                description: 'Connecte avec succes!',
-                icon: "i-heroicons-check-badge",
-
-            }
-        )
-    });
+    
 }
 
 const state = reactive({
-    email: undefined,
-    password: undefined
+    email: '',
+    password: ''
 })
 
 async function onSubmit() {
@@ -106,6 +96,49 @@ async function onSubmit() {
         )
         return;
     }
+    if (!state.password) {
+        toast.add(
+            {
+                id: "1",
+                title: 'Validation',
+                description: 'Mots de passe invalide!',
+                icon: "i-heroicons-check-badge",
+                color: "red",
+                ui: {
+                    background: "bg-red-100"
+                }
+            }
+        )
+        return;
+    }
+    loadingStore.show();
+    GqlLogin({ email: state.email, password: state.password }).then(response => {
+        LocalStorageSetItem(environment.auth_token, response.Login?.T);
+        navigateTo('/dashboard/landing');
+        toast.add(
+            {
+                id: "1",
+                title: 'Connexion',
+                description: 'Connecte avec succes!',
+                icon: "i-heroicons-check-badge",
+
+            }
+        )
+    }, error=>{
+        loadingStore.hide();
+        toast.add(
+            {
+                id: "1",
+                title: 'Erreur!',
+                description: error.gqlErrors[0].message,
+                icon: "i-heroicons-exclamation-triangle",
+                color: "red",
+                ui: {
+                    background: "bg-red-100"
+                }
+            }
+        )
+    });
 
 }
 </script>

@@ -13,7 +13,7 @@ const items = [
             iconClass: 'text-2xl poppins-bold ',
             class: "text-md text-gray-700 w-full poppins-bold",
             click: () => {
-                alert("CLICKED")
+                navigateTo('/about/about#about-us')
             }
         },
         {
@@ -22,7 +22,7 @@ const items = [
             iconClass: 'text-2xl poppins-bold',
             class: "text-md text-gray-700  w-full poppins-bold ",
             click: () => {
-                alert("CLICKED")
+                navigateTo('/about/about#our-mission')
             }
         },
         {
@@ -31,7 +31,7 @@ const items = [
             iconClass: 'text-2xl poppins-bold',
             class: "text-md text-gray-700  w-full poppins-bold",
             click: () => {
-                alert("CLICKED")
+                navigateTo('/about/about#cend-best-point')
             }
         },
         {
@@ -40,23 +40,11 @@ const items = [
             iconClass: 'text-2xl poppins-bold ',
             class: "text-md text-gray-700  w-full poppins-bold",
             click: () => {
-                alert("CLICKED")
+                navigateTo('/about/about#how-it-works')
             }
         },
     ]
 ]
-function getLang(ind: number){
-    const lang = locale.value;
-    switch (ind) {
-        case 0:
-           if(lang == 'fr'){
-           // return fr.who
-           }
-    }
-}
-
-// 'Qui nous sommes?'
-
 </script>
 <style>
 .about-dropdown div:nth-of-type(2) {
@@ -74,7 +62,6 @@ function getLang(ind: number){
 }
 </style>
 <template>
-     
     <UDropdown v-model:open="dropDownOpened" :items="items" :popper="{placement: 'bottom-start', offsetDistance: 0}" class="about-dropdown">
         <UButton  class="bg-transparent text-white hover:text-white hover:bg-transparent"
             variant="ghost" 

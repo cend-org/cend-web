@@ -1,0 +1,25 @@
+mutation UserStudent($name: String! , $familyName: String!) {
+    UserStudent(name: $name , familyName: $familyName){
+        Id
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        Name
+        FamilyName
+        NickName
+        Email
+        Matricule
+        Age
+        BirthDate
+        Sex
+        Lang
+        Status
+        ProfileImageXid
+        Description
+        CoverText
+        Profile
+        ExperienceDetail
+        AdditionalDescription
+        AddOnTitle
+    }
+}

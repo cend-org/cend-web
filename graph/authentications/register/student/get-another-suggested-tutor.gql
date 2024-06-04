@@ -1,0 +1,19 @@
+query SuggestOtherTutorToUser($tutorId : Int!) {
+    SuggestOtherTutorToUser (lastTutorId: $tutorId) {
+        Id
+        Name
+        FamilyName
+        NickName
+        Email
+        Sex
+        Lang
+        Status
+        ProfileImageXid
+        Description
+        CoverText
+        Profile
+        ExperienceDetail
+        AdditionalDescription
+        AddOnTitle
+    }
+}

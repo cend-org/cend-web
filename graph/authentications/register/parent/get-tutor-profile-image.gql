@@ -1,0 +1,3 @@
+query UserProfileImage($tutorId : Int!) {
+    UserProfileImage(userId: $tutorId)
+}

@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2">
+            <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">Voici le meilleur tuteur pour convenir à vos besoins :</h1>
                 <UForm :state="state" class="space-y-6" @submit="onSubmit">
                     <div class="video">
@@ -111,7 +111,7 @@ const timeStore = useTimeStore();
 const videoRef = ref<HTMLVideoElement | null>(null);
 function login() {
     // GqlLogin({ email: "parent1@email.com", password: 'parent' }).then(response => {
-    //     LocalStorageSetItem("AuthTkn", response.Login?.T);
+    //     LocalStorageSetItem(environment.auth_token, response.Login?.T);
     //     toast.add(
     //         {
     //             id: "1",

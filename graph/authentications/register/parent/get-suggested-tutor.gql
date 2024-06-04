@@ -1,0 +1,19 @@
+query SuggestTutor($studentId: Int!) {
+    SuggestTutor(studentId: $studentId) {
+        Id
+        Name
+        FamilyName
+        NickName
+        Email
+        Sex
+        Lang
+        Status
+        ProfileImageXid
+        Description
+        CoverText
+        Profile
+        ExperienceDetail
+        AdditionalDescription
+        AddOnTitle
+    }
+}

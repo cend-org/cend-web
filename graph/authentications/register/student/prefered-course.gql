@@ -1,0 +1,10 @@
+mutation UpdAcademicCoursePreference($coursesPreferences: UserAcademicCoursePreferenceInput!)  {
+    UpdAcademicCoursePreference(coursesPreferences: $coursesPreferences) {
+        Id
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        UserId
+        IsOnline
+    }
+}

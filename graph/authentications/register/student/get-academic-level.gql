@@ -1,0 +1,10 @@
+
+query AcademicLevels {
+    AcademicLevels {
+        Id
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        Name
+    }
+}
