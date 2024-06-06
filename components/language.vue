@@ -7,44 +7,53 @@ const loadingStore = useLoadingStore();
 const items = [
   [
     {
-    label: 'Français CA',
+    label: 'lang_ca',
+    class: 'text-lg text-gray-600  w-full poppins-regular font-semibold',
+    slot: 'lang',
+    code: 'CA',
     click: () => {
        setLang('ca')
     }
   }, 
   {
-    label: 'Français FR',
+    label: 'lang_fr',
+    class: 'text-lg text-gray-600  w-full poppins-regular font-semibold',
+    slot: 'lang',
+    code: 'FR',
     click: () => {
        setLang('fr')
     }
   }, 
   {
-    label: 'Anglais EN',
+    label: 'lang_en',
+    class: 'text-lg text-gray-600  w-full poppins-regular font-semibold',
+    slot: 'lang',
+    code: 'EN',
     click: () => {
        setLang('en')
     }
   }]
 ]
 
-let selectedLanguage: string = "Français CA";
+let selectedLanguage: string = "lang_ca";
 function setLang(lang: string){
   loadingStore.show();
   switch (lang) {
     case "ca":
         setLocale("ca");
         LocalStorageSetItem('lang', 'ca');
-        selectedLanguage = "Français CA"
+        selectedLanguage = "lang_ca"
       break;
     case "fr":
         setLocale("fr");
         LocalStorageSetItem('lang', 'fr');
-        selectedLanguage = "Français FR";
+        selectedLanguage = "lang_fr";
 
       break;
     case "en":
         setLocale("en");
         LocalStorageSetItem('lang', 'en');
-        selectedLanguage = "Anglais EN"
+        selectedLanguage = "lang_en"
       break;
   }
   setTimeout(() => {
@@ -57,8 +66,23 @@ function setLang(lang: string){
 
 </style>
 <template>
-  <UDropdown :items="items" :popper="{placement: 'bottom-start', offsetDistance: 10, arrow:false}" class="text-lg font-bold">
-    <UButton  class="bg-transparent text-white hover:text-white hover:bg-transparent" variant="ghost"  :label="selectedLanguage"  icon="i-heroicons-language-solid"/>
+  <UDropdown :items="items" :popper="{placement: 'bottom-start', arrow:false}" class="text-lg font-bold">
+    <div class="hidden lg:block, xl:block 2xl:block">
+      <UButton  class="h-[35px] bg-transparent text-white hover:text-white hover:bg-[#008000] rounded-full" variant="ghost"  :label="`${$t(selectedLanguage)} ${locale.toUpperCase()}`"  icon="i-heroicons-language-solid"/>
+    </div>
+   <div class="block lg:hidden xl:hidden 2xl:hidden">
+    <UButton class="h-[35px] w-[35px]  bg-white text-[#008000] text-lg hover:bg-white hover:text-[#008000] rounded-full ml-1 mt-[2px]">
+      <UIcon name="i-heroicons-language" class="text-center"></UIcon>
+    </UButton>
+     
+   </div>
+     
+     <template #lang="{ item }">
+            <div class="text-lg text-gray-600  w-full poppins-regular font-semibold text-left flex justify-between">
+                <span>{{$t(item.label) }} </span>
+                <span class="text-sm">{{$t(item.code) }} </span>
+            </div>
+      </template>
   </UDropdown>
   <slot/>
 </template>

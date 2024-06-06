@@ -1,0 +1,10 @@
+query MultipleLevelAcademicCourses($academicLevelId: [Int!]) {
+    MultipleLevelAcademicCourses(AcademicLevelId: $academicLevelId) {
+        Id
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        AcademicLevelId
+        Name
+    }
+}

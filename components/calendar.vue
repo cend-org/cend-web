@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { format } from 'date-fns';
+const { locale, setLocale } = useI18n();
 const calendarStore = useCalendarStore();
 const date = ref(new Date());
 const attrs = ref([
@@ -44,7 +45,7 @@ function onClose(){
 <template>
   <UModal  prevent-close>
     <UCard>
-        <VDatePicker v-model="date" :attributes="attrs" cssPath="w-full h-full" locale="fr"/>
+        <VDatePicker v-model="date" :attributes="attrs" cssPath="w-full h-full" :locale="locale"/>
         <div class="w-full flex justify-between flex-row-reverse">
             <UButton @click="onConfirm()" :label="$t('confirm')"  class="w-[150px] bg-green-300 hover:bg-green-500 text-gray-900" block />
             <UButton @click="onClose()" :label="$t('back')" class="w-[150px] bg-green-300 hover:bg-green-500 text-gray-900" block/>

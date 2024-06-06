@@ -4,7 +4,6 @@ import { LocalStorageGetItem } from "~/scripts/local-storage";
 
 export function useLangTransform() {
     function transform(textKey: string, local: string): string {
-        local = "fr"
     let _lang: any = {};
     switch (local) {
         case "ca":

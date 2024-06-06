@@ -7,37 +7,41 @@ const items = [
     [
         {
             //nav_who_we_are
-            label: "Etudiant",
+            label: "student",
             icon: 'i-heroicons-academic-cap',
             iconClass: 'text-2xl poppins-bold',
-            class: "text-xl text-gray-700 w-full poppins-regular py-2",
+            class: "text-lg text-gray-600  w-full poppins-regular font-semibold",
+            slot:"register",
             click: () => {
                 navigateTo({path: '/authentications/login', query: {label: "student"}})
             }
         },
         {
-            label: 'Parent',
+            label: 'parent',
             icon: 'i-heroicons-user-group',
             iconClass: 'text-2xl poppins-bold',
-            class: "text-xl text-gray-700  w-full poppins-regular py-2",
+            class: "text-lg text-gray-600  w-full poppins-regular font-semibold",
+            slot:"register",
             click: () => {
                 navigateTo({path: '/authentications/login', query: {label: "parent"}})
             }
         },
         {
-            label: 'Tuteur',
+            label: 'tutor',
             icon: 'i-heroicons-user',
             iconClass: 'text-2xl poppins-bold',
-            class: "text-xl text-gray-700  w-full poppins-regular py-2",
+            class: "text-lg text-gray-600  w-full poppins-regular font-semibold",
+            slot:"register",
             click: () => {
                 navigateTo({path: '/authentications/login', query: {label: "tutor"}})
             }
         },
         {
-            label: 'Professeur',
+            label: 'teacher',
             icon: 'i-heroicons-user-plus',
-            iconClass: 'text-2xl poppins-bold ',
-            class: "text-xl text-gray-700  w-full poppins-regular py-2",
+            iconClass: 'text-2xl poppins-bold',
+            class: "text-lg text-gray-600  w-full poppins-regular font-semibold",
+            slot:"register",
             click: () => {
                 navigateTo({path: '/authentications/login', query: {label: "teacher"}})
             }
@@ -46,6 +50,9 @@ const items = [
 ]
 function onClickToggleModal(){
     dropDownOpened.value = !dropDownOpened.value;
+}
+function getWidth(local: string){
+    return local == "en"?"w-[90px]":"w-[120px]";
 }
 </script>
 <style>
@@ -73,14 +80,26 @@ function onClickToggleModal(){
 </style>
 <template>
      
-    <UDropdown :open="dropDownOpened"  :popper="{placement: 'bottom-start', offsetDistance: 0}" :items="items" class="signin-dropdown mobile-about-dropdown lg:hidden xl:hidden 2xl:hidden"> 
-        <UButton variant="ghost"  @click="onClickToggleModal()"  :ui="{ rounded: 'rounded-full' }" size="sm"
-            class="w-[130px] h-[45px] block  text-white text-sm hover:text-white hover:bg-transparent"  >{{$t('nav_sign_in')}}</UButton>
+    <UDropdown  :popper="{placement: 'bottom-start', offsetDistance: 0}" :items="items" class="signin-dropdown mobile-about-dropdown lg:hidden xl:hidden 2xl:hidden"> 
+        <UButton variant="ghost"  @click="onClickToggleModal()"  :ui="{ rounded: 'rounded-full' }" size="xs"
+            class="w-[120px] h-[40px] block  text-white text-sm hover:text-white hover:bg-[#008000]"  >{{$t('nav_sign_in')}}</UButton>
+            <template #register="{ item }">
+            <div class="text-lg text-gray-600  w-full poppins-regular font-semibold text-left  flex justify-between">
+                <span>{{$t(item.label) }}</span>
+                    <UIcon class="text-2xl" :name="`${item.icon}`"></UIcon>
+            </div>
+         </template>
     </UDropdown>
 
-    <UDropdown :open="dropDownOpened"  :popper="{placement: 'bottom-start', offsetDistance: 0}" :items="items" class="signin-dropdown desktop-about-dropdown hidden lg:block xl:block 2xl:block"> 
+    <UDropdown  :popper="{placement: 'bottom-start', offsetDistance: 0}" :items="items" class="signin-dropdown desktop-about-dropdown hidden lg:block xl:block 2xl:block"> 
         <UButton variant="ghost"   @click="onClickToggleModal()"  :ui="{ rounded: 'rounded-full' }" size="sm"
-            class="w-[130px] h-[45px] block  text-white text-sm hover:text-text-white hover:bg-transparent"  >{{$t('nav_sign_in')}}</UButton>
+            :class="['h-[40px] block  text-white text-sm hover:text-text-white hover:bg-[#008000]', getWidth(locale)]"  >{{$t('nav_sign_in')}}</UButton>
+            <template #register="{ item }">
+            <div class="text-lg text-gray-600  w-full poppins-regular font-semibold text-left  flex justify-between">
+                <span>{{$t(item.label) }}</span>
+                    <UIcon class="text-2xl" :name="`${item.icon}`"></UIcon>
+            </div>
+         </template>
     </UDropdown>
     <slot />
 </template>

@@ -177,10 +177,26 @@ function chooseAnotherTutor() {
     loadingStore.show();
     const currentTutorId = 1;//parseInt(tutorStore.tutor.Id);
     GqlSuggestOtherTutorToUser({ tutorId: currentTutorId }).then(response => {
-        getProfileImage(response.SuggestOtherTutorToUser.Id);
-        getProfileVideo(response.SuggestOtherTutorToUser.Id);
-        tutorStore.tutor = response.SuggestOtherTutorToUser;
-        loadingStore.hide();
+       if(response.SuggestOtherTutorToUser){
+            getProfileImage(response.SuggestOtherTutorToUser.Id);
+            getProfileVideo(response.SuggestOtherTutorToUser.Id);
+            tutorStore.tutor = response.SuggestOtherTutorToUser;
+            loadingStore.hide();
+       }else{
+        toast.add(
+            {
+                id: "1",
+                title: 'Info!',
+                description: 'Nous n\'avons pas pu trouver d\autre tuteur.',
+                icon: "i-heroicons-exclamation-triangle",
+                color: "orange",
+                ui: {
+                    background: "bg-orange-100"
+                }
+            }
+        )
+       }
+       loadingStore.hide();
     }, error => {
         loadingStore.hide();
         toast.add(

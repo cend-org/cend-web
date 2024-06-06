@@ -37,9 +37,14 @@ display: none;
 .vc-base-icon{
     display: none;
 }
+
+/* .TIME-PICKER  div:nth-of-type(2) > div > div{
+ width: 23vw !important;
+ background-color: red !important;
+} */
 </style>
 <template>
-  <UModal  prevent-close>
+  <UModal prevent-close >
     <UCard>
         <VDatePicker v-model="time"  cssPath="w-full h-full text-lg" locale="fr" mode="time" :is24hr="true"/>
         <div class="w-full flex justify-between flex-row-reverse">
@@ -48,4 +53,5 @@ display: none;
         </div>
     </UCard>
   </UModal>
+
 </template>

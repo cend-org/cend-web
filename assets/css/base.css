@@ -45,3 +45,6 @@ body{
 .scroll-bar-none{
     scrollbar-width: none !important;
 }
+.bg-hover-main{
+    background-color: #008000 !important;
+}

@@ -15,7 +15,6 @@ export const en = {
     nav_sign_in: "Sign in",
     nav_register: "Register",
     nav_sign_out: "Log Out",
-    nav_who_we_are: "", 
     continue: "Continue", 
     register_student_header_email_or_phone: "Include your phone number or email address.", 
     is_loading: "is loading!", 
@@ -51,6 +50,7 @@ export const en = {
     register_choose_suggested_tutor: "Choose another tutor?",
     register_continue_without_tutor: "Continue without a tutor for the moment?",
     accept: "Accept",
+    complexity: "Complexity",
     
 
     auth_email: "Email",
@@ -64,4 +64,53 @@ export const en = {
     sex_male: "Male",
     sex_female:"Female", 
     sex_other: "Other",
+
+    lang_ca: "French",
+    lang_fr: 'French', 
+    lang_en: 'English', 
+
+    register_lang: "Language",
+    register_lang_label: "Choose your language",
+    register_academic_level_tutor: 'What grade level do you teach?', 
+    register_photo_upload_tutor: "Please upload a professional photo.", 
+    accepted: "allowed",
+    tutor_photo_legend: "Tutors who appear friendly and professional receive more students", 
+    register_cv_tutor: "Please download the curriculum for each degree you have received.",
+    tutor_cv_legend: "Receive a verified certificate badge by sending us your diplomas. We could confirm them to increase your credibility",
+
+    register_tutor_profile_description: "Profile Description:",
+    register_tutor_description: "Profile Description", 
+    register_tutor_description_label: "Your description...", 
+    register_tutor_experiences: "Teaching experience",
+    register_tutor_experiences_label: "Your experiences...",
+    register_tutor_motivation: "Motivate future students", 
+    register_tutor_motivation_label: "Motivations...",
+
+    
+    register_upload_video_tutor: 'Please upload a presentation video.',
+    tutor_video_legend: 'Good energy, greet, make people want to do business with you. Invite them to take a try to talk about why you can help them.',
+    tutor_course_type: "Online or face to face?", 
+    online: "Online",
+    online_description: "Economical, fast, certain to have the best candidate for you",
+    face_to_face: "Face to face", 
+    face_to_face_description: "Premium option, more limited selection of candidates", 
+
+    renumeration: "Remuneration:",
+    first_try: "first try", 
+    tutor_verification_text: "We will check that everything is good, our team will send you a confirmation email!", 
+
+    nav_who_we_are: "Who are we?",
+    nav_our_mission: "Our mission",
+    nav_best_points: "CEND strong points", 
+    nav_how_it_works: "How it works?",
+
+    about_about_us: "About us",
+    welcome_to_cend_universe: "Welcome to the world of CEND",
+    about_connex_learn_inovate_dynammic: "Connection, Teaching, Innovative, Dynamic.", 
+    connexion: 'Login',
+    login_email_label: "Your email", 
+    login_password: 'Password', 
+    login_password_label: 'Your password',
+    register_to_first_list: "return to first list"
+
 }

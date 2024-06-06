@@ -1,0 +1,3 @@
+mutation NewUserAcademicLevels($academicLevelIds: [Int]!) {
+    NewUserAcademicLevels(academicLevelIds: $academicLevelIds)
+}

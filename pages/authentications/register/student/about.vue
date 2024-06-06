@@ -6,16 +6,16 @@
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <div class="flex flex-row gap-2">
                         <UFormGroup :label="$t('register_name')" name="nom">
-                            <UInput size="lg" v-model="state.name" type="text"  :placeholder="$t('register_name_label')"/>
+                            <UInput  autocomplete="off" size="lg" v-model="state.name" type="text"  :placeholder="$t('register_name_label')"/>
                         </UFormGroup>
 
                         <UFormGroup :label="$t('register_familyname')" name="prenom">
-                            <UInput size="lg" v-model="state.familyName" type="text"  :placeholder="$t('register_familyname_label')"/>
+                            <UInput  autocomplete="off" size="lg" v-model="state.familyName" type="text"  :placeholder="$t('register_familyname_label')"/>
                         </UFormGroup>
                     </div>
 
                     <UFormGroup :label="$t('register_birthdate')" name="date-of-birth">
-                        <UInput @click="focusBirthDate()" size="lg" v-model="state.birthDate" type="text"  :placeholder="$t('register_birthdate_label')"/>
+                        <UInput  autocomplete="off" @click="focusBirthDate()" size="lg" v-model="state.birthDate" type="text"  :placeholder="$t('register_birthdate_label')"/>
                         <calendar />
                     </UFormGroup>
 

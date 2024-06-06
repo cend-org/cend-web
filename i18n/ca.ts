@@ -15,7 +15,6 @@ export const ca = {
     nav_sign_in: "Se connecter",
     nav_register: "S'inscrire",
     nav_sign_out: "Se déconnecter",
-    nav_who_we_are: "", 
     continue: "Continuer", 
     register_student_header_email_or_phone: "Indiquez votre numéro de téléphone ou votre adresse e-mail.",
     is_loading: "est en chargement!", 
@@ -35,6 +34,8 @@ export const ca = {
     register_birthdate_label: "Votre date de naissance",
     register_gender: "Sexe", 
     register_gender_label: "Choisissez votre sexe",
+    register_lang: "Langue",
+    register_lang_label: "Choisissez votre langue",
     register_academic_level: "Quel est votre niveau scolaire ?",
     register_see_more: "Voir d'autres ?",
     register_academic_courses: "Dans quelle(s) matière(s) avez-vous besoin d’aide ? ",
@@ -49,6 +50,7 @@ export const ca = {
     register_choose_suggested_tutor: "Choisir un autre tuteur ?",
     register_continue_without_tutor: "Continuer sans tuteur pour le moment ?",
     accept: "Accepter",
+    complexity: "Complexité",
 
 
     auth_email: "Email",
@@ -61,4 +63,52 @@ export const ca = {
     sex_male: "Homme", 
     sex_female:"Femme", 
     sex_other: "Autre",
+
+    lang_ca: "Français",
+    lang_fr: 'Francais', 
+    lang_en: 'Anglais', 
+
+    register_academic_level_tutor: 'A quel niveau scolaire enseignez-vous?', 
+    register_photo_upload_tutor: "Veuillez télécharger une photo professionelle.", 
+    accepted: "accepté(s)",
+    tutor_photo_legend: "Tuteur qui ont l'air amicaux et professionels recoivent plus d'etudiants", 
+    register_cv_tutor: "Veuillez télécharger le curriculum de chaque diplôme que tu as reçu.",
+    tutor_cv_legend: "Reçois un badge de certificat vérifié en nous envoyant tes diplômes. Nous pourrions les confirmer pour accroître ta crédibilité.",
+    
+    register_tutor_profile_description: "Description du profil:",
+    register_tutor_description: "Description du profil", 
+    register_tutor_description_label: "Votre description...", 
+    register_tutor_experiences: "Expérience d'enseignement",
+    register_tutor_experiences_label: "Votre expériences...",
+    register_tutor_motivation: "Motive les futures étudiants", 
+    register_tutor_motivation_label: "Motivations...",
+
+    register_upload_video_tutor: 'Veuillez télécharger une vidéos de présentation.',
+    tutor_video_legend: ' Bonne énergie, saluer, donner le goût de faire affaire avec vous. Les inviter à prendre un essai de parler de pourquoi tu peux les aider.',
+
+    tutor_course_type: "En ligne ou présentiel?", 
+    online: "En ligne",
+    online_description: "Economique, rapide, certain d'avoir le meilleur candidat pous vous",
+    face_to_face: "Présentiel", 
+    face_to_face_description: "Option prémium, séléction plus limitée de candidats", 
+    renumeration: "Rénumération:",
+    first_try: "première essaie", 
+    tutor_verification_text: "Nous allons vérifier que tout est bon, notre équipe vous envera un e-mail de confirmation !", 
+
+    nav_who_we_are: "Qui sommes nous?",
+    nav_our_mission: "Notre mission",
+    nav_best_points: "Les points forts de CEND", 
+    nav_how_it_works: "Comment ça marche?",
+
+
+    about_about_us: "À propos de nous",
+    welcome_to_cend_universe: "Bienvenue dans l'univers de CEND", 
+    about_connex_learn_inovate_dynammic: "Connexion, Enseignement, Novateur, Dynamique.", 
+
+    connexion: 'Connexion',
+    login_email_label: "Votre email", 
+    login_password: 'Mots de passe', 
+    login_password_label: 'Votre mots de passe',
+    register_to_first_list: "retourner à la première liste"
+
 }

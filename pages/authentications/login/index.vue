@@ -2,51 +2,60 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">Veuillez-vous connecter à votre compte {{$t(`${personType}`)}}</h1>
+                <h1 v-if="locale != 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Veuillez-vous connecter à votre compte {{$t(`${personType}`).toLowerCase()}}</h1>
+                <h1 v-if="locale == 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Please log in to your  {{$t(`${personType}`).toLowerCase()}} account</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormGroup label="Email" name="email">
-                        <UInput class="" size="lg" v-model="state.email" name="email" placeholder="Votre email" />
+                        <UInput  autocomplete="off" class="" size="lg" v-model="state.email" name="email" :placeholder="$t('login_email_label')" />
                     </UFormGroup>
 
-                    <UFormGroup label="Mots de passe" name="password">
-                        <UInput size="lg" v-model="state.password" type="password" name="password" placeholder="Votre mots de passe" />
+                    <!-- <UFormGroup :label="$t('login_password')" name="password">
+                        <UInput  autocomplete="off" size="lg" v-model="state.password" type="password" name="password" :placeholder="$t('login_password_label')" />
+                    </UFormGroup> -->
+                    <UFormGroup :label="$t('login_password')" name="password">
+                        <UInput  autocomplete="off" size="lg" v-model="state.password" :type="showPasswords ? 'password' : 'text'"
+                            :placeholder="$t(`auth_password_confirmation_label`)">
+                            <UButton tabindex="-1" v-if="showPasswords" @click="togglePassword()" icon="i-heroicons-eye" size="sm"
+                                color="primary" square variant="soft" class="absolute top-0 right-0 mt-1 mr-1" />
+                            <UButton tabindex="-1" v-if="!showPasswords" @click="togglePassword()" icon="i-heroicons-eye-slash"
+                                size="sm" color="primary" square variant="soft"
+                                class="absolute top-0 right-0 mt-1 mr-1" />
+                        </UInput>
                     </UFormGroup>
 
                     <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-                        Connexion
+                        {{ $t(`connexion`) }}
                     </UButton>
                 </UForm>
             </form>
-            <UDivider orientation="vertical">
-                <span class="text-gray-500">ou</span>
-            </UDivider>
+            <UDivider orientation="vertical" size="xs" :label="$t(`register_or`)" class="text-gray-500"></UDivider>
             <div class="flex flex-col gap-3">
                 <UButton size="lg" type="button"
                     class="hover:bg-green-100 hover:border-2 hover:border-green-200  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <img class="absolute ml-4" src="/image/google.svg" alt="Image" width="20"></img>
-                    <div class="w-full text-gray-600 text-center">Continuer avec google</div>
+                    <div class="w-full text-gray-400 text-center">{{ $t('register_continue_with_google') }}</div>
                 </UButton>
                 <UButton size="lg" type="button"
                     class="hover:bg-green-100 hover:border-2 hover:border-green-200   cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <img class="absolute ml-4" src="/image/apple.svg" alt="Image" width="20"></img>
-                    <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
+                    <div class="w-full text-gray-400 text-center">{{ $t('register_continue_with_apple') }}</div>
                 </UButton>
                 <UButton size="lg" type="button"
                     class="hover:bg-green-100 hover:border-2 hover:border-green-200   cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <img class="absolute ml-4" src="/image/fb.svg" alt="Image" width="20"></img>
-                    <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
+                    <div class="w-full text-gray-400 text-center">{{ $t('register_continue_with_facebook') }}</div>
                 </UButton>
                 <UButton size="lg" type="button"
                     class="hover:bg-green-100 hover:border-2 hover:border-green-400 text-gray-900  cursor-pointer bg-green-200 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
                     <UIcon class="text-2xl" name="i-heroicons-qr-code ml-4"></UIcon>
-                    <div class="w-full text-xs text-center">
-                        Connectez-vous avec une qr-code
+                    <div class="w-full text-md text-center text-gray-400">
+                        {{ $t('register_continue_with_qrcode') }}
+
                     </div>
                 </UButton>
             </div>
             <div class="text-[12px] text-gray-400 text-center mt-2">
-                En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y
-                compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
+                {{ $t('register_accept_policies') }}
             </div>
         </div>
     </div>
@@ -58,19 +67,22 @@ import { IsAuthenticated } from '~/scripts/jwt';
 import { LocalStorageSetItem } from '~/scripts/local-storage';
 import { nextTick } from 'vue'
 import { environment } from '~/scripts/environment';
-
+const { locale, setLocale } = useI18n();
 const validation = useValidation();
 const toast = useToast();
 const route = useRoute();
 let personType = ref('student');
 const loadingStore = useLoadingStore();
 loadingStore.hide();
+let showPasswords = ref(true);
 onUpdated(async () => {
     if(route.query.label){
         personType.value = route.query.label as string;
     }
 });
-
+function togglePassword() {
+    showPasswords.value = !showPasswords.value;
+}
 function login() {
     
 }

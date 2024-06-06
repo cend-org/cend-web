@@ -1,0 +1,5 @@
+mutation UpdateStudentProfileByParent($profile: UserInput! , $studentId: Int!)  {
+    UpdateStudentProfileByParent(
+        profile: $profile, 
+        studentId: $studentId)
+}

@@ -1,0 +1,5 @@
+mutation NewTutor($email: String!) {
+    NewTutor(email: $email) {
+        T
+    }
+}

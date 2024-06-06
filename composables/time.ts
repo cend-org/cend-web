@@ -22,5 +22,9 @@ export const useTimeStore = defineStore('time', () => {
                 return timeSlot1;
         }
     }
-    return { get, set }
+    function clear(){
+        timeSlot0.value = null;
+        timeSlot1.value = null;
+      }
+    return { get, set , clear}
 })

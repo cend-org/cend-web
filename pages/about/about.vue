@@ -3,10 +3,10 @@
 <div class="py-5 px-0 lg:px-5 md:px-5" >
     <div class="px-5 lg:px-10 md:px-10">
        <div >
-         <span class="text-2xl text-main-green font-bold">À propos de nous</span>
+         <span class="text-2xl text-main-green font-bold">{{ $t('about_about_us') }}</span>
        </div>
        <div>
-         <p>Bienvenue dans l'univers de CEND: <span class="font-bold">Connexion</span>, <span class="font-bold">Enseignement</span>, <span class="font-bold">Novateur</span>, <span class="font-bold">Dynamique</span>.</p>
+         <p>{{ $t('welcome_to_cend_universe') }}: <span class="font-bold">Connexion</span>, <span class="font-bold">Enseignement</span>, <span class="font-bold">Novateur</span>, <span class="font-bold">Dynamique</span>.</p>
        </div>
        <div class="pt-4" >
           <div class="pb-4" >

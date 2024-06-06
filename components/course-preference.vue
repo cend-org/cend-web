@@ -4,14 +4,14 @@ const coursePreferenceStore = useCoursePreferenceStore();
 let originalItems = [
   {
     "Id": "0",
-    "label" : "En ligne",
-    "description": "économique, rapide, certain d’avoir le meilleur tuteur pour vous.", 
+    "label" : "online",
+    "description": "online_description", 
     "value": true,
   },
   {
     "Id": "1",
-    "label" : "En présentiel",
-    "description": "Option prémium, séléction plus limitée de tuteurs.", 
+    "label" : "face_to_face",
+    "description": "face_to_face_description", 
     "value": false,
   },
 ];
@@ -30,8 +30,10 @@ coursePreferenceStore.selectedItem = items.value[0]
 <template>
     <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
         <button @click="onSelectItem(item)" type="button" :class="['bg-gray-100 w-full h-[10vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]" v-for="item in items">
-            <div>{{ item.label }}</div>
-            <div class="text-xs text-gray-500 poppins-regular font-normal">{{ item.description }}</div>
+            <div>{{ $t(item.label) }}</div>
+            <div class="text-xs text-gray-500 poppins-regular font-normal">{{ $t(item.description) }}</div>
         </button>
     </div>
 </template>
+
+

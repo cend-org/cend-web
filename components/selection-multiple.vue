@@ -50,16 +50,20 @@ watch(filterText, () => {
   currentPage.value = 1;
 });
 selectionMultipleStore.selectedItems.push(paginatedItems.value[0] as never);
+
+const resetIndex = () =>{
+  currentPage.value = 1;
+}
+
 </script>
 
 <template>
-   <UInput
-   size="xl"
+   <UInput  autocomplete="off"
+    size="xl"
     v-model="filterText"
     name="filterText"
     :placeholder="$t('filter_list')"
     icon="i-heroicons-magnifying-glass-20-solid"
-    autocomplete="off"
     :ui="{ icon: { trailing: { pointer: '' } } }"
   >
     <template #trailing>
@@ -78,7 +82,10 @@ selectionMultipleStore.selectedItems.push(paginatedItems.value[0] as never);
             <span>{{ item.Name }}</span>
         </button>
     </div>
-    <div class="w-full flex justify-end"  @click="loadMoreItems" :disabled="(currentPage * itemsPerPage) >= filteredItems.length">
-        <UButton class="" size="xs" color="white" :label="$t('register_see_more')" />
+    <div class="w-full flex justify-end"  @click="loadMoreItems" v-if="(currentPage * itemsPerPage) <= filteredItems.length">
+        <UButton class="" size="xs" color="white" :label="$t('register_see_more')"  />
+    </div>
+    <div class="w-full flex justify-end"  @click="resetIndex()" v-if="(currentPage * itemsPerPage) >= filteredItems.length">
+        <UButton class="" size="xs" color="white" :label="$t('register_to_first_list')"  />
     </div>
 </template>

@@ -7,6 +7,10 @@ export const useCalendarStore = defineStore('calendar', () => {
         date.value = _date;
         formatedDate.value = formatDateToDDMMYYYY(_date);
     }
+    function clear(){
+      date.value = new Date();
+      formatedDate.value = formatDateToDDMMYYYY(new Date());
+    }
     function formatDateToDDMMYYYY(date: Date): string {
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -15,5 +19,5 @@ export const useCalendarStore = defineStore('calendar', () => {
         return `${day}/${month}/${year}`;
       }
 
-    return { formatedDate, date, set}
+    return { formatedDate, date, set, clear}
   })

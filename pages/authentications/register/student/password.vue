@@ -6,22 +6,30 @@
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormGroup :label="$t(`auth_password`)" name="password">
 
-                        <UInput size="lg" class="relative" v-model="state.password"
-                            :type="showPasswords ? 'password' : 'text'" :placeholder="$t(`auth_password_label`)">
-                            <UButton v-if="showPasswords" @click="togglePassword()" tab-index="-1"
+                        <UInput  autocomplete="off" size="lg"  v-model="state.password" @focus="onFocusPassword()" @blur="onblurPassword()" name="password"
+                            :type="showPasswords ? 'password' : 'text'" :placeholder="$t(`auth_password_label`)" class="z-[1]">
+                            <UButton tabindex="-1" v-if="showPasswords" @click="togglePassword()" tab-index="-1"
                                 icon="i-heroicons-eye" size="sm" color="primary" square variant="soft"
                                 class="absolute top-0 right-0 mt-1 mr-1" />
-                            <UButton v-if="!showPasswords" @click="togglePassword()" tab-index="-1"
+                            <UButton tabindex="-1" v-if="!showPasswords" @click="togglePassword()" tab-index="-1"
                                 icon="i-heroicons-eye-slash" size="sm" color="primary" square variant="soft"
                                 class="absolute top-0 right-0 mt-1 mr-1" />
+                            <div class="password-check absolute w-full bg-white  bottom-50 h-[60px] rounded-lg  shadow-2xl	 p-2 border-2" v-if="isPasswordFocused">
+                                <div class="flex flex-col gap-2 w-full">
+                                    <UProgress :value="passwordComplexity" :indicator="false" />
+                                    <div class="text-lg lg:text-sm xl:text-sm 2xl:text-sm">
+                                        {{ $t("complexity") }} : {{ passwordComplexity }}%
+                                    </div>
+                                </div>
+                            </div>
                         </UInput>
                     </UFormGroup>
                     <UFormGroup :label="$t(`auth_password_confirmation`)" name="password-confirm">
-                        <UInput size="lg" v-model="state.passwordConfirm" :type="showPasswords ? 'password' : 'text'"
+                        <UInput  autocomplete="off" size="lg" v-model="state.passwordConfirm" :type="showPasswords ? 'password' : 'text'"
                             :placeholder="$t(`auth_password_confirmation_label`)">
-                            <UButton v-if="showPasswords" @click="togglePassword()" icon="i-heroicons-eye" size="sm"
+                            <UButton tabindex="-1" v-if="showPasswords" @click="togglePassword()" icon="i-heroicons-eye" size="sm"
                                 color="primary" square variant="soft" class="absolute top-0 right-0 mt-1 mr-1" />
-                            <UButton v-if="!showPasswords" @click="togglePassword()" icon="i-heroicons-eye-slash"
+                            <UButton tabindex="-1" v-if="!showPasswords" @click="togglePassword()" icon="i-heroicons-eye-slash"
                                 size="sm" color="primary" square variant="soft"
                                 class="absolute top-0 right-0 mt-1 mr-1" />
                         </UInput>
@@ -51,6 +59,7 @@ const loadingStore = useLoadingStore();
 loadingStore.hide();
 const toast = useToast();
 let showPasswords = ref(true);
+let isPasswordFocused = ref(false);
 function togglePassword() {
     showPasswords.value = !showPasswords.value;
 }
@@ -58,6 +67,15 @@ const state = reactive({
     password: '',
     passwordConfirm: ''
 })
+function onFocusPassword(){
+    isPasswordFocused.value = true;
+}
+function onblurPassword(){
+    isPasswordFocused.value = false;
+}
+const passwordComplexity = computed(() => {
+    return validation.CheckPasswordComplexity(state.password);
+});
 
 async function onSubmit() {
     if (!validation.checkPasswords(state.password, state.passwordConfirm)) {

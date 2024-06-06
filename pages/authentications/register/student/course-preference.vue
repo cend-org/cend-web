@@ -36,6 +36,7 @@ const state = reactive({
 });
 
 async function onSubmit() {
+    loadingStore.show();
     GqlUpdAcademicCoursePreference({ coursesPreferences: { IsOnline: coursePreferenceStore.selectedItem.value } }).then(response => {
         navigateTo("/authentications/register/student/disponibility");
 

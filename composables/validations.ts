@@ -34,8 +34,31 @@ export function useValidation() {
       function normalizeString(str: string): string {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       }
+
+    function CheckPasswordComplexity(password: string): number {
+        const criteria = [
+            { regex: /[a-z]/, weight: 20 }, // Lowercase letters
+            { regex: /[A-Z]/, weight: 20 }, // Uppercase letters
+            { regex: /\d/, weight: 20 },    // Numbers
+            { regex: /[^a-zA-Z0-9]/, weight: 20 }, // Special characters
+            { length: 8, weight: 20 }       // Minimum length of 8
+        ];
+    
+        let score = 0;
+    
+        for (const criterion of criteria) {
+            if (criterion.regex && criterion.regex.test(password)) {
+                score += criterion.weight;
+            } else if (criterion.length && password.length >= criterion.length) {
+                score += criterion.weight;
+            }
+        }
+    
+        return score;
+    }
+    
     return {
-        checkEmail, checkPasswords, joinWithHyphen, normalizeString
+        checkEmail, checkPasswords, joinWithHyphen, normalizeString, CheckPasswordComplexity
     };
 
 }

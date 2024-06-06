@@ -8,9 +8,9 @@ import { useAuthStore } from '#imports';
 const authStore = useAuthStore();
 const loadingStore = useLoadingStore();
 loadingStore.hide();
-onMounted(async () => {
-  if (!authStore.isAuthenticated()) {
-        return navigateTo('/');
-  }
-})
+// onMounted(async () => {
+//   if (!authStore.isAuthenticated()) {
+//         return navigateTo('/');
+//   }
+// })
 </script>
