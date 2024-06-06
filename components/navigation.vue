@@ -1,44 +1,48 @@
 <template>
     <div class="fixed top-0 left-0 w-full" style="z-index: 1000 !important;">
-        <section class="w-11/2 bg-color-main flex align-middle justify-center  py-1  px-0 lg:px-2 xl:px-2 2xl:px-2  md:px-4 lg:px-8 xl:px-8 2xl:px-4">
-           
+        <section
+            class="w-11/2 bg-color-main flex align-middle justify-center  py-1  px-0 lg:px-2 xl:px-2 2xl:px-2  md:px-4 lg:px-8 xl:px-8 2xl:px-4">
+
             <div class="w-full h-full flex flex-row justify-between  hidden lg:contents xl:contents 2xl:contents">
                 <div class="w-full h-full items-center flex gap-2 ">
                     <UButton variant="ghost" label="CEND" size="md"
-                        class="text-white text-md text-2xl font-bold h-full hover:text-white hover:bg-transparent" @click="onClickCend()" />
+                        class="text-white text-md text-2xl font-bold h-full hover:text-white hover:bg-transparent"
+                        @click="onClickCend()" />
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="ghost" size="md"
                         class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">
-
-
                         {{ $t('nav_learn_with_cend') }}</UButton>
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="ghost" size="md"
-                        class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">{{ $t('nav_tutorat') }}
+                        class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">{{
+                        $t('nav_tutorat') }}
                     </UButton>
                     <about />
                 </div>
                 <div class="w-full  flex  items-center justify-end gap-1">
                     <language />
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="ghost" size="md"
-                        class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">{{ $t('nav_help') }}
+                        class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">{{
+                        $t('nav_help') }}
                     </UButton>
-                    <signin v-if="!authStore.isAuthenticated()" />
-                    <register v-if="!authStore.isAuthenticated()" />
+                    <signin v-if="!authStore.connected && !isAuthentificationPage" />
+                    <register v-if="!authStore.connected && !isAuthentificationPage"  />
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="solid" size="md"
-                        class="bg-white text-green-500 text-sm hover:text-white hover:bg-[#008000]  h-[35px]"
-                        v-if="authStore.isAuthenticated()" @click="logout()">{{ $t('nav_sign_out') }}</UButton>
-                    
+                        class="bg-white text-[#008000] text-sm hover:text-white hover:bg-[#008000]  h-[35px]"
+                        v-if="authStore.connected && !isAuthentificationPage" @click="logout()">{{ $t('nav_sign_out') }}</UButton>
+
                 </div>
             </div>
-            <div class="w-full flex flex-row justify-between lg:hidden xl:hidden 2xl:hidden">
+            <div class="w-full flex flex-row justify-between lg:hidden xl:hidden 2xl:hidden mobile">
                 <UButton variant="ghost" label="CEND" size="sm"
-                    class="text-white text-md text-xl font-bold h-full hover:text-white hover:bg-transparent" @click="onClickCend()" />
+                    class="text-white text-md text-xl font-bold h-full hover:text-white hover:bg-transparent"
+                    @click="onClickCend()" />
                 <div class="w-full flex flex-row justify-end align-middle gap-0">
-                    <signin v-if="!authStore.isAuthenticated()" />
-                    <register v-if="!authStore.isAuthenticated() && !isAuthentificationPage" />
-                    <UButton :ui="{ rounded: 'rounded-full', }" variant="solid" size="sm"
-                        class="block bg-white text-green-500  hover:text-green-300 hover:bg-green-500"
-                        v-if="authStore.isAuthenticated()" @click="logout()">{{ $t('nav_sign_out') }}</UButton>
-                    <language/>
+                    <signin v-if="!authStore.connected && !isAuthentificationPage" />
+                    <register v-if="!authStore.connected && !isAuthentificationPage" />
+                    <UButton v-if="authStore.connected && !isAuthentificationPage" :ui="{ rounded: 'rounded-full', }"
+                        variant="solid" size="sm"
+                        class="block bg-white text-[#008000] hover:text-green-300 hover:bg-green-500"
+                        @click="logout()">{{ $t('nav_sign_out') }}</UButton>
+                    <language />
                     <UButton @click="menuHumbergerClicked()" :ui="{ rounded: 'rounded-full' }" variant="solid" size="sm"
                         class="bg-transparent  text-white text-3xl font-bold hover:bg-transparent">
                         <UIcon :name="humbergerMenuOpened ? 'i-heroicons-x-mark' : 'i-heroicons-bars-3'"></UIcon>
@@ -60,28 +64,28 @@
                     class="w-full h-ful bg-white  text-gray-900  text-xl hover:bg-green-200">{{ $t('nav_about_us') }}
                 </UButton>
                 <div class="px-4" v-if="aboutMenuOpened">
-                    <UButton @click="clickNavigatonAbout('about-us')" :ui="{ rounded: 'rounded-none', }"
-                        variant="ghost" size="sm"
+                    <UButton @click="clickNavigatonAbout('about-us')" :ui="{ rounded: 'rounded-none', }" variant="ghost"
+                        size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>Qui Somme Nous?</span>
+                        <span>{{$t('nav_who_we_are')}}</span>
                         <UIcon name="i-heroicons-information-circle" />
                     </UButton>
                     <UButton @click="clickNavigatonAbout('our-mission')" :ui="{ rounded: 'rounded-none', }"
                         variant="ghost" size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>Notre mission</span>
+                        <span>{{$t('nav_our_mission')}}</span>
                         <UIcon name="i-heroicons-book-open" />
                     </UButton>
                     <UButton @click="clickNavigatonAbout('cend-best-point')" :ui="{ rounded: 'rounded-none', }"
                         variant="ghost" size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>Les points forts de CEND</span>
+                        <span>{{$t('nav_best_points')}}</span>
                         <UIcon name="i-heroicons-hand-thumb-up" />
                     </UButton>
                     <UButton @click="clickNavigatonAbout('how-it-works')" :ui="{ rounded: 'rounded-none', }"
                         variant="ghost" size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>Comment ça marche?</span>
+                        <span>{{$t('nav_how_it_works')}}</span>
                         <UIcon name="i-heroicons-question-mark-circle" />
                     </UButton>
                 </div>
@@ -96,28 +100,36 @@
 import { useAuthStore } from '~/composables/auth';
 import { environment } from '~/scripts/environment';
 import { LocalStorageremoveItem } from '~/scripts/local-storage';
-import { loginRoute } from '~/scripts/routes';
+import { routes } from '~/scripts/routes';
 
-const toast = useToast();
+
 let humbergerMenuOpened: Ref<boolean> = ref(false);
 let aboutMenuOpened: Ref<boolean> = ref(false);
+const toast = useToast();
 const authStore = useAuthStore();
 const loadingStore = useLoadingStore();
 const route = useRoute();
 let isAuthentificationPage = ref(false);
-onMounted(async () => {
-    console.log(route.path)
-    if(route.path.startsWith("/authentications/register/")){
-        isAuthentificationPage.value = true;
-    }else{
-        isAuthentificationPage.value = false;
-    }
-});
+checkRoutesConditions();
+watch(
+    () => route.path,
+    () => {
+        checkRoutesConditions();
+    },
+);
+
+function checkRoutesConditions() {
+    isAuthentificationPage.value = route.path.startsWith('/authentications') ? true : false;
+    authStore.check();
+}
+
+
 function logout() {
     loadingStore.show();
     LocalStorageremoveItem(environment.auth_token);
+    checkRoutesConditions();
     setTimeout(() => {
-        
+
         toast.add(
             {
                 id: "1",
@@ -132,7 +144,7 @@ function logout() {
 
 }
 function navigateLogin() {
-    navigateTo(loginRoute);
+    navigateTo(routes.login);
 }
 
 
@@ -149,10 +161,10 @@ function clickNavigatonAbout(fragment: string) {
     navigateTo(`/about/about#${fragment}`)
 }
 
-function onClickCend(){
-    if(route.path.startsWith("/authentications")){
-        return;
-    }
+function onClickCend() {
+    // if (route.path.startsWith("/authentications")) {
+    //     return;
+    // }
     navigateTo('/')
 }
 </script>

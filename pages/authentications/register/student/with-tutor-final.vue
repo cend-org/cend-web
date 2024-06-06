@@ -4,11 +4,11 @@
             <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <UForm :state="state" class="space-y-6" @submit="onSubmit">
                     <div class="text-lg text-gray-900 poppins-medium pt-5">
-                        Félicitation d’avoir créé un compte CEND.
+                        {{ $t('register_student_felicitation_a') }}
                     </div>
                     <div class="text-lg text-gray-900 poppins-medium py-1">
-                        Vous allez recevoir une confirmation de rendez-vous par le tuteur par messages sur notre
-                        plateforme et par couriel.
+                        {{ $t('register_student_felicitation_b') }}
+                        
                     </div>
                     <div
                         class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">

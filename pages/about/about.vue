@@ -6,20 +6,20 @@
          <span class="text-2xl text-main-green font-bold">{{ $t('about_about_us') }}</span>
        </div>
        <div>
-         <p>{{ $t('welcome_to_cend_universe') }}: <span class="font-bold">Connexion</span>, <span class="font-bold">Enseignement</span>, <span class="font-bold">Novateur</span>, <span class="font-bold">Dynamique</span>.</p>
+         <p>{{ $t('welcome_to_cend_universe') }}: <span class="font-bold">{{$t('connection')}}</span>, <span class="font-bold">{{ $t('education') }}</span>, <span class="font-bold">{{ $t('innovative') }}</span>, <span class="font-bold">{{ $t('dynamic') }}</span>.</p>
        </div>
        <div class="pt-4" >
           <div class="pb-4" >
-             <span class="font-bold "> Qui sommes-nous ?</span>
+             <span class="font-bold ">{{ $t('nav_who_we_are') }}</span>
           </div>
-          <p class="text-sm font-light" id="our-mission">Chez Cend, nous sommes passionnés par l'éducation et convaincus que chaque étudiant mérite un soutien personalisé pour atteindre son plein potentiel.</p>
-          <p class="text-sm font-light">C'est pourquoi nous avons créé une application révolutionaire personalisée dans le monde entier.</p>
+          <p class="text-sm font-light" id="our-mission">{{ $t('who_we_are_description_a') }}</p>
+          <p class="text-sm font-light">{{ $t('who_we_are_description_b') }}</p>
           <p class="text-sm font-light">Notre application simplifie la communication entre étudiants, parents, tuteurs et professeurs, tout en offrant une platforme de tutorat en ligne et en personne, adaptée à tous les niveaux scolaires, de la première année à l'université.</p>
          <p-divider type="dashed" />
        </div>
        <div class="pt-4" >
           <div class="pb-4">
-             <span class="font-bold"> Notre mission</span>
+             <span class="font-bold"> {{ $t('nav_our_mission') }}</span>
           </div>
           <p class="text-sm font-light">Notre mission chez CEND est de rendre la réusite scolaire accessible à tous et donc, de permettre à tous les jeunes partout sur la planète d'atteindre leur job de rêve.</p>
           <p class="text-sm font-light" id="how-it-works">Nous la réussissons en mettant en relation des étudiants avec des tuteurs qualifiés, quels que soient le niveau d'études ou la localisation géographique.</p>

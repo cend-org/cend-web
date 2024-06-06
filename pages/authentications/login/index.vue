@@ -74,7 +74,11 @@ const route = useRoute();
 let personType = ref('student');
 const loadingStore = useLoadingStore();
 loadingStore.hide();
+const authStore = useAuthStore();
 let showPasswords = ref(true);
+if (authStore.connected) {
+    navigateTo('/dashboard/landing');
+}
 onUpdated(async () => {
     if(route.query.label){
         personType.value = route.query.label as string;

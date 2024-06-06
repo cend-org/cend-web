@@ -1,4 +1,5 @@
 export const environment = {
+    lang: "cend_6736c3a8-l653-45ff-a1c8-28c6068dbc21",
     auth_token: 'cend_6db8a7c7-a9ff-45a7-b988-3dd0688c6600',
     student_tutor_name: 'cend_1736c3a8-8643-45ff-a1c8-28c6063db219',
     student_dispo_hour_0: 'cend_2b28ec2c-046a-4b49-bacb-6c7cbeaf1575',

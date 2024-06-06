@@ -109,6 +109,24 @@ export const ca = {
     login_email_label: "Votre email", 
     login_password: 'Mots de passe', 
     login_password_label: 'Votre mots de passe',
-    register_to_first_list: "retourner à la première liste"
+    register_to_first_list: "retourner à la première liste",
 
+    connection: "Connexion",
+    education: "Enseignement", 
+    innovative: "Novateur", 
+    dynamic: "Dynamique", 
+
+    who_we_are_description_a: "Chez Cend, nous sommes passionnés par l'éducation et convaincus que chaque étudiant mérite un soutien personalisé pour atteindre son plein potentiel.",
+    who_we_are_description_b: "C'est pourquoi nous avons créé une application révolutionaire personalisée dans le monde entier.",
+
+    register_student_tarif_a: "Tarif est de",
+    register_student_tarif_b: "pour", 
+    register_student_tarif_c: "de niveau", 
+    register_student_tarif_d: ' Première rencontre est à 50% de l’investissement et vous pouvez changer gratuitement pour un autre tuteur si jamais ça ne marche pas avec',
+    register_student_tarif_e: 'ce qui nous étonnerait.',
+    register_student_tarif_f: 'Passer au payement par carte de crédit ou de débit pour la première rencontre ce',
+
+    register_student_felicitation_a: "Félicitation d’avoir créé un compte CEND.",
+    register_student_felicitation_b: "Vous allez recevoir une confirmation de rendez-vous par le tuteur par messages sur notre plateforme et par couriel.",
+    with: "avec",
 }

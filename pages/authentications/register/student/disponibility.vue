@@ -61,7 +61,8 @@ const tutorStore = useTutorStore();
 const state = reactive({
     hour0: undefined,
     date: '',
-    hour1: undefined
+    hour1: undefined, 
+    normalDate: '',
 })
 function focusTime(_slot: number) {
     time.open(Time, {
@@ -89,13 +90,29 @@ function focusDate() {
         },
         onConfirm() {
             state.date = calendarStore.formatedDate;
+            state.normalDate = calendarStore.date.toDateString();
             calendar.close();
 
         }
     })
 }
+function formatapointmentDate(): Date{
+    let apointmentDate = new Date(state.normalDate);
+    if(state.hour1){
+        let d = state.hour1 as any;
+        d = d.split(':');
+        let h = parseInt(d[0]);
+        let m = parseInt(d[1]);
+
+        apointmentDate.setUTCSeconds(0);
+        apointmentDate.setUTCMilliseconds(0);
+        apointmentDate.setUTCHours(h);
+        apointmentDate.setUTCMinutes(m);
+    }
+    return apointmentDate;
+}
 async function onSubmit() {
-    if (!state.hour0 || !state.hour1 || !state.date) {
+    if (!state.hour0 || !state.hour1 || !state.date || !state.normalDate) {
         toast.add(
             {
                 id: "1",
@@ -112,10 +129,12 @@ async function onSubmit() {
     }
 
     loadingStore.show();
+    let apointment = formatapointmentDate();
     LocalStorageSetItem(environment.student_dispo_hour_0, `${state.hour0}`);
     LocalStorageSetItem(environment.student_dispo_hour_1, `${state.hour1}`);
     LocalStorageSetItem(environment.student_dispo_date, `${state.date}`);
-    GqlSuggestTutorToUser().then(response => {
+    GqlNewUserAppointment({availability: {Availability: apointment}}).then(response => {
+        GqlSuggestTutorToUser().then(response => {
         if (response.SuggestTutorToUser != null) {
             getProfileImage(response.SuggestTutorToUser.Id);
             getProfileVideo(response.SuggestTutorToUser.Id);
@@ -125,22 +144,24 @@ async function onSubmit() {
         }else{
             navigateTo("/authentications/register/student/no-tutor");
         }
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
+        }, error => {
+            loadingStore.hide();
+            toast.add(
+                {
+                    id: "1",
+                    title: 'Erreur!',
+                    description: 'Une erreur est survenue pendant l\'opérations!',
+                    icon: "i-heroicons-exclamation-triangle",
+                    color: "red",
+                    ui: {
+                        background: "bg-red-100"
+                    }
                 }
-            }
-        )
-        
+            )
+            
+        });
     });
+    
 
 
 }

@@ -119,7 +119,7 @@ function focusDate() {
 }
 async function onSubmit() {
     loadingStore.show();
-    const currentTutorId = 1;//parseInt(tutorStore.tutor.Id);
+    const currentTutorId = parseInt(tutorStore.tutor.Id);
     GqlNewStudentTutor({ tutorId: currentTutorId }).then(response => {
         navigateTo("/authentications/register/student/tarif");
     }, error => {
@@ -175,7 +175,7 @@ function continueWithoutTutor() {
 
 function chooseAnotherTutor() {
     loadingStore.show();
-    const currentTutorId = 1;//parseInt(tutorStore.tutor.Id);
+    const currentTutorId = parseInt(tutorStore.tutor.Id);
     GqlSuggestOtherTutorToUser({ tutorId: currentTutorId }).then(response => {
        if(response.SuggestOtherTutorToUser){
             getProfileImage(response.SuggestOtherTutorToUser.Id);

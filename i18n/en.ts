@@ -111,6 +111,26 @@ export const en = {
     login_email_label: "Your email", 
     login_password: 'Password', 
     login_password_label: 'Your password',
-    register_to_first_list: "return to first list"
+    register_to_first_list: "return to first list",
+
+    connection: "Connexion", 
+    education: "Education", 
+    innovative: "Innovative", 
+    dynamic: "Dynamic",
+
+    who_we_are_description_a: "At Cend, we are passionate about education and believe that every student deserves personalized support to reach their full potential.",
+    who_we_are_description_b: "That's why we created a revolutionary app personalized around the world.",
+
+    register_student_tarif_a: "Price is",
+    register_student_tarif_b: "for",
+    register_student_tarif_c: "level", 
+    register_student_tarif_d: 'First meeting is 50% of the investment and you can change for free to another tutor if it doesn’t work out with you.',
+    register_student_tarif_e: 'which would surprise us.',
+    register_student_tarif_f: 'Switch to payment by credit or debit card for the first meeting this',
+
+    register_student_felicitation_a: "Congratulations on creating a CEND account.",
+    register_student_felicitation_b: "You will receive an appointment confirmation from the tutor via messages on our platform and by email.",
+    with: "with",
+
 
 }

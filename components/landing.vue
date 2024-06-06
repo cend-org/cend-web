@@ -53,9 +53,9 @@ import { useAuthStore } from '#imports';
 const authStore = useAuthStore();
 const loadingStore = useLoadingStore();
 loadingStore.hide();
-// if (authStore.isAuthenticated()) {
-//     navigateTo('/dashboard/landing');
-// }
+if (authStore.connected) {
+    navigateTo('/dashboard/landing');
+}
 
 function login(params: string){
   navigateTo({path: '/authentications/login', query: {label: params}})
