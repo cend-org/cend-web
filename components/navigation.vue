@@ -2,7 +2,6 @@
     <div class="fixed top-0 left-0 w-full" style="z-index: 1000 !important;">
         <section
             class="w-11/2 bg-color-main flex align-middle justify-center  py-1  px-0 lg:px-2 xl:px-2 2xl:px-2  md:px-4 lg:px-8 xl:px-8 2xl:px-4">
-
             <div class="w-full h-full flex flex-row justify-between  hidden lg:contents xl:contents 2xl:contents">
                 <div class="w-full h-full items-center flex gap-2 ">
                     <UButton variant="ghost" label="CEND" size="md"
@@ -13,7 +12,7 @@
                         {{ $t('nav_learn_with_cend') }}</UButton>
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="ghost" size="md"
                         class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">{{
-                        $t('nav_tutorat') }}
+                            $t('nav_tutorat') }}
                     </UButton>
                     <about />
                 </div>
@@ -21,14 +20,14 @@
                     <language />
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="ghost" size="md"
                         class="text-white text-md h-full hover:text-white hover:bg-[#008000]  h-[35px]">{{
-                        $t('nav_help') }}
+                            $t('nav_help') }}
                     </UButton>
                     <signin v-if="!authStore.connected && !isAuthentificationPage" />
-                    <register v-if="!authStore.connected && !isAuthentificationPage"  />
+                    <register v-if="!authStore.connected && !isAuthentificationPage" />
                     <UButton :ui="{ rounded: 'rounded-full' }" variant="solid" size="md"
                         class="bg-white text-[#008000] text-sm hover:text-white hover:bg-[#008000]  h-[35px]"
-                        v-if="authStore.connected && !isAuthentificationPage" @click="logout()">{{ $t('nav_sign_out') }}</UButton>
-
+                        v-if="authStore.connected && !isAuthentificationPage" @click="logout()">{{ $t('nav_sign_out') }}
+                    </UButton>
                 </div>
             </div>
             <div class="w-full flex flex-row justify-between lg:hidden xl:hidden 2xl:hidden mobile">
@@ -40,8 +39,8 @@
                     <register v-if="!authStore.connected && !isAuthentificationPage" />
                     <UButton v-if="authStore.connected && !isAuthentificationPage" :ui="{ rounded: 'rounded-full', }"
                         variant="solid" size="sm"
-                        class="block bg-white text-[#008000] hover:text-green-300 hover:bg-green-500"
-                        @click="logout()">{{ $t('nav_sign_out') }}</UButton>
+                        class="block bg-white text-[#008000] hover:text-green-300 hover:bg-green-500" @click="logout()">
+                        {{ $t('nav_sign_out') }}</UButton>
                     <language />
                     <UButton @click="menuHumbergerClicked()" :ui="{ rounded: 'rounded-full' }" variant="solid" size="sm"
                         class="bg-transparent  text-white text-3xl font-bold hover:bg-transparent">
@@ -67,25 +66,25 @@
                     <UButton @click="clickNavigatonAbout('about-us')" :ui="{ rounded: 'rounded-none', }" variant="ghost"
                         size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>{{$t('nav_who_we_are')}}</span>
+                        <span>{{ $t('nav_who_we_are') }}</span>
                         <UIcon name="i-heroicons-information-circle" />
                     </UButton>
                     <UButton @click="clickNavigatonAbout('our-mission')" :ui="{ rounded: 'rounded-none', }"
                         variant="ghost" size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>{{$t('nav_our_mission')}}</span>
+                        <span>{{ $t('nav_our_mission') }}</span>
                         <UIcon name="i-heroicons-book-open" />
                     </UButton>
                     <UButton @click="clickNavigatonAbout('cend-best-point')" :ui="{ rounded: 'rounded-none', }"
                         variant="ghost" size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>{{$t('nav_best_points')}}</span>
+                        <span>{{ $t('nav_best_points') }}</span>
                         <UIcon name="i-heroicons-hand-thumb-up" />
                     </UButton>
                     <UButton @click="clickNavigatonAbout('how-it-works')" :ui="{ rounded: 'rounded-none', }"
                         variant="ghost" size="sm"
                         class="w-full h-ful flex inline-flex justify-between bg-white  text-gray-900  text-xl hover:bg-green-200">
-                        <span>{{$t('nav_how_it_works')}}</span>
+                        <span>{{ $t('nav_how_it_works') }}</span>
                         <UIcon name="i-heroicons-question-mark-circle" />
                     </UButton>
                 </div>

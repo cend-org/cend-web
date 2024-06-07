@@ -2,23 +2,28 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 v-if="locale != 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Veuillez-vous connecter à votre compte {{$t(`${personType}`).toLowerCase()}}</h1>
-                <h1 v-if="locale == 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Please log in to your  {{$t(`${personType}`).toLowerCase()}} account</h1>
+                <h1 v-if="locale != 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Veuillez-vous
+                    connecter à votre compte {{ $t(`${personType}`).toLowerCase() }}</h1>
+                <h1 v-if="locale == 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Please log in to
+                    your {{ $t(`${personType}`).toLowerCase() }} account</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormGroup label="Email" name="email">
-                        <UInput  autocomplete="off" class="" size="lg" v-model="state.email" name="email" :placeholder="$t('login_email_label')" />
+                        <UInput autocomplete="off" class="" size="lg" v-model="state.email" name="email"
+                            :placeholder="$t('login_email_label')" />
                     </UFormGroup>
 
                     <!-- <UFormGroup :label="$t('login_password')" name="password">
                         <UInput  autocomplete="off" size="lg" v-model="state.password" type="password" name="password" :placeholder="$t('login_password_label')" />
                     </UFormGroup> -->
                     <UFormGroup :label="$t('login_password')" name="password">
-                        <UInput  autocomplete="off" size="lg" v-model="state.password" :type="showPasswords ? 'password' : 'text'"
+                        <UInput autocomplete="off" size="lg" v-model="state.password"
+                            :type="showPasswords ? 'password' : 'text'"
                             :placeholder="$t(`auth_password_confirmation_label`)">
-                            <UButton tabindex="-1" v-if="showPasswords" @click="togglePassword()" icon="i-heroicons-eye" size="sm"
-                                color="primary" square variant="soft" class="absolute top-0 right-0 mt-1 mr-1" />
-                            <UButton tabindex="-1" v-if="!showPasswords" @click="togglePassword()" icon="i-heroicons-eye-slash"
+                            <UButton tabindex="-1" v-if="showPasswords" @click="togglePassword()" icon="i-heroicons-eye"
                                 size="sm" color="primary" square variant="soft"
+                                class="absolute top-0 right-0 mt-1 mr-1" />
+                            <UButton tabindex="-1" v-if="!showPasswords" @click="togglePassword()"
+                                icon="i-heroicons-eye-slash" size="sm" color="primary" square variant="soft"
                                 class="absolute top-0 right-0 mt-1 mr-1" />
                         </UInput>
                     </UFormGroup>
@@ -80,7 +85,7 @@ if (authStore.connected) {
     navigateTo('/dashboard/landing');
 }
 onUpdated(async () => {
-    if(route.query.label){
+    if (route.query.label) {
         personType.value = route.query.label as string;
     }
 });
@@ -88,7 +93,7 @@ function togglePassword() {
     showPasswords.value = !showPasswords.value;
 }
 function login() {
-    
+
 }
 
 const state = reactive({
@@ -140,7 +145,7 @@ async function onSubmit() {
 
             }
         )
-    }, error=>{
+    }, error => {
         loadingStore.hide();
         toast.add(
             {

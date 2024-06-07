@@ -2,16 +2,17 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">Quel est le nom de votre jeûne?</h1>
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_parent_student_name') }}
+                </h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
-                    <UFormGroup label="Nom" name="name">
-                        <UInput  autocomplete="off" size="xl"  v-model="state.name" name="name"
-                            type="text" placeholder="Nom de votre jeûne">
+                    <UFormGroup :label="$t('register_name')" name="name">
+                        <UInput autocomplete="off" size="xl" v-model="state.name" name="name" type="text"
+                            :placeholder="$t('parent_register_name_label')">
                         </UInput>
                     </UFormGroup>
-                    <UFormGroup label="Prénom" name="familyname">
-                        <UInput  autocomplete="off" size="xl"  v-model="state.familyname" name="family"
-                            type="text" placeholder="Prénom de votre jeûne">
+                    <UFormGroup :label="$t('register_familyname')" name="familyname">
+                        <UInput autocomplete="off" size="xl" v-model="state.familyname" name="family" type="text"
+                            :placeholder="$t('parent_register_familyname_label')">
                         </UInput>
                     </UFormGroup>
 

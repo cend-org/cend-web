@@ -3,19 +3,19 @@
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">
-                   {{ $t('register_tutor_profile_description') }}</h1>
+                    {{ $t('register_tutor_profile_description') }}</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormGroup :label="`1-${$t('register_tutor_description')}`" name="presentation">
-                        <UTextarea   autocomplete="off"  v-model="state.presentation"
+                        <UTextarea autocomplete="off" v-model="state.presentation"
                             :placeholder="$t('register_tutor_description_label')" class="text-area" />
-                    </UFormGroup> 
+                    </UFormGroup>
                     <UFormGroup :label="`2-${$t('register_tutor_experiences')}`">
-                        <UTextarea   autocomplete="off"  v-model="state.experience"
-                             :placeholder="$t('register_tutor_experiences_label')" class="text-area" />
+                        <UTextarea autocomplete="off" v-model="state.experience"
+                            :placeholder="$t('register_tutor_experiences_label')" class="text-area" />
                     </UFormGroup>
                     <UFormGroup :label="`3-${$t('register_tutor_motivation')}`" name="motivation">
-                        <UTextarea   autocomplete="off"  v-model="state.motivation"
-                           :placeholder="$t('register_tutor_motivation_label')" class="text-area" />
+                        <UTextarea autocomplete="off" v-model="state.motivation"
+                            :placeholder="$t('register_tutor_motivation_label')" class="text-area" />
                     </UFormGroup>
 
                     <div
@@ -30,9 +30,9 @@
     </div>
 </template>
 <style>
-    .text-area > textarea{
-        height: 16vh;
-    }
+.text-area>textarea {
+    height: 16vh;
+}
 </style>
 <script setup lang="ts">
 
@@ -68,15 +68,15 @@ async function onSubmit() {
         )
         return;
     };
-     loadingStore.show();
-     useGqlToken({
+    loadingStore.show();
+    useGqlToken({
         token: `${LocalStorageGetItem(environment.auth_token)}`,
         config: {
             type: 'Bearer',
             name: 'Authorization'
         }
     });
-    GqlUpdateMyProfile({ profile: { Profile: state.presentation, ExperienceDetail: state.experience, AdditionalDescription:  state.experience} }).then(response => {
+    GqlUpdateMyProfile({ profile: { Profile: state.presentation, ExperienceDetail: state.experience, AdditionalDescription: state.experience } }).then(response => {
         navigateTo("/authentications/register/tutor/video");
     }, error => {
         loadingStore.hide();

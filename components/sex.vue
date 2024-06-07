@@ -38,6 +38,10 @@ const isLabel = (val: any) => {
 .desktop-sex-dropdown div:nth-of-type(2) {
     width: 25.4% !important;
 }
+
+.mobile-sex-dropdown div:nth-of-type(2) {
+    width: 100% !important;
+}
 </style>
 <template>
     <UDropdown label="votre sexe" :items="sexList" :popper="{ arrow: true }"

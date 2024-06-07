@@ -4,5 +4,5 @@ export const useRegistrationSexStore = defineStore('sex', () => {
     function set(_sex: any) {
         sex.value = _sex;
     }
-    return { sex, set}
-  })
+    return { sex, set }
+})

@@ -2,7 +2,7 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2"> 
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">
                     {{ $t("register_upload_video_tutor") }}
                 </h1>
                 <UForm :state="state" class="space-y-2" @submit="onSubmit">
@@ -26,14 +26,14 @@
                             </div>
                         </div>
 
-                        <div class="bg-white text-[10px] text-center w-full absolute bottom-0 p-1">{{$t('accepted')}}: <span
-                                class="text-color-main ">{{ acceptedExtensions() }}</span>
+                        <div class="bg-white text-[10px] text-center w-full absolute bottom-0 p-1">{{ $t('accepted') }}:
+                            <span class="text-color-main ">{{ acceptedExtensions() }}</span>
                         </div>
                     </div>
                     <div class="mb-2 p-2 pt-4 flex flex-row justify-content-center gap-3">
                         <UIcon name="i-heroicons-light-bulb" class="text-3xl text-gray-400" />
                         <span class="text-sm text-thin text-gray-400">
-                           {{ $t('tutor_video_legend') }}
+                            {{ $t('tutor_video_legend') }}
                         </span>
                     </div>
 
@@ -154,26 +154,43 @@ async function onSubmit() {
             'Authorization': `Bearer ${LocalStorageGetItem(environment.auth_token)}`,
         }
     };
-    loadingStore.show();
-    fetch(`${environment.api}${environment.upload_url}`, options).then((res) => {
-        if (res.status == 200) {
-            navigateTo("/authentications/register/tutor/course-preference");
-        } else {
-            loadingStore.hide();
-            toast.add(
-                {
-                    id: "1",
-                    title: 'Erreur!',
-                    description: 'Une erreur est survenue lors du traitement!',
-                    icon: "i-heroicons-exclamation-triangle",
-                    color: "red",
-                    ui: {
-                        background: "bg-red-100"
-                    }
-                },
-            );
-        }
-    });
+
+    if (video.value) {
+        loadingStore.show();
+        fetch(`${environment.api}${environment.upload_url}`, options).then((res) => {
+            if (res.status == 200) {
+                navigateTo("/authentications/register/tutor/course-preference");
+            } else {
+                loadingStore.hide();
+                toast.add(
+                    {
+                        id: "1",
+                        title: 'Erreur!',
+                        description: 'Une erreur est survenue lors du traitement!',
+                        icon: "i-heroicons-exclamation-triangle",
+                        color: "red",
+                        ui: {
+                            background: "bg-red-100"
+                        }
+                    },
+                );
+            }
+        });
+    } else {
+        toast.add(
+            {
+                id: "1",
+                title: 'Erreur!',
+                description: 'Veuillez ajouter votre video!',
+                icon: "i-heroicons-exclamation-triangle",
+                color: "red",
+                ui: {
+                    background: "bg-red-100"
+                }
+            },
+        );
+    }
+
 }
 
 </script>

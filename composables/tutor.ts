@@ -12,5 +12,5 @@ export const useTutorStore = defineStore('tutor', () => {
         profileImage = ref("/image/avatar-white.svg");
         video = ref("")
     }
-    return { tutor, profileImage, video,  set, remove}
-  })
+    return { tutor, profileImage, video, set, remove }
+})

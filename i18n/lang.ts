@@ -6,12 +6,12 @@ export const lang = {
     en: en,
     fr: fr,
     ca: ca
-  }
+}
 
-export function setLang(lang_value: string){
+export function setLang(lang_value: string) {
     const { locale, setLocale } = useI18n()
     const _lang = locale.value;
-    if(_lang == "fr"){
+    if (_lang == "fr") {
         return "qui nous sommes?"
     }
 

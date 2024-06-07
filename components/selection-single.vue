@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const validation  = useValidation();
+const validation = useValidation();
 const selectionSingleStore = useSelectionSingleStore();
 let items = ref(selectionSingleStore.list as Array<any>);
 
@@ -40,40 +40,32 @@ watch(filterText, () => {
 });
 selectionSingleStore.selectedItem = paginatedItems.value[0];
 
-const resetIndex = () =>{
+const resetIndex = () => {
   currentPage.value = 1;
 }
 </script>
 
 <template>
-   <UInput  autocomplete="off"
-   size="xl"
-    v-model="filterText"
-    name="filterText"
-    placeholder="filtre..."
-    icon="i-heroicons-magnifying-glass-20-solid"
-    :ui="{ icon: { trailing: { pointer: '' } } }"
-  >
+  <UInput autocomplete="off" size="xl" v-model="filterText" name="filterText" placeholder="filtre..."
+    icon="i-heroicons-magnifying-glass-20-solid" :ui="{ icon: { trailing: { pointer: '' } } }">
     <template #trailing>
-      <UButton
-        v-show="filterText !== ''"
-        color="gray"
-        variant="link"
-        icon="i-heroicons-x-mark-20-solid"
-        :padded="false"
-        @click="filterText = ''"
-      />
+      <UButton v-show="filterText !== ''" color="gray" variant="link" icon="i-heroicons-x-mark-20-solid" :padded="false"
+        @click="filterText = ''" />
     </template>
   </UInput>
-    <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
-        <button @click="onSelectItem(item)" type="button" :class="['bg-gray-200 w-full h-[8.1vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]" v-for="item in paginatedItems">
-            <span>{{ item.Name }}</span>
-        </button>
-    </div>
-    <div class="w-full flex justify-end"  @click="loadMoreItems" v-if="(currentPage * itemsPerPage) <= filteredItems.length">
-        <UButton class="" size="xs" color="white" :label="$t('register_see_more')"  />
-    </div>
-    <div class="w-full flex justify-end"  @click="resetIndex()" v-if="(currentPage * itemsPerPage) >= filteredItems.length">
-        <UButton class="" size="xs" color="white" :label="$t('register_to_first_list')"  />
-    </div>
+  <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
+    <button @click="onSelectItem(item)" type="button"
+      :class="['bg-gray-200 w-full h-[8.1vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]"
+      v-for="item in paginatedItems">
+      <span>{{ item.Name }}</span>
+    </button>
+  </div>
+  <div class="w-full flex justify-end" @click="loadMoreItems"
+    v-if="(currentPage * itemsPerPage) <= filteredItems.length">
+    <UButton class="" size="xs" color="white" :label="$t('register_see_more')" />
+  </div>
+  <div class="w-full flex justify-end" @click="resetIndex()"
+    v-if="(currentPage * itemsPerPage) >= filteredItems.length">
+    <UButton class="" size="xs" color="white" :label="$t('register_to_first_list')" />
+  </div>
 </template>

@@ -1,39 +1,39 @@
 export function useValidation() {
     function checkEmail(email: string | undefined): boolean {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if(!email){
+        if (!email) {
             return false;
         }
         return re.test(email);
     }
 
-    function checkPasswords(pass: string | undefined, passConfirm: string | undefined): boolean{
-        if (!pass || !passConfirm){
+    function checkPasswords(pass: string | undefined, passConfirm: string | undefined): boolean {
+        if (!pass || !passConfirm) {
             return false;
         }
-        if(!pass.trim() || !passConfirm.trim()){
+        if (!pass.trim() || !passConfirm.trim()) {
             return false;
         }
-        if(pass != passConfirm){
+        if (pass != passConfirm) {
             return false;
         }
         return true;
     }
     function joinWithHyphen(str1: string, str2: string): string {
         if (!str1 && !str2) {
-          return '';
+            return '';
         }
         if (!str1) {
-          return str2;
+            return str2;
         }
         if (!str2) {
-          return str1;
+            return str1;
         }
         return `${str1}-${str2}`;
-      }
-      function normalizeString(str: string): string {
+    }
+    function normalizeString(str: string): string {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      }
+    }
 
     function CheckPasswordComplexity(password: string): number {
         const criteria = [
@@ -43,9 +43,9 @@ export function useValidation() {
             { regex: /[^a-zA-Z0-9]/, weight: 20 }, // Special characters
             { length: 8, weight: 20 }       // Minimum length of 8
         ];
-    
+
         let score = 0;
-    
+
         for (const criterion of criteria) {
             if (criterion.regex && criterion.regex.test(password)) {
                 score += criterion.weight;
@@ -53,10 +53,10 @@ export function useValidation() {
                 score += criterion.weight;
             }
         }
-    
+
         return score;
     }
-    
+
     return {
         checkEmail, checkPasswords, joinWithHyphen, normalizeString, CheckPasswordComplexity
     };

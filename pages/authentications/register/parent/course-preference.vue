@@ -41,26 +41,26 @@ const state = reactive({
 async function onSubmit() {
     loadingStore.show();
     let studentId = LocalStorageGetItem(`${environment.parent_child_id}`);
-    if(studentId){
+    if (studentId) {
         GqlUpdStudentAcademicCoursesPreferenceByParent({ coursesPreferences: { IsOnline: coursePreferenceStore.selectedItem.value }, studentId: parseInt(studentId) }).then(response => {
-        navigateTo("/authentications/register/parent/disponibility");
+            navigateTo("/authentications/register/parent/disponibility");
 
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
+        }, error => {
+            loadingStore.hide();
+            toast.add(
+                {
+                    id: "1",
+                    title: 'Erreur!',
+                    description: 'Une erreur est survenue pendant l\'opérations!',
+                    icon: "i-heroicons-exclamation-triangle",
+                    color: "red",
+                    ui: {
+                        background: "bg-red-100"
+                    }
                 }
-            }
-        )
-    });
-    }else{
+            )
+        });
+    } else {
         loadingStore.hide();
         toast.add(
             {
@@ -75,7 +75,7 @@ async function onSubmit() {
             }
         )
     }
-    
+
 }
 
 </script>

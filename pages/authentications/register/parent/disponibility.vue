@@ -49,24 +49,20 @@
 import Calendar from '~/components/calendar.vue';
 import Time from '~/components/time.vue';
 import { environment } from '~/scripts/environment';
-import { LocalStorageremoveItem, LocalStorageSetItem } from '~/scripts/local-storage';
+import { LocalStorageGetItem, LocalStorageSetItem } from '~/scripts/local-storage';
 const time = useModal();
 const calendar = useModal();
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 const calendarStore = useCalendarStore();
 const timeStore = useTimeStore();
-timeStore.clear();
-calendarStore.clear();
 const toast = useToast();
 const tutorStore = useTutorStore();
-LocalStorageremoveItem(environment.student_dispo_hour_0);
-LocalStorageremoveItem(environment.student_dispo_hour_1);
-LocalStorageremoveItem(environment.student_dispo_date);
 const state = reactive({
     hour0: undefined,
     date: '',
-    hour1: undefined
+    hour1: undefined,
+    normalDate: '',
 })
 function focusTime(_slot: number) {
     time.open(Time, {
@@ -94,13 +90,29 @@ function focusDate() {
         },
         onConfirm() {
             state.date = calendarStore.formatedDate;
+            state.normalDate = calendarStore.date.toDateString();
             calendar.close();
 
         }
     })
 }
+function formatapointmentDate(): Date {
+    let apointmentDate = new Date(state.normalDate);
+    if (state.hour1) {
+        let d = state.hour1 as any;
+        d = d.split(':');
+        let h = parseInt(d[0]);
+        let m = parseInt(d[1]);
+
+        apointmentDate.setUTCSeconds(0);
+        apointmentDate.setUTCMilliseconds(0);
+        apointmentDate.setUTCHours(h);
+        apointmentDate.setUTCMinutes(m);
+    }
+    return apointmentDate;
+}
 async function onSubmit() {
-    if (!state.hour0 || !state.hour1 || !state.date) {
+    if (!state.hour0 || !state.hour1 || !state.date || !state.normalDate) {
         toast.add(
             {
                 id: "1",
@@ -117,21 +129,43 @@ async function onSubmit() {
     }
 
     loadingStore.show();
+    let apointment = formatapointmentDate();
     LocalStorageSetItem(environment.student_dispo_hour_0, `${state.hour0}`);
     LocalStorageSetItem(environment.student_dispo_hour_1, `${state.hour1}`);
     LocalStorageSetItem(environment.student_dispo_date, `${state.date}`);
-    GqlSuggestTutorToUser().then(response => {
-        if (response.SuggestTutorToUser != null) {
-            getProfileImage(response.SuggestTutorToUser.Id);
-            getProfileVideo(response.SuggestTutorToUser.Id);
-            tutorStore.tutor = response.SuggestTutorToUser;
-            LocalStorageSetItem(environment.student_tutor_name, `${response.SuggestTutorToUser.Name} ${response.SuggestTutorToUser.FamilyName}`);
-            navigateTo("/authentications/register/student/suggested-tutor");
-        }else{
-            navigateTo("/authentications/register/student/no-tutor");
-        }
-    }, error => {
-        loadingStore.hide();
+    let studentId = LocalStorageGetItem(environment.parent_child_id);
+
+    if (studentId != null) {
+        GqlNewUserAppointmentByParent({ availability: { Availability: apointment }, studentId: parseInt(studentId) }).then(response => {
+            GqlSuggestTutor({ studentId: parseInt(studentId) }).then(response => {
+                if (response.SuggestTutor != null) {
+                    tutorStore.remove();
+                    getProfileImage(response.SuggestTutor.Id);
+                    getProfileVideo(response.SuggestTutor.Id);
+                    tutorStore.tutor = response.SuggestTutor;
+                    LocalStorageSetItem(environment.student_tutor_name, `${response.SuggestTutor.Name} ${response.SuggestTutor.FamilyName}`);
+                    navigateTo("/authentications/register/parent/suggested-tutor");
+                } else {
+                    navigateTo("/authentications/register/parent/no-tutor");
+                }
+            }, error => {
+                loadingStore.hide();
+                toast.add(
+                    {
+                        id: "1",
+                        title: 'Erreur!',
+                        description: 'Une erreur est survenue pendant l\'opérations!',
+                        icon: "i-heroicons-exclamation-triangle",
+                        color: "red",
+                        ui: {
+                            background: "bg-red-100"
+                        }
+                    }
+                )
+
+            });
+        });
+    } else {
         toast.add(
             {
                 id: "1",
@@ -144,8 +178,8 @@ async function onSubmit() {
                 }
             }
         )
-        
-    });
+    }
+
 
 
 }

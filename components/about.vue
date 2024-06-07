@@ -54,31 +54,32 @@ const items = [
 </script>
 <style>
 .about-dropdown div:nth-of-type(2) {
-  width: 18rem;
+    width: 18rem;
 }
 
-.about-dropdown div:nth-of-type(2) > div > div > div > button {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+.about-dropdown div:nth-of-type(2)>div>div>div>button {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
-.about-dropdown div:nth-of-type(2) > div > div > div > button > span{
-  color: #404040;
-  font-weight: bold;
+
+.about-dropdown div:nth-of-type(2)>div>div>div>button>span {
+    color: #404040;
+    font-weight: bold;
 }
 </style>
 <template>
-    <UDropdown v-model:open="dropDownOpened" :items="items" :popper="{placement: 'bottom-start', offsetDistance: 0}" class="about-dropdown">
-        <UButton  class=" h-[40px] bg-transparent text-white hover:text-white hover:bg-[#008000] rounded-full"
-            variant="ghost" 
-            :trailing-icon="dropDownOpened ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'" >{{$t('nav_about_us')}}</UButton>
-            <template #about="{ item }">
+    <UDropdown v-model:open="dropDownOpened" :items="items" :popper="{ placement: 'bottom-start', offsetDistance: 0 }"
+        class="about-dropdown">
+        <UButton class=" h-[40px] bg-transparent text-white hover:text-white hover:bg-[#008000] rounded-full"
+            variant="ghost" :trailing-icon="dropDownOpened ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'">
+            {{ $t('nav_about_us') }}</UButton>
+        <template #about="{ item }">
             <div class="text-lg text-gray-600  w-full poppins-regular font-semibold text-left  flex justify-between">
-                <span>{{$t(item.label) }}</span>
-                    <UIcon class="text-2xl" :name="`${item.icon}`"></UIcon>
+                <span>{{ $t(item.label) }}</span>
+                <UIcon class="text-2xl" :name="`${item.icon}`"></UIcon>
             </div>
-         </template>
-
+        </template>
     </UDropdown>
     <slot />
 </template>

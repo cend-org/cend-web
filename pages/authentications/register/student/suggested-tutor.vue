@@ -27,7 +27,6 @@
                         </div>
                         <div class=" relative w-[110px] h-[110px] bg-green-500 rounded-full -mt-[4rem] ml-3 bg-cover bg-no-repeat border-4 border-gray-300"
                             v-bind:style="{ 'background-image': 'url(' + profileImageLink + ')' }">
-
                         </div>
                         <div class="w-full flex justify-center -mt-[2.5rem]">
                             <div class="flex flex-col gap-0 ml-[110px] lg:ml-[20px] xl:ml-[20px] 2xl:ml-[20px]">
@@ -96,9 +95,8 @@ const videoRef = ref<HTMLVideoElement | null>(null);
 const tutorStore = useTutorStore();
 const toast = useToast();
 
-let profileImageLink = tutorStore.profileImage;
-let profileVideoLink = tutorStore.video;
-console.log(tutorStore.profileImage)
+let profileImageLink = ref(tutorStore.profileImage);
+let profileVideoLink = ref(tutorStore.video);
 const state = reactive({
     hour0: undefined,
     date: '',
@@ -177,26 +175,27 @@ function chooseAnotherTutor() {
     loadingStore.show();
     const currentTutorId = parseInt(tutorStore.tutor.Id);
     GqlSuggestOtherTutorToUser({ tutorId: currentTutorId }).then(response => {
-       if(response.SuggestOtherTutorToUser){
+        tutorStore.remove();
+        if (response.SuggestOtherTutorToUser) {
             getProfileImage(response.SuggestOtherTutorToUser.Id);
             getProfileVideo(response.SuggestOtherTutorToUser.Id);
             tutorStore.tutor = response.SuggestOtherTutorToUser;
             loadingStore.hide();
-       }else{
-        toast.add(
-            {
-                id: "1",
-                title: 'Info!',
-                description: 'Nous n\'avons pas pu trouver d\autre tuteur.',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "orange",
-                ui: {
-                    background: "bg-orange-100"
+        } else {
+            toast.add(
+                {
+                    id: "1",
+                    title: 'Info!',
+                    description: 'Nous n\'avons pas pu trouver d\autre tuteur.',
+                    icon: "i-heroicons-exclamation-triangle",
+                    color: "orange",
+                    ui: {
+                        background: "bg-orange-100"
+                    }
                 }
-            }
-        )
-       }
-       loadingStore.hide();
+            )
+        }
+        loadingStore.hide();
     }, error => {
         loadingStore.hide();
         toast.add(
@@ -217,6 +216,7 @@ function getProfileImage(Id: string) {
     loadingStore.show();
     GqlUserProfileImage({ tutorId: parseInt(Id) }).then(response => {
         tutorStore.profileImage = response.UserProfileImage as string;
+        profileImageLink.value = response.UserProfileImage as string;
     }, error => {
         loadingStore.hide();
         toast.add(
@@ -238,6 +238,7 @@ function getProfileVideo(Id: string) {
     loadingStore.show();
     GqlUserVideoPresentation({ tutorId: parseInt(Id) }).then(response => {
         tutorStore.video = response.UserVideoPresentation as string;
+        profileVideoLink.value = response.UserVideoPresentation as string;
     }, error => {
         loadingStore.hide();
         toast.add(

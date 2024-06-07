@@ -2,7 +2,8 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_academic_courses') }}
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('parent_register_academic_course')
+                    }}
                 </h1>
                 <UForm :state="state" class="space-y-2" @submit="onSubmit">
                     <selection-multiple />
@@ -52,26 +53,26 @@ async function onSubmit() {
         selectedIds.push({ CourseId: el["Id"] })
     });
     let studentId = LocalStorageGetItem(`${environment.parent_child_id}`);
-    if (studentId){
-        GqlNewStudentAcademicCoursesByParent({ courses: selectedIds, studentId: parseInt(studentId)}).then(response => {
-        LocalStorageSetItem(environment.student_selected_academic_course, selectedSubjectsNames());
-        navigateTo("/authentications/register/parent/course-preference");
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
+    if (studentId) {
+        GqlNewStudentAcademicCoursesByParent({ courses: selectedIds, studentId: parseInt(studentId) }).then(response => {
+            LocalStorageSetItem(environment.student_selected_academic_course, selectedSubjectsNames());
+            navigateTo("/authentications/register/parent/course-preference");
+        }, error => {
+            loadingStore.hide();
+            toast.add(
+                {
+                    id: "1",
+                    title: 'Erreur!',
+                    description: 'Une erreur est survenue pendant l\'opérations!',
+                    icon: "i-heroicons-exclamation-triangle",
+                    color: "red",
+                    ui: {
+                        background: "bg-red-100"
+                    }
                 }
-            }
-        )
-    });
-    }else{
+            )
+        });
+    } else {
         toast.add(
             {
                 id: "1",
@@ -85,7 +86,7 @@ async function onSubmit() {
             }
         )
     }
-    
+
 }
 
 </script>

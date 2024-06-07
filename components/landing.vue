@@ -54,10 +54,10 @@ const authStore = useAuthStore();
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 if (authStore.connected) {
-    navigateTo('/dashboard/landing');
+  navigateTo('/dashboard/landing');
 }
 
-function login(params: string){
-  navigateTo({path: '/authentications/login', query: {label: params}})
+function login(params: string) {
+  navigateTo({ path: '/authentications/login', query: { label: params } })
 }
 </script>

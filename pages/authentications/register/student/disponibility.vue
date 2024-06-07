@@ -61,7 +61,7 @@ const tutorStore = useTutorStore();
 const state = reactive({
     hour0: undefined,
     date: '',
-    hour1: undefined, 
+    hour1: undefined,
     normalDate: '',
 })
 function focusTime(_slot: number) {
@@ -96,9 +96,9 @@ function focusDate() {
         }
     })
 }
-function formatapointmentDate(): Date{
+function formatapointmentDate(): Date {
     let apointmentDate = new Date(state.normalDate);
-    if(state.hour1){
+    if (state.hour1) {
         let d = state.hour1 as any;
         d = d.split(':');
         let h = parseInt(d[0]);
@@ -133,17 +133,17 @@ async function onSubmit() {
     LocalStorageSetItem(environment.student_dispo_hour_0, `${state.hour0}`);
     LocalStorageSetItem(environment.student_dispo_hour_1, `${state.hour1}`);
     LocalStorageSetItem(environment.student_dispo_date, `${state.date}`);
-    GqlNewUserAppointment({availability: {Availability: apointment}}).then(response => {
+    GqlNewUserAppointment({ availability: { Availability: apointment } }).then(response => {
         GqlSuggestTutorToUser().then(response => {
-        if (response.SuggestTutorToUser != null) {
-            getProfileImage(response.SuggestTutorToUser.Id);
-            getProfileVideo(response.SuggestTutorToUser.Id);
-            tutorStore.tutor = response.SuggestTutorToUser;
-            LocalStorageSetItem(environment.student_tutor_name, `${response.SuggestTutorToUser.Name} ${response.SuggestTutorToUser.FamilyName}`);
-            navigateTo("/authentications/register/student/suggested-tutor");
-        }else{
-            navigateTo("/authentications/register/student/no-tutor");
-        }
+            if (response.SuggestTutorToUser != null) {
+                getProfileImage(response.SuggestTutorToUser.Id);
+                getProfileVideo(response.SuggestTutorToUser.Id);
+                tutorStore.tutor = response.SuggestTutorToUser;
+                LocalStorageSetItem(environment.student_tutor_name, `${response.SuggestTutorToUser.Name} ${response.SuggestTutorToUser.FamilyName}`);
+                navigateTo("/authentications/register/student/suggested-tutor");
+            } else {
+                navigateTo("/authentications/register/student/no-tutor");
+            }
         }, error => {
             loadingStore.hide();
             toast.add(
@@ -158,10 +158,10 @@ async function onSubmit() {
                     }
                 }
             )
-            
+
         });
     });
-    
+
 
 
 }

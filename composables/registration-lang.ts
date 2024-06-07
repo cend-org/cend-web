@@ -4,5 +4,5 @@ export const useRegistrationLangStore = defineStore('lang', () => {
     function set(_lang: any) {
         lang.value = _lang;
     }
-    return { lang, set}
-  })
+    return { lang, set }
+})

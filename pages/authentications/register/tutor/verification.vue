@@ -4,9 +4,9 @@
             <form action="" class="w-full flex flex-col gap-2 pt-3">
                 <UForm :state="state" class="space-y-6" @submit="onSubmit">
                     <div class="text-lg text-gray-900 poppins-medium pt-5">
-                       {{ $t('tutor_verification_text') }}
+                        {{ $t('tutor_verification_text') }}
                     </div>
-                   
+
                     <div
                         class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
                         <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>

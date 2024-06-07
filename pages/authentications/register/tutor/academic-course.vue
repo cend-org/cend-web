@@ -5,7 +5,7 @@
                 <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_academic_courses') }}
                 </h1>
                 <UForm :state="state" class="space-y-2" @submit="onSubmit">
-                   <selection-multiple />
+                    <selection-multiple />
                     <div
                         class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
                         <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>

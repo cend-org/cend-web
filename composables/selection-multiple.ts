@@ -5,12 +5,12 @@ export const useSelectionMultipleStore = defineStore('selectionMultiple', () => 
     function add(item: never) {
         selectedItems.value.push(item)
     }
-    function remove(item: never){
-        selectedItems.value = selectedItems.value.filter(x=>x["Id"] != item["Id"]);
+    function remove(item: never) {
+        selectedItems.value = selectedItems.value.filter(x => x["Id"] != item["Id"]);
     }
-    function clear(){
+    function clear() {
         selectedItems.value = [];
         list.value = [];
     }
-    return { selectedItems, list, add, remove, clear}
-  })
+    return { selectedItems, list, add, remove, clear }
+})

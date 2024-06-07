@@ -6,7 +6,7 @@
                     {{ $t('register_student_header_email_or_phone') }}</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormGroup :label="$t(`auth_email`)" name="email">
-                        <UInput  autocomplete="off"   class="" size="lg" v-model="state.email"
+                        <UInput autocomplete="off" class="" size="lg" v-model="state.email"
                             :placeholder="$t(`auth_your_email`)" />
                     </UFormGroup>
 
@@ -57,12 +57,12 @@ const validation = useValidation();
 const toast = useToast();
 const loadingStore = useLoadingStore();
 
-onBeforeMount( async () => { 
+onBeforeMount(async () => {
     const authStore = useAuthStore();
     if (authStore.isAuthenticated()) {
-    navigateTo('/dashboard/landing');
-}
-      
+        navigateTo('/dashboard/landing');
+    }
+
 });
 
 

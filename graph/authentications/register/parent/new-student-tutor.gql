@@ -1,0 +1,3 @@
+mutation NewStudentTutorByParent($tutorId : Int! , $studentId : Int!) {
+    NewStudentTutorByParent(tutorId: $tutorId, studentId: $studentId)
+}

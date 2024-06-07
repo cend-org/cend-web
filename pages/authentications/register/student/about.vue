@@ -2,37 +2,41 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{$t('register_fill_about')}}</h1>
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_fill_about') }}</h1>
                 <UForm :state="state" class="space-y-4" @submit="onSubmit">
                     <div class="flex flex-row gap-2">
                         <UFormGroup :label="$t('register_name')" name="nom">
-                            <UInput  autocomplete="off" size="lg" v-model="state.name" type="text"  :placeholder="$t('register_name_label')"/>
+                            <UInput autocomplete="off" size="lg" v-model="state.name" type="text"
+                                :placeholder="$t('register_name_label')" />
                         </UFormGroup>
 
                         <UFormGroup :label="$t('register_familyname')" name="prenom">
-                            <UInput  autocomplete="off" size="lg" v-model="state.familyName" type="text"  :placeholder="$t('register_familyname_label')"/>
+                            <UInput autocomplete="off" size="lg" v-model="state.familyName" type="text"
+                                :placeholder="$t('register_familyname_label')" />
                         </UFormGroup>
                     </div>
 
                     <UFormGroup :label="$t('register_birthdate')" name="date-of-birth">
-                        <UInput  autocomplete="off" @click="focusBirthDate()" size="lg" v-model="state.birthDate" type="text"  :placeholder="$t('register_birthdate_label')"/>
+                        <UInput autocomplete="off" @click="focusBirthDate()" size="lg" v-model="state.birthDate"
+                            type="text" :placeholder="$t('register_birthdate_label')" />
                         <calendar />
                     </UFormGroup>
 
                     <UFormGroup :label="$t('register_gender')" name="sex">
-                        <sex/>
+                        <sex />
                     </UFormGroup>
 
-                    
+
                     <UFormGroup label="Choisissez votre langue" name="lang">
-                        <lang/>
+                        <lang />
                     </UFormGroup>
 
-                    <div class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
+                    <div
+                        class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
                         <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-                            {{$t(`continue`)}}
+                            {{ $t(`continue`) }}
                         </UButton>
-                   </div>
+                    </div>
                 </UForm>
             </form>
         </div>
@@ -40,11 +44,12 @@
 </template>
 <style>
 .mobile-sex-dropdown div:nth-of-type(2) {
-     width: 88%;
+    width: 88%;
 }
+
 .desktop-sex-dropdown div:nth-of-type(2) {
-     width: 20%;
-     margin-left: 3px !important;
+    width: 20%;
+    margin-left: 3px !important;
 }
 </style>
 <script setup lang="ts">
@@ -83,8 +88,8 @@ async function onSubmit() {
         )
         return;
     }
-    
-    if (typeof(registrationSexStore.sex.value) != 'number') {
+
+    if (typeof (registrationSexStore.sex.value) != 'number') {
         toast.add(
             {
                 id: "1",
@@ -99,7 +104,7 @@ async function onSubmit() {
         )
         return;
     }
-    if (typeof(registrationLangStore.lang.value) != 'number') {
+    if (typeof (registrationLangStore.lang.value) != 'number') {
         toast.add(
             {
                 id: "1",
@@ -123,7 +128,7 @@ async function onSubmit() {
             name: 'Authorization'
         }
     });
-    GqlUpdateMyProfile({ profile: { Name: state.name, FamilyName: state.familyName, Lang:  registrationLangStore.lang.value, Sex: registrationSexStore.sex.value} }).then(response => {
+    GqlUpdateMyProfile({ profile: { Name: state.name, FamilyName: state.familyName, Lang: registrationLangStore.lang.value, Sex: registrationSexStore.sex.value } }).then(response => {
         getAcademicLevels();
     }, error => {
         loadingStore.hide();
@@ -142,7 +147,7 @@ async function onSubmit() {
     });
 
 }
-function getAcademicLevels(){
+function getAcademicLevels() {
     GqlAcademicLevels().then(response => {
         selectionSingleStore.list = response.AcademicLevels as Array<never>;
         navigateTo('/authentications/register/student/academic-level');
@@ -162,15 +167,15 @@ function getAcademicLevels(){
         )
     });
 }
-function focusBirthDate(){
+function focusBirthDate() {
     calendar.open(Calendar, {
-    onClose(){
-        calendar.close();
-    },
-    onConfirm(){
-        state.birthDate = calendarStore.formatedDate;
-        calendar.close();
-    }
-  })
+        onClose() {
+            calendar.close();
+        },
+        onConfirm() {
+            state.birthDate = calendarStore.formatedDate;
+            calendar.close();
+        }
+    })
 }
 </script>

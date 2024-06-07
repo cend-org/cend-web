@@ -1,0 +1,25 @@
+query ProfessorStudent($name: String!) {
+    ProfessorStudent(keyWord: $name) {
+        Id
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        Name
+        FamilyName
+        NickName
+        Email
+        Matricule
+        Age
+        BirthDate
+        Sex
+        Lang
+        Status
+        ProfileImageXid
+        Description
+        CoverText
+        Profile
+        ExperienceDetail
+        AdditionalDescription
+        AddOnTitle
+    }
+}

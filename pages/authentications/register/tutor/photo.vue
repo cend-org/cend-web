@@ -109,7 +109,9 @@ async function onSubmit() {
             'Authorization': `Bearer ${LocalStorageGetItem(environment.auth_token)}`,
         }
     };
-    loadingStore.show();
+    
+    if(photo.value){
+        loadingStore.show();
     fetch(`${environment.api}${environment.upload_url}`, options).then((res) => {
         if (res.status == 200) {
             navigateTo("/authentications/register/tutor/cv");
@@ -129,6 +131,21 @@ async function onSubmit() {
             );
         }
     });
+    }else{
+        toast.add(
+                {
+                    id: "1",
+                    title: 'Erreur!',
+                    description: 'VEuillez ajouter votre photo!',
+                    icon: "i-heroicons-exclamation-triangle",
+                    color: "red",
+                    ui: {
+                        background: "bg-red-100"
+                    }
+                },
+            );  
+    }
+    
 }
 
 </script>

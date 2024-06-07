@@ -1,0 +1,3 @@
+mutation NewUserAppointmentByParent ($studentId: Int!, $availability: AppointmentInput!) {
+    NewUserAppointmentByParent(studentId:$studentId, availability: $availability)
+}

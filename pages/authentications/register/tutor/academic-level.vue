@@ -2,7 +2,8 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_academic_level_tutor') }}</h1>
+                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_academic_level_tutor')
+                    }}</h1>
                 <UForm :state="state" class="space-y-2" @submit="onSubmit">
                     <selection-multiple />
                     <div

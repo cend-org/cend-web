@@ -1,24 +1,24 @@
 <script setup lang="ts">
-const validation  = useValidation();
+const validation = useValidation();
 const coursePreferenceStore = useCoursePreferenceStore();
 let originalItems = [
   {
     "Id": "0",
-    "label" : "online",
-    "description": "online_description", 
+    "label": "online",
+    "description": "online_description",
     "value": true,
   },
   {
     "Id": "1",
-    "label" : "face_to_face",
-    "description": "face_to_face_description", 
+    "label": "face_to_face",
+    "description": "face_to_face_description",
     "value": false,
   },
 ];
 const items = ref([...originalItems]);
 
 const onSelectItem = (item: any) => {
-    coursePreferenceStore.set(item);
+  coursePreferenceStore.set(item);
 };
 
 const isSelected = (item: any) => {
@@ -28,12 +28,12 @@ coursePreferenceStore.selectedItem = items.value[0]
 </script>
 
 <template>
-    <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
-        <button @click="onSelectItem(item)" type="button" :class="['bg-gray-100 w-full h-[10vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]" v-for="item in items">
-            <div>{{ $t(item.label) }}</div>
-            <div class="text-xs text-gray-500 poppins-regular font-normal">{{ $t(item.description) }}</div>
-        </button>
-    </div>
+  <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
+    <button @click="onSelectItem(item)" type="button"
+      :class="['bg-gray-100 w-full h-[10vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]"
+      v-for="item in items">
+      <div>{{ $t(item.label) }}</div>
+      <div class="text-xs text-gray-500 poppins-regular font-normal">{{ $t(item.description) }}</div>
+    </button>
+  </div>
 </template>
-
-
