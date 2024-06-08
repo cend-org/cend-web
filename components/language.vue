@@ -90,7 +90,7 @@ function setLang(lang: string) {
     class="text-lg font-bold desktop-dropdown hidden lg:block, xl:block 2xl:block">
     <div class="">
       <UButton class="h-[35px] bg-transparent text-white hover:text-white hover:bg-[#008000] rounded-full"
-        variant="ghost" :label="`${$t(selectedLanguage)} ${locale.toUpperCase()}`" icon="i-heroicons-language-solid" />
+        variant="ghost" :label="`${locale.toUpperCase()}`" icon="i-heroicons-language-solid" />
     </div>
     <template #lang="{ item }">
       <div class="text-lg text-gray-600  w-full poppins-regular font-semibold text-left flex justify-between">

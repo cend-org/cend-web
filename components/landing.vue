@@ -3,7 +3,6 @@
     <div class="p-2 w-full lg:w-8/12 xl:w-8/12 2xl:w-8/12 flex flex-col gap-10 lg:gap-20 xl:gap-20 2xl:gap-20">
       <section
         class="flex gap-4 justify-between align-middle w-full  flex-col  flex-col-reverse lg:flex-row xl:flex-row 2xl:flex-row">
-
         <h1
           class="pt-3 text-3xl lg:text-5xl xl:text-5xl 2xl:text-5xl  text-center lg:text-left xl:text-left 2xl:text-left poppins-bold flex flex-col gap-2 lg:gap-4 xl:gap-4 2xl:gap-4">
           <div>{{ $t('landing_text_login') }}</div>

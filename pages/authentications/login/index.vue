@@ -2,7 +2,7 @@
     <div class="w-full flex justify-center mt-6">
         <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
             <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 v-if="locale != 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Veuillez-vous
+                <h1 v-if="locale != 'en'" class="text-xl text-gray-600 poppins-bold py-2">Veuillez-vous
                     connecter à votre compte {{ $t(`${personType}`).toLowerCase() }}</h1>
                 <h1 v-if="locale == 'en'" class="text-center text-xl text-gray-600 poppins-bold py-2">Please log in to
                     your {{ $t(`${personType}`).toLowerCase() }} account</h1>
@@ -11,10 +11,6 @@
                         <UInput autocomplete="off" class="" size="lg" v-model="state.email" name="email"
                             :placeholder="$t('login_email_label')" />
                     </UFormGroup>
-
-                    <!-- <UFormGroup :label="$t('login_password')" name="password">
-                        <UInput  autocomplete="off" size="lg" v-model="state.password" type="password" name="password" :placeholder="$t('login_password_label')" />
-                    </UFormGroup> -->
                     <UFormGroup :label="$t('login_password')" name="password">
                         <UInput autocomplete="off" size="lg" v-model="state.password"
                             :type="showPasswords ? 'password' : 'text'"
