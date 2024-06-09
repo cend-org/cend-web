@@ -24,7 +24,7 @@ const show = ref(false)
   <div v-else class="relative w-full items-center">
     <Input :type="show?'text':'password'" placeholder="votre mot de passe" class="w-full h-12"  />
     <span class="absolute end-0 inset-y-0 flex items-center justify-center px-2 cursor-pointer">
-        <Button type="button" class="bg-transparent shadow-none hover:bg-transparent" @click="show = !show">
+        <Button tabindex="-1" type="button" class="bg-transparent shadow-none hover:bg-transparent" @click="show = !show">
           <Eye v-if="!show" class="size-6 text-muted-foreground hover:bg-transparent" />
           <EyeOff class="size-6 text-muted-foreground hover:bg-transparent" v-else />
         </Button>

@@ -1,6 +1,6 @@
 <template>
   <LayoutAuthentication :title=" $t('register_enter_password')" >
-    <form action="" class="w-full flex flex-col gap-2 pt-3">
+    <!-- <form action="" class="w-full flex flex-col gap-2 pt-3">
       <UForm :state="state" class="space-y-4" @submit="onSubmit">
         <UFormGroup :label="$t(`auth_password`)" name="password">
 
@@ -45,95 +45,152 @@
         </div>
 
       </UForm>
+    </form> -->
+    <form class="space-y-6" @submit="onSubmit">
+      <FormField v-slot="{ componentField }" name="password" :validate-on-blur="!isFieldDirty">
+        <FormItem>
+          <FormLabel>Mots de passe</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormInput type="password" placeholder="Votre mots de passe" />
+          </FormControl>
+        </FormItem>
+      </FormField>
+      <FormField v-slot="{ componentField }" name="passwordConfirm" :validate-on-blur="!isFieldDirty">
+        <FormItem>
+          <FormLabel>Confirmer votre mots de passe</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormInput type="password" placeholder="Confirmation de votre mots de passe" />
+          </FormControl>
+        </FormItem>
+      </FormField>
+      <CommonFormSubmit />
     </form>
+    
   </LayoutAuthentication>
 </template>
 <script setup lang="ts">
 
+import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { z } from 'zod';
 import { useValidation } from '~/composables/validations';
 import { environment } from '~/scripts/environment';
 import { LocalStorageGetItem } from '~/scripts/local-storage';
+import { passwordStore } from '~/stores/password.store';
+import { toast } from '@/components/ui/toast/use-toast'
 
 
 const validation = useValidation();
 const loadingStore = useLoadingStore();
 loadingStore.hide();
-const toast = useToast();
+// const toast = useToast();
+
 let showPasswords = ref(true);
 let isPasswordFocused = ref(false);
+const store = passwordStore();
 function togglePassword() {
     showPasswords.value = !showPasswords.value;
 }
-const state = reactive({
-    password: '',
-    passwordConfirm: ''
-})
-function onFocusPassword() {
-    isPasswordFocused.value = true;
-}
-function onblurPassword() {
-    isPasswordFocused.value = false;
-}
-const passwordComplexity = computed(() => {
-    return validation.CheckPasswordComplexity(state.password);
+
+
+const formSchema = toTypedSchema(z.object({
+  password: z.string().min(5), 
+  passwordConfirm: z.string().min(5),
+}));
+
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: formSchema,
 });
+const onSubmit = handleSubmit( async (values) => {
+  loadingStore.show();
+  try{
+    await store.setPassword(values.password);
+    navigateTo("/authentications/register/student/about");
+  }catch(e){
+    toast({
+      title: 'You submitted the following values:',
+      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
+    })
+  }
+  loadingStore.hide();
+})
 
-async function onSubmit() {
-    if (!validation.checkPasswords(state.password, state.passwordConfirm)) {
-        toast.add(
-            {
-                id: "1",
-                title: 'Validation',
-                description: 'Veillez vérifiez votre mots de passe!',
-                icon: "i-heroicons-check-badge",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-        return;
-    }
-    if (state.password.length < 5) {
-        toast.add(
-            {
-                id: "1",
-                title: 'Validation',
-                description: 'Mots de passe trop courte!',
-                icon: "i-heroicons-check-badge",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-        return;
-    }
+// const state = reactive({
+//     password: '',
+//     passwordConfirm: ''
+// })
+// function onFocusPassword() {
+//     isPasswordFocused.value = true;
+// }
+// function onblurPassword() {
+//     isPasswordFocused.value = false;
+// }
+// const passwordComplexity = computed(() => {
+//     return validation.CheckPasswordComplexity(state.password);
+// });
 
-    useGqlToken({
-        token: `${LocalStorageGetItem(environment.auth_token)}`,
-        config: {
-            type: 'Bearer',
-            name: 'Authorization'
-        }
-    });
-    loadingStore.show();
-    GqlNewPassword({ password: { Hash: state.password } }).then(response => {
-        navigateTo("/authentications/register/student/about");
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-    });
-}
+// async function onSubmit() {
+//   loadingStore.show();
+//   try
+//   {
+//     store.setPassword()
+//   }
+
+//     // if (!validation.checkPasswords(state.password, state.passwordConfirm)) {
+//     //     toast.add(
+//     //         {
+//     //             id: "1",
+//     //             title: 'Validation',
+//     //             description: 'Veillez vérifiez votre mots de passe!',
+//     //             icon: "i-heroicons-check-badge",
+//     //             color: "red",
+//     //             ui: {
+//     //                 background: "bg-red-100"
+//     //             }
+//     //         }
+//     //     )
+//     //     return;
+//     // }
+//     // if (state.password.length < 5) {
+//     //     toast.add(
+//     //         {
+//     //             id: "1",
+//     //             title: 'Validation',
+//     //             description: 'Mots de passe trop courte!',
+//     //             icon: "i-heroicons-check-badge",
+//     //             color: "red",
+//     //             ui: {
+//     //                 background: "bg-red-100"
+//     //             }
+//     //         }
+//     //     )
+//     //     return;
+//     // }
+
+//     // useGqlToken({
+//     //     token: `${LocalStorageGetItem(environment.auth_token)}`,
+//     //     config: {
+//     //         type: 'Bearer',
+//     //         name: 'Authorization'
+//     //     }
+//     // });
+//    // loadingStore.show();
+//     // GqlNewPassword({ password: { Hash: state.password } }).then(response => {
+//     //     navigateTo("/authentications/register/student/about");
+//     // }, error => {
+//     //     loadingStore.hide();
+//     //     toast.add(
+//     //         {
+//     //             id: "1",
+//     //             title: 'Erreur!',
+//     //             description: 'Une erreur est survenue pendant l\'opérations!',
+//     //             icon: "i-heroicons-exclamation-triangle",
+//     //             color: "red",
+//     //             ui: {
+//     //                 background: "bg-red-100"
+//     //             }
+//     //         }
+//     //     )
+//     // });
+// }
 </script>

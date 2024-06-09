@@ -9,8 +9,8 @@ const props = defineProps({
 
 </script>
 <template>
-  <div class="flex flex-row w-screen justify-center items-center px-5 md:px-10 mt-3">
-    <div class="w-screen md:w-[430px] py-5">
+  <div class="flex flex-row w-full justify-center items-center px-5 md:px-10 mt-3">
+    <div class="w-full md:w-[430px] py-5">
       <div class="text-gray-700 font-medium text-2xl">
         {{ props.title }}
       </div>
