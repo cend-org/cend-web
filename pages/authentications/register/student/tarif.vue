@@ -1,34 +1,32 @@
 <template>
-    <div class="w-full flex justify-center mt-6">
-        <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <UForm :state="state" class="space-y-6" @submit="onSubmit">
-                    <div class="py-3 text-lg poppins-medium">
-                        {{ $t('register_student_tarif_a') }} <span class="text-color-main poppins-bold">{{ tarif
-                            }}</span>, {{ $t('register_student_tarif_b') }} <span
-                            class="text-color-main poppins-bold">{{ subjects }}</span> {{ $t('register_student_tarif_c')
-                        }} <span class="text-color-main poppins-bold">{{ level }}</span>
-                    </div>
-                    <div class="py-2 text-md poppins-regular text-gray-500">
-                        {{ $t('register_student_tarif_d') }} <span class="poppins-medium text-color-main"> {{
-                            tutor_name }} </span>{{ $t('register_student_tarif_e') }}
-                    </div>
-                    <div class="py-2 text-md poppins-regular text-gray-500">
-                        {{ $t('register_student_tarif_f') }}
-                        <span class="poppins-medium text-color-main">{{ dispo_date }}</span> {{ $t('at') }} <span
-                            class="poppins-medium text-color-main">{{ dispo_hour_1 }}</span> {{ $t('with') }} <span
-                            class="poppins-medium text-color-main"> {{ tutor_name }} </span>.
-                    </div>
-                    <div
-                        class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-                        <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-                            {{ $t(`continue`) }}
-                        </UButton>
-                    </div>
-                </UForm>
-            </form>
+  <LayoutAuthentication title="" >
+    <form action="" class="w-full flex flex-col gap-2 pt-3">
+      <UForm :state="state" class="space-y-6" @submit="onSubmit">
+        <div class="py-3 text-lg poppins-medium">
+          {{ $t('register_student_tarif_a') }} <span class="text-color-main poppins-bold">{{ tarif
+          }}</span>, {{ $t('register_student_tarif_b') }} <span
+            class="text-color-main poppins-bold">{{ subjects }}</span> {{ $t('register_student_tarif_c')
+          }} <span class="text-color-main poppins-bold">{{ level }}</span>
         </div>
-    </div>
+        <div class="py-2 text-md poppins-regular text-gray-500">
+          {{ $t('register_student_tarif_d') }} <span class="poppins-medium text-color-main"> {{
+            tutor_name }} </span>{{ $t('register_student_tarif_e') }}
+        </div>
+        <div class="py-2 text-md poppins-regular text-gray-500">
+          {{ $t('register_student_tarif_f') }}
+          <span class="poppins-medium text-color-main">{{ dispo_date }}</span> {{ $t('at') }} <span
+            class="poppins-medium text-color-main">{{ dispo_hour_1 }}</span> {{ $t('with') }} <span
+            class="poppins-medium text-color-main"> {{ tutor_name }} </span>.
+        </div>
+        <div
+            class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
+          <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
+            {{ $t(`continue`) }}
+          </UButton>
+        </div>
+      </UForm>
+    </form>
+  </LayoutAuthentication>
 </template>
 <style>
 .mobile-sex-dropdown div:nth-of-type(2) {

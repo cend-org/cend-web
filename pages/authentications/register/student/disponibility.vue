@@ -1,38 +1,35 @@
 <template>
-    <div class="w-full flex justify-center mt-6">
-        <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_disponibility') }}</h1>
-                <UForm :state="state" class="space-y-6" @submit="onSubmit">
-                    <div class="flex flex-col gap-4">
-                        <div class="flex flex-row gap-2">
-                            <span>{{ $t('register_you_prefer_at') }} </span>
-                            <input v-model="state.hour0" @click="focusTime(0)" type="text" name="hour0"
-                                class="text-color-main text-center hour-input bg-gray-200 w-[70px] h-[25px] rounded-lg text-center">
-                            <span>h</span>
-                        </div>
-                        <div class="w-full flex justify-end">
-                            <div class="flex flex-row gap-2">
-                                <span>{{ $t('register_or') }} </span>
-                                <input v-model="state.date" @click="focusDate()" type="text" name="date"
-                                    class="text-color-main text-center hour-input bg-gray-200 w-[100px] rounded-lg text-center">
-                                <span>{{ $t('at') }}</span>
-                                <input v-model="state.hour1" @click="focusTime(1)" type="text" name="hour1"
-                                    class="text-color-main text-center hour-input bg-gray-200 w-[70px] rounded-lg text-center">
-                                <span>h?</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-                        <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-                            {{ $t(`continue`) }}
-                        </UButton>
-                    </div>
-                </UForm>
-            </form>
+  <LayoutAuthentication :title="$t('register_disponibility')">
+    <form action="" class="w-full flex flex-col gap-2 pt-3">
+      <UForm :state="state" class="space-y-6" @submit="onSubmit">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-row gap-2">
+            <span>{{ $t('register_you_prefer_at') }} </span>
+            <input v-model="state.hour0" @click="focusTime(0)" type="text" name="hour0"
+                   class="text-color-main text-center hour-input bg-gray-200 w-[70px] h-[25px] rounded-lg text-center">
+            <span>h</span>
+          </div>
+          <div class="w-full flex justify-end">
+            <div class="flex flex-row gap-2">
+              <span>{{ $t('register_or') }} </span>
+              <input v-model="state.date" @click="focusDate()" type="text" name="date"
+                     class="text-color-main text-center hour-input bg-gray-200 w-[100px] rounded-lg text-center">
+              <span>{{ $t('at') }}</span>
+              <input v-model="state.hour1" @click="focusTime(1)" type="text" name="hour1"
+                     class="text-color-main text-center hour-input bg-gray-200 w-[70px] rounded-lg text-center">
+              <span>h?</span>
+            </div>
+          </div>
         </div>
-    </div>
+        <div
+            class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
+          <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
+            {{ $t(`continue`) }}
+          </UButton>
+        </div>
+      </UForm>
+    </form>
+  </LayoutAuthentication>
 </template>
 <style>
 .mobile-sex-dropdown div:nth-of-type(2) {

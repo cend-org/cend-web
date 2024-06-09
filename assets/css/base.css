@@ -1,12 +1,15 @@
+@import url('https://fonts.cdnfonts.com/css/uber-move-text');
+
 *:focus {
     -webkit-tap-highlight-color: transparent;
     outline: none !important;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
 }
-*:focus-visible {
-    outline: 1px solid #3A9B23 !important;
-}
+/**:focus-visible {*/
+/*    outline: 1px solid #3A9B23 !important;*/
+/*}*/
+
 body{
     font-family: 'poppins-medium', sans-serif;
     scrollbar-width: none;
@@ -60,3 +63,12 @@ body{
 /*    background-color: white;*/
 /*    outline: 1px solid var(--primary-color);*/
 /*}*/
+
+
+*{
+    font-family: 'Uber Move Text', sans-serif !Important;
+}
+
+.move{
+    font-family: 'Uber Move Text', sans-serif !Important;
+}

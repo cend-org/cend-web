@@ -5,8 +5,11 @@
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-
-  <UNotifications />
+  <Toaster />
+<!--  <UNotifications />-->
   <UModals />
   <loading />
 </template>
+<script setup lang="ts">
+import {Toaster} from "~/components/ui/toast";
+</script>

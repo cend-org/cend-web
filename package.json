@@ -13,18 +13,33 @@
     "@nuxt/devtools": "latest",
     "@nuxt/ui": "^2.16.0",
     "@nuxtjs/i18n": "^8.3.1",
+    "@nuxtjs/tailwindcss": "^6.12.0",
     "@samk-dev/nuxt-vcalendar": "^1.0.3",
     "nuxt": "^3.10.1",
-    "nuxt-graphql-client": "^0.2.34"
+    "nuxt-graphql-client": "^0.2.34",
+    "shadcn-nuxt": "^0.10.4",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "@radix-icons/vue": "^1.0.0",
+    "@vee-validate/zod": "^4.13.1",
+    "@vueuse/core": "^10.10.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "date-fns": "^2.30.0",
     "jwt-decode": "^4.0.0",
+    "lucide-vue-next": "^0.390.0",
     "nuxt-storage": "^1.2.2",
     "pinia": "^2.1.7",
+    "radix-vue": "^1.8.3",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "v-calendar": "^3.1.2",
-    "yup": "^1.4.0"
+    "vaul-vue": "^0.1.2",
+    "vee-validate": "^4.13.1",
+    "yup": "^1.4.0",
+    "zod": "^3.23.8"
   },
   "overrides": {
     "vue": "latest"

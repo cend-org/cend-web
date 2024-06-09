@@ -1,77 +1,73 @@
 <template>
-    <div class="w-full flex justify-center mt-6">
-        <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_suggested_tutor') }}
-                </h1>
-                <UForm :state="state" class="space-y-6" @submit="onSubmit">
-                    <div class="video">
-                        <div class="w-full h-[10rem] bg-gray-200 relative">
-                            <video ref="videoRef" class="w-full h-full" id="video" controlslist="nodownload">
-                                <source :src="profileVideoLink">
-                            </video>
-                            <div class="h-full w-[35px]  gap-2 absolute top-0 right-0">
-                                <div class="flex flex-col gap-2 py-2">
-                                    <UButton v-if="videoState == 'pause'" class="w-[30px] h-[30px]"
-                                        icon="i-heroicons-play" size="sm" color="primary" square variant="soft"
-                                        @click="play()" />
-                                    <UButton v-if="videoState == 'play'" class="w-[30px] h-[30px]"
-                                        icon="i-heroicons-pause" size="sm" color="primary" square variant="soft"
-                                        @click="pause()" />
-                                    <UButton class="w-[30px] h-[30px]" icon="i-heroicons-arrow-path" size="sm"
-                                        color="primary" square variant="soft" @click="reset()" />
-                                    <UButton class="w-[30px] h-[30px]" icon="i-heroicons-arrows-pointing-out" size="sm"
-                                        color="primary" square variant="soft" @click="fullScreen()" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" relative w-[110px] h-[110px] bg-green-500 rounded-full -mt-[4rem] ml-3 bg-cover bg-no-repeat border-4 border-gray-300"
-                            v-bind:style="{ 'background-image': 'url(' + profileImageLink + ')' }">
-                        </div>
-                        <div class="w-full flex justify-center -mt-[2.5rem]">
-                            <div class="flex flex-col gap-0 ml-[110px] lg:ml-[20px] xl:ml-[20px] 2xl:ml-[20px]">
+  <LayoutAuthentication :title="$t('register_suggested_tutor')" >
+    <form action="" class="w-full flex flex-col gap-2 pt-3">
+      <UForm :state="state" class="space-y-6" @submit="onSubmit">
+        <div class="video">
+          <div class="w-full h-[10rem] bg-gray-200 relative">
+            <video ref="videoRef" class="w-full h-full" id="video" controlslist="nodownload">
+              <source :src="profileVideoLink">
+            </video>
+            <div class="h-full w-[35px]  gap-2 absolute top-0 right-0">
+              <div class="flex flex-col gap-2 py-2">
+                <UButton v-if="videoState == 'pause'" class="w-[30px] h-[30px]"
+                         icon="i-heroicons-play" size="sm" color="primary" square variant="soft"
+                         @click="play()" />
+                <UButton v-if="videoState == 'play'" class="w-[30px] h-[30px]"
+                         icon="i-heroicons-pause" size="sm" color="primary" square variant="soft"
+                         @click="pause()" />
+                <UButton class="w-[30px] h-[30px]" icon="i-heroicons-arrow-path" size="sm"
+                         color="primary" square variant="soft" @click="reset()" />
+                <UButton class="w-[30px] h-[30px]" icon="i-heroicons-arrows-pointing-out" size="sm"
+                         color="primary" square variant="soft" @click="fullScreen()" />
+              </div>
+            </div>
+          </div>
+          <div class=" relative w-[110px] h-[110px] bg-green-500 rounded-full -mt-[4rem] ml-3 bg-cover bg-no-repeat border-4 border-gray-300"
+               v-bind:style="{ 'background-image': 'url(' + profileImageLink + ')' }">
+          </div>
+          <div class="w-full flex justify-center -mt-[2.5rem]">
+            <div class="flex flex-col gap-0 ml-[110px] lg:ml-[20px] xl:ml-[20px] 2xl:ml-[20px]">
                                 <span class="poppins-bold font-bold">{{ tutorStore.tutor.Name }} {{
                                     tutorStore.tutor.FamilyName }}</span>
-                            </div>
-                        </div>
-                        <div class="py-4">
-                            <div class="text-xs poppins-medium h-[26vh] overflow-y-scroll text-balance"
-                                style="scrollbar-width: none !important;">
+            </div>
+          </div>
+          <div class="py-4">
+            <div class="text-xs poppins-medium h-[26vh] overflow-y-scroll text-balance"
+                 style="scrollbar-width: none !important;">
                                 <span v-if="tutorStore.tutor.Id">
                                     << </span>
-                                        {{ tutorStore.tutor.Profile }}
-                                        {{ tutorStore.tutor.AdditionalDescription }}
-                                        {{ tutorStore.tutor.ExperienceDetail }}
-                                        <span v-if="tutorStore.tutor.Id">>></span>
-                            </div>
-                        </div>
-                        <div class="w-full flex justify-end py-1">
-                            <div class="">
-                                <div class="py-1 flex justify-end">
-                                    <UButton @click="chooseAnotherTutor()" size="sm" type="button"
-                                        class="text-xs text-gray-900 bg-light-green hover:bg-green-300">
-                                        {{ $t('register_choose_suggested_tutor') }}
-                                    </UButton>
-                                </div>
-                                <div class="py-1 flex justify-end">
-                                    <UButton @click="continueWithoutTutor()" size="sm" type="button"
-                                        class="text-xs text-gray-900 bg-light-green hover:bg-green-300">
-                                        {{ $t('register_continue_without_tutor') }}
-                                    </UButton>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-                        <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-                            {{ $t(`accept`) }}
-                        </UButton>
-                    </div>
-                </UForm>
-            </form>
+              {{ tutorStore.tutor.Profile }}
+              {{ tutorStore.tutor.AdditionalDescription }}
+              {{ tutorStore.tutor.ExperienceDetail }}
+              <span v-if="tutorStore.tutor.Id">>></span>
+            </div>
+          </div>
+          <div class="w-full flex justify-end py-1">
+            <div class="">
+              <div class="py-1 flex justify-end">
+                <UButton @click="chooseAnotherTutor()" size="sm" type="button"
+                         class="text-xs text-gray-900 bg-light-green hover:bg-green-300">
+                  {{ $t('register_choose_suggested_tutor') }}
+                </UButton>
+              </div>
+              <div class="py-1 flex justify-end">
+                <UButton @click="continueWithoutTutor()" size="sm" type="button"
+                         class="text-xs text-gray-900 bg-light-green hover:bg-green-300">
+                  {{ $t('register_continue_without_tutor') }}
+                </UButton>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+        <div
+            class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
+          <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
+            {{ $t(`accept`) }}
+          </UButton>
+        </div>
+      </UForm>
+    </form>
+  </LayoutAuthentication>
 </template>
 <style>
 .mobile-sex-dropdown div:nth-of-type(2) {

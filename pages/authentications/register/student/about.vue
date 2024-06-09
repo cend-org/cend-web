@@ -1,46 +1,43 @@
 <template>
-    <div class="w-full flex justify-center mt-6">
-        <div class="p-2 w-full lg:w-[25rem] xl:w-[25rem] 2xl:w-[25rem] flex flex-col gap-2">
-            <form action="" class="w-full flex flex-col gap-2 pt-3">
-                <h1 class="text-center text-xl text-gray-600 poppins-bold py-2">{{ $t('register_fill_about') }}</h1>
-                <UForm :state="state" class="space-y-4" @submit="onSubmit">
-                    <div class="flex flex-row gap-2">
-                        <UFormGroup :label="$t('register_name')" name="nom">
-                            <UInput autocomplete="off" size="lg" v-model="state.name" type="text"
-                                :placeholder="$t('register_name_label')" />
-                        </UFormGroup>
+  <LayoutAuthentication :title="$t('register_fill_about')">
+    <form action="" class="w-full flex flex-col gap-2 pt-3">
+      <UForm :state="state" class="space-y-4" @submit="onSubmit">
+        <div class="flex flex-row gap-2">
+          <UFormGroup :label="$t('register_name')" name="nom">
+            <UInput autocomplete="off" size="lg" v-model="state.name" type="text"
+                    :placeholder="$t('register_name_label')" />
+          </UFormGroup>
 
-                        <UFormGroup :label="$t('register_familyname')" name="prenom">
-                            <UInput autocomplete="off" size="lg" v-model="state.familyName" type="text"
-                                :placeholder="$t('register_familyname_label')" />
-                        </UFormGroup>
-                    </div>
-
-                    <UFormGroup :label="$t('register_birthdate')" name="date-of-birth">
-                        <UInput autocomplete="off" @click="focusBirthDate()" size="lg" v-model="state.birthDate"
-                            type="text" :placeholder="$t('register_birthdate_label')" />
-                        <calendar />
-                    </UFormGroup>
-
-                    <UFormGroup :label="$t('register_gender')" name="sex">
-                        <sex />
-                    </UFormGroup>
-
-
-                    <UFormGroup label="Choisissez votre langue" name="lang">
-                        <lang />
-                    </UFormGroup>
-
-                    <div
-                        class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-                        <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-                            {{ $t(`continue`) }}
-                        </UButton>
-                    </div>
-                </UForm>
-            </form>
+          <UFormGroup :label="$t('register_familyname')" name="prenom">
+            <UInput autocomplete="off" size="lg" v-model="state.familyName" type="text"
+                    :placeholder="$t('register_familyname_label')" />
+          </UFormGroup>
         </div>
-    </div>
+
+        <UFormGroup :label="$t('register_birthdate')" name="date-of-birth">
+          <UInput autocomplete="off" @click="focusBirthDate()" size="lg" v-model="state.birthDate"
+                  type="text" :placeholder="$t('register_birthdate_label')" />
+          <calendar />
+        </UFormGroup>
+
+        <UFormGroup :label="$t('register_gender')" name="sex">
+          <sex />
+        </UFormGroup>
+
+
+        <UFormGroup label="Choisissez votre langue" name="lang">
+          <lang />
+        </UFormGroup>
+
+        <div
+            class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
+          <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
+            {{ $t(`continue`) }}
+          </UButton>
+        </div>
+      </UForm>
+    </form>
+  </LayoutAuthentication>
 </template>
 <style>
 .mobile-sex-dropdown div:nth-of-type(2) {

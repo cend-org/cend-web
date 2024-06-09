@@ -14,7 +14,6 @@ export const useAuthStore = defineStore('auth', () => {
         if (expToken != null && expToken < Date.now() / 1000) {
             return false;
         }
-
         return true;
     }
 
