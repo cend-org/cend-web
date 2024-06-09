@@ -1,0 +1,3 @@
+<template>
+  Tutoring page
+</template>

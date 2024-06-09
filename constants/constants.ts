@@ -47,22 +47,22 @@ export const loginComponent = [
 export const aboutComponent  = [
     {
         title: 'Qui sommes-nous ?',
-        href: '/',
+        href: '/static/about#section-1',
         description: "Découvrez l'histoire et l'équipe derrière CEND."
     },
     {
         title: 'Notre mission',
-        href: '/',
+        href: '/static/about#section-2',
         description: 'Apprenez notre engagement et nos objectifs pour l\'avenir.'
     },
     {
         title: 'Les points forts de CEND',
-        href: '/',
+        href: '/static/about#section-3',
         description: 'Explorez les avantages et les atouts uniques de CEND.'
     },
     {
         title: 'Comment ça marche ?',
-        href: '/',
+        href: '/static/about#section-4',
         description: 'Comprenez le fonctionnement de nos services en quelques étapes simples.'
     },
 ]

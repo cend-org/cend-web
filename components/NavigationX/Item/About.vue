@@ -8,7 +8,6 @@
         <NavigationMenuContent class=" bg-transparent rounded">
           <ul class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
             <NuxtLink
-                active-class="bg-gray-100"
                 v-for="component in aboutComponent"
                 :key="component.title"
                 :title="component.title"
