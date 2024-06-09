@@ -24,22 +24,22 @@ export const signupComponent = [
 export const loginComponent = [
     {
         title: 'Étudiant',
-        href: '/auth/signin?type=student',
+        href: '/authentications/login?label=student',
         description: 'Accédez à votre espace étudiant en vous connectant ici.'
     },
     {
         title: 'Parent',
-        href: '/auth/signin?type=parent',
+        href: '/authentications/login?label=parent',
         description: 'Connectez-vous à votre compte parent pour suivre la progression de votre enfant.'
     },
     {
         title: 'Tuteur',
-        href: '/auth/signin?type=tutor',
+        href: '/authentications/login?label=tutor',
         description: 'Connectez-vous à votre compte tuteur pour gérer vos cours.'
     },
     {
         title: 'Professeur',
-        href: '/auth/signin?type=professor',
+        href: '/authentications/login?label=teacher',
         description: 'Identifiez-vous en tant que professeur pour suivre vos élèves.'
     },
 ]

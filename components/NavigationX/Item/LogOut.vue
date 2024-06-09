@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import {Button} from '@/components/ui/button'
-import {LocalStorageremoveItem} from "~/scripts/local-storage";
-import {environment} from "~/scripts/environment";
+import {authenticationStore} from "~/stores/authentication.store";
+const store = authenticationStore()
+
 function logout() {
-  console.log("ok")
-  LocalStorageremoveItem(environment.auth_token);
-  setTimeout(() => {
-    navigateTo('/');
-  }, 500);
+  store.logout()
+  navigateTo('/');
 }
 </script>
 

@@ -49,6 +49,19 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        lime: {
+          50: '#f4fcf1',
+          100: '#e5f9df',
+          200: '#caf2c0',
+          300: '#a1e68f',
+          400: '#6fd157',
+          500: '#4ab730',
+          600: '#3a9b23',
+          700: '#2f771e',
+          800: '#285e1d',
+          900: '#224e19',
+          950: '#0d2a09'
+        }
       },
       borderRadius: {
       	xl: "calc(var(--radius) + 4px)",

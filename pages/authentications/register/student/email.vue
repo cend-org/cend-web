@@ -28,10 +28,12 @@ import {
   FormLabel,
 } from '@/components/ui/form'
 import { toast } from '@/components/ui/toast/use-toast'
-import {LocalStorageSetItem} from "~/scripts/local-storage";
-import {environment} from "~/scripts/environment";
+import {authenticationStore} from "~/stores/authentication.store";
 
 const loadingStore = useLoadingStore();
+const store = authenticationStore()
+
+
 loadingStore.hide();
 
 const formSchema = toTypedSchema(z.object({
@@ -45,12 +47,7 @@ const { isFieldDirty, handleSubmit } = useForm({
 const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
-    const { NewStudent: T } =  await GqlNewStudent({email: values.mail})
-    toast({
-      title: 'You submitted the following values:',
-      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(T, null, 2))),
-    })
-    LocalStorageSetItem(environment.auth_token, T);
+    await store.authenticate(values.mail)
     navigateTo("/authentications/register/student/password");
   }catch(e){
     toast({

@@ -24,14 +24,6 @@ const validation = useValidation();
 const toast = useToast();
 const loadingStore = useLoadingStore();
 
-onBeforeMount(async () => {
-    const authStore = useAuthStore();
-    if (authStore.isAuthenticated()) {
-        navigateTo('/dashboard/landing');
-    }
-
-});
-
 const state = reactive({
     email: '',
 })

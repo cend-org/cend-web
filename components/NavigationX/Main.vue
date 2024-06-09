@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-const { isAuthenticated } = useAuthStore()
+import {authenticationStore} from "~/stores/authentication.store";
+const store = authenticationStore()
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const { isAuthenticated } = useAuthStore()
         <NavigationXItemTutoring />
         <NavigationXItemAbout  class="hidden lg:block"/>
       </div>
-      <div class="flex flex-row gap-x-2" v-if="!isAuthenticated()">
+      <div class="flex flex-row gap-x-2" v-if="!store.connected">
         <NuxtLink  class="py-2 px-3 rounded-full cursor-pointer hover:bg-green-700 hidden lg:block">
           <span>Aide</span>
         </NuxtLink>

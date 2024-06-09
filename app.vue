@@ -6,7 +6,7 @@
     <NuxtPage />
   </NuxtLayout>
   <Toaster />
-<!--  <UNotifications />-->
+  <UNotifications />
   <UModals />
   <loading />
 </template>

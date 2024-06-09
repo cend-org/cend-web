@@ -51,7 +51,6 @@
                     <UIcon class="text-2xl" name="i-heroicons-qr-code ml-4"></UIcon>
                     <div class="w-full text-md text-center text-gray-400">
                         {{ $t('register_continue_with_qrcode') }}
-
                     </div>
                 </UButton>
             </div>
