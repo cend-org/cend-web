@@ -26,9 +26,34 @@ export const authenticationStore = defineStore('authentication', () => {
         return status.value
     })
 
-    const authenticate = async (email: string) => {
-        const { NewStudent: student } =  await GqlNewStudent({email: email})
-        LocalStorageSetItem(environment.auth_token, student?.T);
+    const authenticate = async (email: string, type: number) => {
+        let Token : {T: string} | null | undefined
+        switch (type){
+            case 0:
+                const { NewStudent: newStudent } =  await GqlNewStudent({email: email})
+                Token = newStudent
+                break
+            case 1:
+                const { NewParent: newParent } =  await GqlNewParent({email: email})
+                Token = newParent
+                break
+            case 2:
+                const { NewTutor: newTutor } =  await GqlNewTutor({email: email})
+                Token = newTutor
+                break
+            case 3:
+                const { NewProfessor: newProfessor } =  await GqlNewProfessor({email: email})
+                Token = newProfessor
+                break
+        }
+
+        LocalStorageSetItem(environment.auth_token, Token?.T);
+        status.value = true
+    }
+
+    const login = async (email: string, password: string) => {
+        const { Login } = await GqlLogin({email: email, password: password})
+        LocalStorageSetItem(environment.auth_token, Login?.T)
         status.value = true
     }
 
@@ -50,6 +75,7 @@ export const authenticationStore = defineStore('authentication', () => {
         authenticate,
         logout,
         updateProfile,
-        setCoursePreference
+        setCoursePreference,
+        login,
     }
 })
