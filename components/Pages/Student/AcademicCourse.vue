@@ -18,9 +18,10 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
 import { toast } from '~/components/ui/toast';
+const registration = registrationStore()
 
 const route = useRoute();
-const academicLevelId: number = route.query.data as any;
+const academicLevelId: number = registration.cache;
 const loadingStore = useLoadingStore();
 const _academicStore = academicStore();
 const academicCourseList = await _academicStore.getAcademicCourse(academicLevelId) as Array<any>;
@@ -48,7 +49,8 @@ const onSubmit = handleSubmit(async () => {
         courseIds.push({ CourseId: el["Id"] })
       });
       await _academicStore.setStudentAcademicCourse(courseIds);
-      navigateTo('/authentications/register/student/course-preference');
+      registration.next()
+      // navigateTo('/authentications/register/student/course-preference');
     } catch (e) {
       loadingStore.hide();
       toast({

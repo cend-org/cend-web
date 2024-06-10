@@ -26,6 +26,8 @@
 }
 </style>
 <script setup lang="ts">
+const registration = registrationStore()
+
 const loadingStore = useLoadingStore();
 
 loadingStore.hide();

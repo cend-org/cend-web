@@ -5,7 +5,7 @@ import type { Sex } from "~/scripts/entities/sex"
 export const signupComponent = [
     {
         title: 'Étudiant',
-        href: '/authentications/register/student/email',
+        href: '/authentications/register?RT=0',
         description: 'Créez un compte étudiant pour accéder à des tuteurs professionels.'
     },
     {

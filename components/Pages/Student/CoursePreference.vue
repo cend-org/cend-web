@@ -19,6 +19,9 @@
 import { useForm } from 'vee-validate';
 import { toast } from '~/components/ui/toast';
 import { studentTypeComponent } from '~/constants/constants';
+
+const registration = registrationStore()
+
 const _authenticationStore = authenticationStore();
 const loadingStore = useLoadingStore();
 const coursetype = studentTypeComponent;
@@ -34,7 +37,8 @@ const onSubmit = handleSubmit(async () => {
         loadingStore.show();
         try {
             await _authenticationStore.setCoursePreference(selectedCourseType.value.value);
-            navigateTo( "/authentications/register/student/disponibility")
+            registration.next()
+            // navigateTo( "/authentications/register/student/disponibility")
         } catch (e) {
           loadingStore.hide();
             toast({

@@ -84,6 +84,8 @@ import { ref } from 'vue';
 
 import Calendar from '~/components/calendar.vue';
 const calendar = useModal();
+const registration = registrationStore()
+
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 const calendarStore = useCalendarStore();
