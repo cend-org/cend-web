@@ -1,3 +1,4 @@
+import type { CourseType } from "~/scripts/entities/course-type";
 import type { Langue } from "~/scripts/entities/langue";
 import type { Sex } from "~/scripts/entities/sex"
 
@@ -102,4 +103,18 @@ export const langueComponent: Array<Langue> = [
         value: "2", 
         default: '',
     }
+];
+
+export const studentTypeComponent: Array<CourseType> = [
+    {
+        label: "En ligne", 
+        value: true, 
+        description: 'Economique, rapide, certains d\'avoir le meilleur tuteur pour vous',
+
+    }, 
+    {
+        label: "Présentiel", 
+        value: false, 
+        description: "Option prémium, séléction plus limitee de candidat"
+    }, 
 ]

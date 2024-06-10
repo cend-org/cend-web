@@ -137,12 +137,13 @@ const onSubmit = handleSubmit( async (values) => {
     await store.updateProfile(values.name, values.familyname, values.sex, values.lang, new Date().toDateString());
     navigateTo("/authentications/register/student/academic-level");
   }catch(e){
+    loadingStore.hide();
     toast({
       title: 'You submitted the following values:',
       description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
     })
   }
-  loadingStore.hide();
+  
 })
 
 

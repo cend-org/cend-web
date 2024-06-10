@@ -41,6 +41,10 @@ export const authenticationStore = defineStore('authentication', () => {
     const updateProfile = async(name: string, familyname: string, sex: string, lang: string, birthDate: string) =>{
         const { UpdateMyProfile: profile } =  await GqlUpdateMyProfile({profile: {Name: name, FamilyName: familyname, Sex: parseInt(sex), Lang: parseInt(lang)}});
     }
+    const setCoursePreference = async(_coursePreference: boolean) =>{
+        const { UpdAcademicCoursePreference: coursePreference } =  await GqlUpdAcademicCoursePreference({coursesPreferences: {IsOnline: _coursePreference}});
+    }
+    //
 
     return {
         status,
@@ -48,5 +52,6 @@ export const authenticationStore = defineStore('authentication', () => {
         authenticate,
         logout,
         updateProfile,
+        setCoursePreference
     }
 })

@@ -15,6 +15,48 @@ export const academicStore = defineStore('academic', () => {
         return academicLevels;
 
     }
+
+    const setStudentAcademicLevels = async (id: number) => {
+        useGqlToken({
+            token: `${LocalStorageGetItem(environment.auth_token)}`,
+            config: {
+                type: 'Bearer',
+                name: 'Authorization'
+            }
+        });
+        const { SetUserAcademicLevel: academicLevels } =  await GqlSetUserAcademicLevel({academicLevelId: id});
+        return academicLevels;
+
+    };
+
+    const getAcademicCourse = async (id: number) => {
+        useGqlToken({
+            token: `${LocalStorageGetItem(environment.auth_token)}`,
+            config: {
+                type: 'Bearer',
+                name: 'Authorization'
+            }
+        });
+        const { AcademicCourses: academicCourses } =  await GqlAcademicCourses({academicLevelId: id});
+        return academicCourses;
+
+    }
+
+    const setStudentAcademicCourse = async (ids: Array<any>) => {
+        useGqlToken({
+            token: `${LocalStorageGetItem(environment.auth_token)}`,
+            config: {
+                type: 'Bearer',
+                name: 'Authorization'
+            }
+        });
+        const { NewUserAcademicCourses: academicCourses } =  await GqlNewUserAcademicCourses({courses: ids});
+        return academicCourses;
+
+    }
     return {
-        getAcademicLevels
+        getAcademicLevels, 
+        setStudentAcademicLevels,
+        getAcademicCourse, 
+        setStudentAcademicCourse
 }})

@@ -1,70 +1,63 @@
 <template>
   <LayoutAuthentication :title="$t('register_academic_courses')">
-    <form action="" class="w-full flex flex-col gap-2 pt-3">
-      <UForm :state="state" class="space-y-2" @submit="onSubmit">
-        <selection-multiple />
-        <div
-            class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-          <UButton size="lg" type="submit" class="bg-color-main hover:bg-green-500" block>
-            {{ $t(`continue`) }}
-          </UButton>
-        </div>
-      </UForm>
+    <form class="space-y-4" @submit="onSubmit">
+      <div class="flex flex-row gap-2 w-full">
+        <FormField v-slot="{ componentField }" name="selectedAcademicCourse" :validate-on-blur="!isFieldDirty">
+          <FormItem class="w-full">
+            <FormControl v-bind="componentField">
+              <CommonFormMultipleSelect searchPlaceholder="Filtre des matières..." :items="academicCourseList"
+                v-model:selectedItems="selectedAcademicCourse" />
+            </FormControl>
+          </FormItem>
+        </FormField>
+      </div>
+      <CommonFormSubmit />
     </form>
   </LayoutAuthentication>
 </template>
-<style>
-.mobile-sex-dropdown div:nth-of-type(2) {
-    width: 88%;
-}
-
-.desktop-sex-dropdown div:nth-of-type(2) {
-    width: 20%;
-    margin-left: 3px !important;
-}
-</style>
 <script setup lang="ts">
-import { environment } from '~/scripts/environment';
-import { LocalStorageSetItem } from '~/scripts/local-storage';
+import { useForm } from 'vee-validate';
+import { toast } from '~/components/ui/toast';
 
+const route = useRoute();
+const academicLevelId: number = route.query.data as any;
 const loadingStore = useLoadingStore();
-loadingStore.hide();
-const toast = useToast();
-const selectionMultipleStore = useSelectionMultipleStore();
+const _academicStore = academicStore();
+const academicCourseList = await _academicStore.getAcademicCourse(academicLevelId) as Array<any>;
+const selectedAcademicCourse = ref([] as Array<any>);
 
-const state = reactive({
-    name: undefined,
-    familyName: undefined,
-    birthDate: '',
-})
-function selectedSubjectsNames(): string {
-    let subjects = selectionMultipleStore.selectedItems as Array<any>;
-    return subjects.map(x => x.Name).join(', ');
-}
-async function onSubmit() {
+loadingStore.hide();
+
+
+
+
+
+
+
+const selectedAcademicLevel = ref(null as any);
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: null,
+});
+
+const onSubmit = handleSubmit(async () => {
+  if (selectedAcademicCourse.value.length > 0) {
     loadingStore.show();
-    let selectedIds: Array<any> = [];
-    selectionMultipleStore.selectedItems.forEach(el => {
-        selectedIds.push({ CourseId: el["Id"] })
-    });
-    GqlNewUserAcademicCourses({ courses: selectedIds }).then(response => {
-        LocalStorageSetItem(environment.student_selected_academic_course, selectedSubjectsNames());
-        navigateTo("/authentications/register/student/course-preference");
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-    });
-}
+    try {
+      let courseIds: Array<any> = [];
+      selectedAcademicCourse.value.forEach(el => {
+        courseIds.push({ CourseId: el["Id"] })
+      });
+      await _academicStore.setStudentAcademicCourse(courseIds);
+      navigateTo('/authentications/register/student/course-preference');
+    } catch (e) {
+      loadingStore.hide();
+      toast({
+        title: 'You submitted the following values:',
+        description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
+      })
+    }
+  }
+
+});
 
 </script>
