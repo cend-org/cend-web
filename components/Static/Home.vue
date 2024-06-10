@@ -21,7 +21,7 @@ import {loginComponent} from "~/constants/constants";
     </div>
     <div class="grid gap-3 p-4 md:grid-cols-2 px-1 md:px-32">
       <NuxtLink v-for="item in loginComponent" :to="item.href">
-        <Card class="shadow-none rounded-sm hover:shadow">
+        <Card class="shadow-none rounded-sm hover:shadow h-full">
           <CardHeader>
             <CardTitle class="font-bold md:text-2xl">{{ item.title }}</CardTitle>
             <CardDescription>

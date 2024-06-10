@@ -1,6 +1,6 @@
 <template>
   <LayoutAuthentication :title="$t('register_disponibility')">
-    <form action="" class="w-full flex flex-col gap-2 pt-3">
+    <!-- <form action="" class="w-full flex flex-col gap-2 pt-3">
       <UForm :state="state" class="space-y-6" @submit="onSubmit">
         <div class="flex flex-col gap-4">
           <div class="flex flex-row gap-2">
@@ -28,7 +28,37 @@
           </UButton>
         </div>
       </UForm>
+    </form> -->
+    <form class="space-y-6" @submit="onSubmit">
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-row gap-2">
+                <span>{{ $t('register_you_prefer_at') }} </span>
+      <FormField v-slot="{ componentField }" name="hour0" :validate-on-blur="!isFieldDirty">
+        <FormItem>
+          <FormControl v-bind="componentField">
+            <input :value="timeValue0" type="text" name="hour0" 
+                   class="text-color-main text-center hour-input bg-gray-200 w-[70px] h-[25px] rounded-lg text-center">
+          </FormControl>
+        </FormItem>
+      </FormField>
+      <span>h</span>
+      </div>
+      <div class="w-full flex justify-end">
+            <div class="flex flex-row gap-2">
+              <span>{{ $t('register_or') }} </span>
+              <!-- <input v-model="state.date" @click="focusDate()" type="text" name="date"
+                     class="text-color-main text-center hour-input bg-gray-200 w-[100px] rounded-lg text-center">
+              <span>{{ $t('at') }}</span> -->
+              <input :value="timeValue1" type="text" name="hour1"
+                     class="text-color-main text-center hour-input bg-gray-200 w-[70px] rounded-lg text-center">
+              <span>h?</span>
+            </div>
+          </div>
+
+    </div>
+      <CommonFormSubmit position="absolute" />
     </form>
+
   </LayoutAuthentication>
 </template>
 <style>
@@ -43,24 +73,46 @@
 </style>
 <script setup lang="ts">
 
+import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { z } from 'zod';
 import Calendar from '~/components/calendar.vue';
 import Time from '~/components/time.vue';
+import { toast } from '~/components/ui/toast';
 import { environment } from '~/scripts/environment';
 import { LocalStorageSetItem } from '~/scripts/local-storage';
+
+
 const time = useModal();
 const calendar = useModal();
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 const calendarStore = useCalendarStore();
 const timeStore = useTimeStore();
-const toast = useToast();
+// const toast = useToast();
 const tutorStore = useTutorStore();
+const timeValue0: string = '8:00'
+const timeValue1: string= '8:00'
+
+const formSchema = toTypedSchema(z.object({
+  hour0: z.string().min(1),
+  hour1: z.string().min(1),
+}))
+
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+
+
+
+
 const state = reactive({
     hour0: undefined,
     date: '',
     hour1: undefined,
     normalDate: '',
-})
+});
 function focusTime(_slot: number) {
     time.open(Time, {
         slot: _slot,
@@ -108,100 +160,116 @@ function formatapointmentDate(): Date {
     }
     return apointmentDate;
 }
-async function onSubmit() {
-    if (!state.hour0 || !state.hour1 || !state.date || !state.normalDate) {
-        toast.add(
-            {
-                id: "1",
-                title: 'Validation',
-                description: 'informations incomplètes!',
-                icon: "i-heroicons-check-badge",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-        return;
-    }
 
-    loadingStore.show();
-    let apointment = formatapointmentDate();
-    LocalStorageSetItem(environment.student_dispo_hour_0, `${state.hour0}`);
-    LocalStorageSetItem(environment.student_dispo_hour_1, `${state.hour1}`);
-    LocalStorageSetItem(environment.student_dispo_date, `${state.date}`);
-    GqlNewUserAppointment({ availability: { Availability: apointment } }).then(response => {
-        GqlSuggestTutorToUser().then(response => {
-            if (response.SuggestTutorToUser != null) {
-                getProfileImage(response.SuggestTutorToUser.Id);
-                getProfileVideo(response.SuggestTutorToUser.Id);
-                tutorStore.tutor = response.SuggestTutorToUser;
-                LocalStorageSetItem(environment.student_tutor_name, `${response.SuggestTutorToUser.Name} ${response.SuggestTutorToUser.FamilyName}`);
-                navigateTo("/authentications/register/student/suggested-tutor");
-            } else {
-                navigateTo("/authentications/register/student/no-tutor");
-            }
-        }, error => {
-            loadingStore.hide();
-            toast.add(
-                {
-                    id: "1",
-                    title: 'Erreur!',
-                    description: 'Une erreur est survenue pendant l\'opérations!',
-                    icon: "i-heroicons-exclamation-triangle",
-                    color: "red",
-                    ui: {
-                        background: "bg-red-100"
-                    }
-                }
-            )
-
-        });
+const onSubmit = handleSubmit( async (values) => {
+    console.log(values);
+  loadingStore.show();
+  try{
+   // await store.setPassword(values.password);
+    navigateTo("/authentications/register/student/about");
+  }catch(e){
+    loadingStore.hide();
+    toast({
+      title: 'You submitted the following values:',
+      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
     });
+  }
+  
+});
+// async function onSubmit() {
+//     if (!state.hour0 || !state.hour1 || !state.date || !state.normalDate) {
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Validation',
+//                 description: 'informations incomplètes!',
+//                 icon: "i-heroicons-check-badge",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//         return;
+//     }
+
+//     loadingStore.show();
+//     let apointment = formatapointmentDate();
+//     LocalStorageSetItem(environment.student_dispo_hour_0, `${state.hour0}`);
+//     LocalStorageSetItem(environment.student_dispo_hour_1, `${state.hour1}`);
+//     LocalStorageSetItem(environment.student_dispo_date, `${state.date}`);
+//     GqlNewUserAppointment({ availability: { Availability: apointment } }).then(response => {
+//         GqlSuggestTutorToUser().then(response => {
+//             if (response.SuggestTutorToUser != null) {
+//                 getProfileImage(response.SuggestTutorToUser.Id);
+//                 getProfileVideo(response.SuggestTutorToUser.Id);
+//                 tutorStore.tutor = response.SuggestTutorToUser;
+//                 LocalStorageSetItem(environment.student_tutor_name, `${response.SuggestTutorToUser.Name} ${response.SuggestTutorToUser.FamilyName}`);
+//                 navigateTo("/authentications/register/student/suggested-tutor");
+//             } else {
+//                 navigateTo("/authentications/register/student/no-tutor");
+//             }
+//         }, error => {
+//             loadingStore.hide();
+//             toast.add(
+//                 {
+//                     id: "1",
+//                     title: 'Erreur!',
+//                     description: 'Une erreur est survenue pendant l\'opérations!',
+//                     icon: "i-heroicons-exclamation-triangle",
+//                     color: "red",
+//                     ui: {
+//                         background: "bg-red-100"
+//                     }
+//                 }
+//             )
+
+//         });
+//     });
 
 
 
-}
+// }
 
-function getProfileImage(Id: string) {
-    loadingStore.show();
-    GqlUserProfileImage({ tutorId: parseInt(Id) }).then(response => {
-        tutorStore.profileImage = response.UserProfileImage as string;
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-    });
-}
+// function getProfileImage(Id: string) {
+//     loadingStore.show();
+//     GqlUserProfileImage({ tutorId: parseInt(Id) }).then(response => {
+//         tutorStore.profileImage = response.UserProfileImage as string;
+//     }, error => {
+//         loadingStore.hide();
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Erreur!',
+//                 description: 'Une erreur est survenue pendant l\'opérations!',
+//                 icon: "i-heroicons-exclamation-triangle",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//     });
+// }
 
-function getProfileVideo(Id: string) {
-    loadingStore.show();
-    GqlUserVideoPresentation({ tutorId: parseInt(Id) }).then(response => {
-        tutorStore.video = response.UserVideoPresentation as string;
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-    });
-}
+// function getProfileVideo(Id: string) {
+//     loadingStore.show();
+//     GqlUserVideoPresentation({ tutorId: parseInt(Id) }).then(response => {
+//         tutorStore.video = response.UserVideoPresentation as string;
+//     }, error => {
+//         loadingStore.hide();
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Erreur!',
+//                 description: 'Une erreur est survenue pendant l\'opérations!',
+//                 icon: "i-heroicons-exclamation-triangle",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//     });
+// }
 </script>

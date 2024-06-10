@@ -5,7 +5,6 @@
         <div class="text-lg text-gray-900 poppins-medium py-5">
           {{ $t('not_tutor_description_a') }}
         </div>
-
         <div
             class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
           <UButton size="lg" type="submit" class="bg-light-green hover:bg-green-300 text-gray-900" block>
