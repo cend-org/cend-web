@@ -51,19 +51,6 @@ body{
     background-color: #008000 !important;
 }
 
-/**::-webkit-scrollbar {*/
-/*    width: 4px;*/
-/*}*/
-
-/**::-webkit-scrollbar-track {*/
-/*    box-shadow: inset 0 0 6px var(--primary-color);*/
-/*}*/
-
-/**::-webkit-scrollbar-thumb {*/
-/*    background-color: white;*/
-/*    outline: 1px solid var(--primary-color);*/
-/*}*/
-
 
 *{
     font-family: 'Uber Move Text', sans-serif !Important;
