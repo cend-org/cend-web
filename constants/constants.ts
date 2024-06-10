@@ -1,3 +1,6 @@
+import type { Langue } from "~/scripts/entities/langue";
+import type { Sex } from "~/scripts/entities/sex"
+
 export const signupComponent = [
     {
         title: 'Étudiant',
@@ -65,4 +68,38 @@ export const aboutComponent  = [
         href: '/static/about#section-4',
         description: 'Comprenez le fonctionnement de nos services en quelques étapes simples.'
     },
+];
+
+export const sexComponent: Array<Sex> = [
+    {
+        label: "Homme", 
+        value: 0
+    }, 
+    {
+        label: "Femme", 
+        value: 1
+    }, 
+    {
+        label: "Autre", 
+        value: 2
+    }
+];
+
+export const langueComponent: Array<Langue> = [
+    {
+        label: "Français CA", 
+        value: 0, 
+        default: 'par défaut',
+
+    }, 
+    {
+        label: "Français FR", 
+        value: 1, 
+        default: '',
+    }, 
+    {
+        label: "Anglais EN", 
+        value: 2, 
+        default: '',
+    }
 ]

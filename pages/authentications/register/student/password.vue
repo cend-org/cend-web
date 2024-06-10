@@ -43,7 +43,7 @@ const onSubmit = handleSubmit( async (values) => {
     })
   }
   loadingStore.hide();
-})
+});
 
 </script>
 <template>

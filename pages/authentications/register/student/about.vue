@@ -1,6 +1,6 @@
 <template>
   <LayoutAuthentication :title="$t('register_fill_about')">
-    <form action="" class="w-full flex flex-col gap-2 pt-3">
+    <!-- <form action="" class="w-full flex flex-col gap-2 pt-3">
       <UForm :state="state" class="space-y-4" @submit="onSubmit">
         <div class="flex flex-row gap-2">
           <UFormGroup :label="$t('register_name')" name="nom">
@@ -36,6 +36,44 @@
           </UButton>
         </div>
       </UForm>
+    </form> -->
+    <form class="space-y-4" @submit="onSubmit">
+      <div class="flex flex-row gap-2 w-full">
+        <FormField v-slot="{ componentField }" name="name" :validate-on-blur="!isFieldDirty">
+        <FormItem  class="w-full">
+          <FormLabel>Nom</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormInput type="text" placeholder="Votre nom" />
+          </FormControl>
+        </FormItem>
+      </FormField>
+      <FormField v-slot="{ componentField }" name="familyname" :validate-on-blur="!isFieldDirty">
+        <FormItem  class="w-full">
+          <FormLabel>Prénom</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormInput type="text" placeholder="Votre Prénom" />
+          </FormControl>
+        </FormItem>
+      </FormField>
+      </div>
+
+      <FormField v-slot="{ componentField }" name="sex" :validate-on-blur="!isFieldDirty">
+        <FormItem  class="w-full">
+          <FormLabel>Sexe</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormSelect placeholder="Choisissez votre sexe" :list="sexList"/>
+          </FormControl>
+        </FormItem>
+      </FormField>
+      <!-- <FormField v-slot="{ componentField }" name="lang" :validate-on-blur="!isFieldDirty">
+        <FormItem  class="w-full">
+          <FormLabel>Langue</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormSelect placeholder="Choisissez votre langue" :list="langList" />
+          </FormControl>
+        </FormItem>
+      </FormField> -->
+      <CommonFormSubmit />
     </form>
   </LayoutAuthentication>
 </template>
@@ -51,128 +89,175 @@
 </style>
 <script setup lang="ts">
 
+import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { z } from 'zod';
 import Calendar from '~/components/calendar.vue';
 import { environment } from '~/scripts/environment';
 import { LocalStorageGetItem } from '~/scripts/local-storage';
+import { toast } from '@/components/ui/toast/use-toast'
+import { langueComponent, sexComponent } from '~/constants/constants';
+const sexList: Array<any> = sexComponent;
+const langList: Array<any> = langueComponent;
 
 const loadingStore = useLoadingStore();
 loadingStore.hide();
-const toast = useToast();
 const calendar = useModal();
 const calendarStore = useCalendarStore();
 const registrationSexStore = useRegistrationSexStore();
 const registrationLangStore = useRegistrationLangStore();
 const selectionSingleStore = useSelectionSingleStore();
-const state = reactive({
-    name: '',
-    familyName: '',
-    birthDate: '',
+const store = authenticationStore()
+
+
+const formSchema = toTypedSchema(z.object({
+  name: z.string().min(1),
+  familyname: z.string().min(1),
+  sex: z.number(),
+}))
+
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: formSchema,
 })
 
-async function onSubmit() {
-    if (!state.birthDate || !state.familyName || !state.name) {
-        toast.add(
-            {
-                id: "1",
-                title: 'Validation',
-                description: 'Information incomplete!',
-                icon: "i-heroicons-check-badge",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-        return;
-    }
-
-    if (typeof (registrationSexStore.sex.value) != 'number') {
-        toast.add(
-            {
-                id: "1",
-                title: 'Validation',
-                description: 'Veillez ajouter votre sexe!',
-                icon: "i-heroicons-check-badge",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-        return;
-    }
-    if (typeof (registrationLangStore.lang.value) != 'number') {
-        toast.add(
-            {
-                id: "1",
-                title: 'Validation',
-                description: 'Veillez ajouter votre Langue!',
-                icon: "i-heroicons-check-badge",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-        return;
-    }
-    loadingStore.show();
-
-    useGqlToken({
-        token: `${LocalStorageGetItem(environment.auth_token)}`,
-        config: {
-            type: 'Bearer',
-            name: 'Authorization'
-        }
-    });
-    GqlUpdateMyProfile({ profile: { Name: state.name, FamilyName: state.familyName, Lang: registrationLangStore.lang.value, Sex: registrationSexStore.sex.value } }).then(response => {
-        getAcademicLevels();
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-    });
-
-}
-function getAcademicLevels() {
-    GqlAcademicLevels().then(response => {
-        selectionSingleStore.list = response.AcademicLevels as Array<never>;
-        navigateTo('/authentications/register/student/academic-level');
-    }, error => {
-        loadingStore.hide();
-        toast.add(
-            {
-                id: "1",
-                title: 'Erreur!',
-                description: 'Une erreur est survenue pendant l\'opérations!',
-                icon: "i-heroicons-exclamation-triangle",
-                color: "red",
-                ui: {
-                    background: "bg-red-100"
-                }
-            }
-        )
-    });
-}
-function focusBirthDate() {
-    calendar.open(Calendar, {
-        onClose() {
-            calendar.close();
-        },
-        onConfirm() {
-            state.birthDate = calendarStore.formatedDate;
-            calendar.close();
-        }
+const onSubmit = handleSubmit( async (values) => {
+console.log(values);
+  loadingStore.show();
+  try{
+    await store.updateProfile(values.name, values.familyname);
+    // navigateTo("/authentications/register/student/password");
+  }catch(e){
+    toast({
+      title: 'You submitted the following values:',
+      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
     })
-}
+  }
+  loadingStore.hide();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const state = reactive({
+//     name: '',
+//     familyName: '',
+//     birthDate: '',
+// })
+
+// async function onSubmit() {
+//     if (!state.birthDate || !state.familyName || !state.name) {
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Validation',
+//                 description: 'Information incomplete!',
+//                 icon: "i-heroicons-check-badge",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//         return;
+//     }
+
+//     if (typeof (registrationSexStore.sex.value) != 'number') {
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Validation',
+//                 description: 'Veillez ajouter votre sexe!',
+//                 icon: "i-heroicons-check-badge",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//         return;
+//     }
+//     if (typeof (registrationLangStore.lang.value) != 'number') {
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Validation',
+//                 description: 'Veillez ajouter votre Langue!',
+//                 icon: "i-heroicons-check-badge",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//         return;
+//     }
+//     loadingStore.show();
+
+//     useGqlToken({
+//         token: `${LocalStorageGetItem(environment.auth_token)}`,
+//         config: {
+//             type: 'Bearer',
+//             name: 'Authorization'
+//         }
+//     });
+//     GqlUpdateMyProfile({ profile: { Name: state.name, FamilyName: state.familyName, Lang: registrationLangStore.lang.value, Sex: registrationSexStore.sex.value } }).then(response => {
+//         getAcademicLevels();
+//     }, error => {
+//         loadingStore.hide();
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Erreur!',
+//                 description: 'Une erreur est survenue pendant l\'opérations!',
+//                 icon: "i-heroicons-exclamation-triangle",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//     });
+
+// }
+// function getAcademicLevels() {
+//     GqlAcademicLevels().then(response => {
+//         selectionSingleStore.list = response.AcademicLevels as Array<never>;
+//         navigateTo('/authentications/register/student/academic-level');
+//     }, error => {
+//         loadingStore.hide();
+//         toast.add(
+//             {
+//                 id: "1",
+//                 title: 'Erreur!',
+//                 description: 'Une erreur est survenue pendant l\'opérations!',
+//                 icon: "i-heroicons-exclamation-triangle",
+//                 color: "red",
+//                 ui: {
+//                     background: "bg-red-100"
+//                 }
+//             }
+//         )
+//     });
+// }
+// function focusBirthDate() {
+//     calendar.open(Calendar, {
+//         onClose() {
+//             calendar.close();
+//         },
+//         onConfirm() {
+//             state.birthDate = calendarStore.formatedDate;
+//             calendar.close();
+//         }
+//     })
+// }
 </script>

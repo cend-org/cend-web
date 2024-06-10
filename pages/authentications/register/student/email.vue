@@ -31,7 +31,7 @@ import { toast } from '@/components/ui/toast/use-toast'
 import {authenticationStore} from "~/stores/authentication.store";
 
 const loadingStore = useLoadingStore();
-const store = authenticationStore()
+const store = authenticationStore();
 
 
 loadingStore.hide();
