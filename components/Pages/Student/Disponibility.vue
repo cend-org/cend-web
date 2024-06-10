@@ -73,6 +73,8 @@
 </style>
 <script setup lang="ts">
 
+const registration = registrationStore()
+
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 import { z } from 'zod';
@@ -166,7 +168,8 @@ const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
    // await store.setPassword(values.password);
-    navigateTo("/authentications/register/student/about");
+   //  navigateTo("/authentications/register/student/about");
+    registration.next()
   }catch(e){
     loadingStore.hide();
     toast({

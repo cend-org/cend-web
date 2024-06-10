@@ -13,6 +13,8 @@ import {
 import { toast } from '@/components/ui/toast/use-toast'
 import {authenticationStore} from "~/stores/authentication.store";
 
+const registration = registrationStore()
+
 const props = defineProps({
   userType: {
     required: true,
@@ -41,7 +43,8 @@ const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
     await store.authenticate(values.mail, props.userType)
-    navigateTo(props.nextPage);
+    // navigateTo(props.nextPage);
+    registration.next()
   }catch(e){
     loadingStore.show();
     toast({

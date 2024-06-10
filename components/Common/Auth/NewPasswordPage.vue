@@ -6,6 +6,8 @@ import { z } from 'zod';
 import { passwordStore } from '~/stores/password.store';
 import { toast } from '@/components/ui/toast/use-toast'
 
+const registration = registrationStore()
+
 const props = defineProps({
   nextPage: {
     required: true,
@@ -31,7 +33,8 @@ const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
     await store.setPassword(values.password);
-    navigateTo(props.nextPage);
+    // navigateTo(props.nextPage);
+    registration.next()
   }catch(e){
     loadingStore.hide();
     toast({

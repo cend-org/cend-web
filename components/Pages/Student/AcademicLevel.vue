@@ -20,6 +20,9 @@ import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { toast } from '~/components/ui/toast';
 import { academicStore } from '~/stores/academic.store';
+
+const registration = registrationStore()
+
 const loadingStore = useLoadingStore();
 
 const store = authenticationStore();
@@ -35,7 +38,8 @@ const onSubmit = handleSubmit(async () => {
         loadingStore.show();
         try {
             await _academicStore.setStudentAcademicLevels(selectedAcademicLevel.value.Id);
-            navigateTo({ path: '/authentications/register/student/academic-course', query: { data: selectedAcademicLevel.value.Id } })
+          registration.setCache(selectedAcademicLevel.value.Id)
+          registration.next()
         } catch (e) {
             toast({
                 title: 'You submitted the following values:',

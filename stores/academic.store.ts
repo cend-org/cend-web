@@ -13,7 +13,6 @@ export const academicStore = defineStore('academic', () => {
         });
         const { AcademicLevels: academicLevels } =  await GqlAcademicLevels();
         return academicLevels;
-
     }
 
     const setStudentAcademicLevels = async (id: number) => {

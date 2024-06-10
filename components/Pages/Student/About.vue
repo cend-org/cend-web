@@ -106,8 +106,12 @@ import { z } from 'zod';
 import Calendar from '~/components/calendar.vue';
 import { environment } from '~/scripts/environment';
 import { LocalStorageGetItem } from '~/scripts/local-storage';
-import { toast } from '@/components/ui/toast/use-toast'
+import { toast } from '~/components/ui/toast/use-toast'
 import { langueComponent, sexComponent } from '~/constants/constants';
+
+const registration = registrationStore()
+
+
 const sexList: Array<any> = sexComponent;
 const langList: Array<any> = langueComponent;
 
@@ -142,7 +146,8 @@ const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
     await store.updateProfile(values.name, values.familyname, values.sex, values.lang, values.birthDate);
-    navigateTo("/authentications/register/student/academic-level");
+    // navigateTo("/authentications/register/student/academic-level");
+    registration.next()
   }catch(e){
     loadingStore.hide();
     toast({

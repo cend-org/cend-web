@@ -43,6 +43,7 @@
 import { LocalStorageGetItem } from '~/scripts/local-storage';
 import { environment } from '~/scripts/environment';
 const tutorStore = useTutorStore();
+const registration = registrationStore()
 
 const loadingStore = useLoadingStore();
 loadingStore.hide();
