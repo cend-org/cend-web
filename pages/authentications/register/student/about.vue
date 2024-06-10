@@ -37,8 +37,10 @@
         </div>
       </UForm>
     </form> -->
+
     <form class="space-y-4" @submit="onSubmit">
-      <div class="flex flex-row gap-2 w-full">
+      
+      <div class="flex flex-row gap-2 w-full">        
         <FormField v-slot="{ componentField }" name="name" :validate-on-blur="!isFieldDirty">
         <FormItem  class="w-full">
           <FormLabel>Nom</FormLabel>
@@ -118,6 +120,7 @@ const registrationLangStore = useRegistrationLangStore();
 const selectionSingleStore = useSelectionSingleStore();
 const store = authenticationStore()
 const birthDate = ref(null as any);
+const showAlert = ref(false);
 
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),

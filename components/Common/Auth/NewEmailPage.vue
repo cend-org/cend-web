@@ -54,6 +54,7 @@ const onSubmit = handleSubmit( async (values) => {
 </script>
 <template>
   <LayoutAuthentication :title="$t('register_student_header_email_or_phone')">
+    
     <form class="space-y-6" @submit="onSubmit">
       <FormField v-slot="{ componentField }" name="mail" :validate-on-blur="!isFieldDirty">
         <FormItem>
