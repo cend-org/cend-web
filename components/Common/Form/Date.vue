@@ -53,7 +53,8 @@ const emit = defineEmits(['update:value']);
             </PopoverTrigger>
             <PopoverContent  class="w-auto p-0">
                 <Calendar  v-model="value" initial-focus locale="fr" value ="sdsadasdsa" :min-value="new CalendarDate(1900, 1, 1)"
-                    :max-value="today(getLocalTimeZone())" />
+                    :max-value="today(getLocalTimeZone())"  @update:model-value="(v) => {
+              }"/>
             </PopoverContent>
         </Popover>
     </div>
