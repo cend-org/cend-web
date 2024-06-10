@@ -10,8 +10,6 @@ export const authenticationStore = defineStore('authentication', () => {
 
         if (!token || token === "") status.value = false
 
-        console.log(status.value)
-
         if (status.value ){
             try {
                 const decodedToken = jwtDecode(token!);
@@ -35,7 +33,8 @@ export const authenticationStore = defineStore('authentication', () => {
     }
 
     const logout = () => {
-        LocalStorageremoveItem(environment.auth_token);
+        LocalStorageremoveItem(environment.auth_token)
+        status.value = false
     }
 
     const updateProfile = async(name: string, familyname: string, sex: string, lang: string, birthDate: string) =>{
