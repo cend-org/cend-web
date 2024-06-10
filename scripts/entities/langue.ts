@@ -1,5 +1,5 @@
 export class Langue{
     "label": string;
-    "value": number;
+    "value": string;
     "default": string;
 }

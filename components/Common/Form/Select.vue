@@ -1,13 +1,17 @@
 <script setup lang="ts">
 const props = defineProps({
-  list: {
+  items: {
     required: true,
     type: Array<any>,
   },
   placeholder: {
     required: true,
     type: String,
-  }
+  }, 
+  componentField: {
+    required: true,
+    type: Object,
+  }, 
 })
 
 import {
@@ -22,13 +26,13 @@ import {
 </script>
 <template>
   <div class="relative w-full items-center">
-      <Select>
+      <Select v-bind="componentField">
         <SelectTrigger class="w-full h-12">
           <SelectValue :placeholder="props.placeholder" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem v-for="item in props.list" :value="item.value.toString()">
+            <SelectItem v-for="item in props.items" :value="item.value">
               {{ item.label }}
             </SelectItem>
           </SelectGroup>

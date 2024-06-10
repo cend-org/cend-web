@@ -38,8 +38,8 @@ export const authenticationStore = defineStore('authentication', () => {
         LocalStorageremoveItem(environment.auth_token);
     }
 
-    const updateProfile = async(name: string, familyname: string) =>{
-        const { UpdateMyProfile: profile } =  await GqlUpdateMyProfile({profile: {Name: name, FamilyName: familyname}});
+    const updateProfile = async(name: string, familyname: string, sex: string, lang: string, birthDate: string) =>{
+        const { UpdateMyProfile: profile } =  await GqlUpdateMyProfile({profile: {Name: name, FamilyName: familyname, Sex: parseInt(sex), Lang: parseInt(lang)}});
     }
 
     return {

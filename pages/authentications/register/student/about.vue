@@ -57,22 +57,31 @@
       </FormField>
       </div>
 
+      <!-- <FormField v-slot="{ componentField }" name="birthDate" :validate-on-blur="!isFieldDirty">
+        <FormItem  class="w-full">
+          <FormLabel>Date de naissance</FormLabel>
+          <FormControl v-bind="componentField">
+            <CommonFormDate placeholder="Choisissez votre date de naissance" :componentField="componentField" type="date-time"/>
+          </FormControl>
+        </FormItem>
+      </FormField> -->
+
       <FormField v-slot="{ componentField }" name="sex" :validate-on-blur="!isFieldDirty">
         <FormItem  class="w-full">
           <FormLabel>Sexe</FormLabel>
           <FormControl v-bind="componentField">
-            <CommonFormSelect placeholder="Choisissez votre sexe" :list="sexList"/>
+            <CommonFormSelect placeholder="Choisissez votre sexe" :items="sexList" :componentField="componentField"/>
           </FormControl>
         </FormItem>
       </FormField>
-      <!-- <FormField v-slot="{ componentField }" name="lang" :validate-on-blur="!isFieldDirty">
+      <FormField v-slot="{ componentField }" name="lang" :validate-on-blur="!isFieldDirty">
         <FormItem  class="w-full">
           <FormLabel>Langue</FormLabel>
           <FormControl v-bind="componentField">
-            <CommonFormSelect placeholder="Choisissez votre langue" :list="langList" />
+            <CommonFormSelect placeholder="Choisissez votre langue" :items="langList" :componentField="componentField" />
           </FormControl>
         </FormItem>
-      </FormField> -->
+      </FormField>
       <CommonFormSubmit />
     </form>
   </LayoutAuthentication>
@@ -113,7 +122,9 @@ const store = authenticationStore()
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),
   familyname: z.string().min(1),
-  sex: z.number(),
+  sex: z.string().min(1),
+  lang: z.string().min(1), 
+//   birthDate: z.string().min(1),
 }))
 
 const { isFieldDirty, handleSubmit } = useForm({
@@ -121,11 +132,10 @@ const { isFieldDirty, handleSubmit } = useForm({
 })
 
 const onSubmit = handleSubmit( async (values) => {
-console.log(values);
   loadingStore.show();
   try{
-    await store.updateProfile(values.name, values.familyname);
-    // navigateTo("/authentications/register/student/password");
+    await store.updateProfile(values.name, values.familyname, values.sex, values.lang, new Date().toDateString());
+    navigateTo("/authentications/register/student/academic-level");
   }catch(e){
     toast({
       title: 'You submitted the following values:',

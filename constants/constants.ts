@@ -73,33 +73,33 @@ export const aboutComponent  = [
 export const sexComponent: Array<Sex> = [
     {
         label: "Homme", 
-        value: 0
+        value: "0"
     }, 
     {
         label: "Femme", 
-        value: 1
+        value: "1"
     }, 
     {
         label: "Autre", 
-        value: 2
+        value: "2"
     }
 ];
 
 export const langueComponent: Array<Langue> = [
     {
         label: "Français CA", 
-        value: 0, 
+        value: "0", 
         default: 'par défaut',
 
     }, 
     {
         label: "Français FR", 
-        value: 1, 
+        value: "1", 
         default: '',
     }, 
     {
         label: "Anglais EN", 
-        value: 2, 
+        value: "2", 
         default: '',
     }
 ]
