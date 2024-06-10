@@ -57,14 +57,14 @@
       </FormField>
       </div>
 
-      <!-- <FormField v-slot="{ componentField }" name="birthDate" :validate-on-blur="!isFieldDirty">
+      <FormField v-slot="{ componentField }" name="birthDate" :validate-on-blur="!isFieldDirty">
         <FormItem  class="w-full">
           <FormLabel>Date de naissance</FormLabel>
           <FormControl v-bind="componentField">
-            <CommonFormDate placeholder="Choisissez votre date de naissance" :componentField="componentField" type="date-time"/>
+            <CommonFormDate placeholder="Choisissez votre date de naissance" v-model:value="birthDate"  :componentField="componentField" type="date-time"/>
           </FormControl>
         </FormItem>
-      </FormField> -->
+      </FormField>
 
       <FormField v-slot="{ componentField }" name="sex" :validate-on-blur="!isFieldDirty">
         <FormItem  class="w-full">
@@ -117,24 +117,28 @@ const registrationSexStore = useRegistrationSexStore();
 const registrationLangStore = useRegistrationLangStore();
 const selectionSingleStore = useSelectionSingleStore();
 const store = authenticationStore()
-
+const birthDate = ref(null as any);
 
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),
   familyname: z.string().min(1),
   sex: z.string().min(1),
   lang: z.string().min(1), 
-//   birthDate: z.string().min(1),
+  birthDate: z.string().min(1),
 }))
 
-const { isFieldDirty, handleSubmit } = useForm({
+const { isFieldDirty, setFieldValue,  handleSubmit } = useForm({
   validationSchema: formSchema,
-})
+});
+
+watch(birthDate, (newVal) => {
+  setFieldValue('birthDate', newVal.toString())
+});
 
 const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
-    await store.updateProfile(values.name, values.familyname, values.sex, values.lang, new Date().toDateString());
+    await store.updateProfile(values.name, values.familyname, values.sex, values.lang, values.birthDate);
     navigateTo("/authentications/register/student/academic-level");
   }catch(e){
     loadingStore.hide();
