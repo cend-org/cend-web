@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@samk-dev/nuxt-vcalendar',
   ],
-  css: ['~/assets/css/base.css', '~/assets/css/poppins.css', '~/assets/css/tailwind.css' ],
+  css: ['~/assets/css/base.css', '~/assets/css/tailwind.css' ],
   i18n: {
     vueI18n: './i18n.config.ts' // if you are using custom path, default
   },
