@@ -69,7 +69,7 @@ const onSubmit = handleSubmit( async (values) => {
           </FormControl>
         </FormItem>
       </FormField>
-      <CommonFormSubmit />
+      <CommonFormSubmit position="absolute" />
     </form>
   </LayoutAuthentication>
 </template>

@@ -82,7 +82,7 @@
           </FormControl>
         </FormItem>
       </FormField>
-      <CommonFormSubmit />
+      <CommonFormSubmit position="absolute" />
     </form>
   </LayoutAuthentication>
 </template>

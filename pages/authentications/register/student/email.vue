@@ -9,7 +9,7 @@
           </FormControl>
         </FormItem>
       </FormField>
-      <CommonFormSubmit />
+      <CommonFormSubmit/>
     </form>
     <UDivider orientation="vertical" size="xs" :label="$t(`register_or`)" class="text-gray-500"></UDivider>
     <CommonAuth />

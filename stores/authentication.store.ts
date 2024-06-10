@@ -43,7 +43,6 @@ export const authenticationStore = defineStore('authentication', () => {
     const setCoursePreference = async(_coursePreference: boolean) =>{
         const { UpdAcademicCoursePreference: coursePreference } =  await GqlUpdAcademicCoursePreference({coursesPreferences: {IsOnline: _coursePreference}});
     }
-    //
 
     return {
         status,

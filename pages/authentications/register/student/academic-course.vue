@@ -11,7 +11,7 @@
           </FormItem>
         </FormField>
       </div>
-      <CommonFormSubmit />
+      <CommonFormSubmit position="absolute" />
     </form>
   </LayoutAuthentication>
 </template>
