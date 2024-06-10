@@ -23,7 +23,7 @@ const store = authenticationStore()
         </div>
       </div>
       <div v-else>
-        <NavigationXItemLogOut />
+        <NavigationXItemAvatar />
       </div>
     </nav>
   </div>
