@@ -49,9 +49,6 @@ const onSubmit = handleSubmit( async (values) => {
 </script>
 <template>
   <LayoutAuthentication :title=" $t('register_enter_password')" >
-    <div v-if="values.password !== values.passwordConfirm" class="text-red-700 py-5">
-      *PASSWORD NOT THE SAME
-    </div>
     <form class="space-y-6" @submit="onSubmit">
       <FormField v-slot="{ componentField }" name="password" :validate-on-blur="!isFieldDirty">
         <FormItem>
@@ -70,6 +67,14 @@ const onSubmit = handleSubmit( async (values) => {
         </FormItem>
       </FormField>
       <CommonFormSubmit position="absolute" />
+      <div v-if="values.password !== values.passwordConfirm" class="text-red-700 py-5">
+        <Alert>
+          <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+          <AlertDescription>
+            Les deux mots de passes ne se concordent pas !
+          </AlertDescription>
+        </Alert>
+      </div>
     </form>
   </LayoutAuthentication>
 </template>
