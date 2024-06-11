@@ -9,9 +9,9 @@ const props = defineProps({
 
 </script>
 <template>
-  <div class="flex flex-row w-full justify-center items-center px-5 md:px-10 mt-3">
-    <div class="w-full md:w-[430px] py-5">
-      <div class="text-gray-700 font-medium text-2xl">
+  <div class="flex flex-row w-full justify-center items-center py-2 px-5 md:px-10">
+    <div class="w-full md:w-[430px] py-1">
+      <div class="text-gray-700 font-medium text-xl">
         {{ props.title }}
       </div>
       <div class="py-5">

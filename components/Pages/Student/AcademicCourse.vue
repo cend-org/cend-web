@@ -30,11 +30,6 @@ const selectedAcademicCourse = ref([] as Array<any>);
 loadingStore.hide();
 
 
-
-
-
-
-
 const selectedAcademicLevel = ref(null as any);
 const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: null,
@@ -50,7 +45,6 @@ const onSubmit = handleSubmit(async () => {
       });
       await _academicStore.setStudentAcademicCourse(courseIds);
       registration.next()
-      // navigateTo('/authentications/register/student/course-preference');
     } catch (e) {
       loadingStore.hide();
       toast({

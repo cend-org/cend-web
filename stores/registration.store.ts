@@ -1,10 +1,11 @@
 import {registrationFlow} from "~/constants/registration";
+import {useLocalStorage} from "@vueuse/core";
 
 export const registrationStore = defineStore('registration', () => {
-    const RT = ref<number>(-1) // RT for registration type ( -1 by default and then by user type )
-    const AP = ref<number>(0) // AP for active registration page
 
-    const cache = ref(0)
+    const RT = useLocalStorage("RT", -1)
+    const AP = useLocalStorage("AP", 0)
+    const cache = useLocalStorage("registration-cache",0)
 
     const activePage = computed(() => {
         return AP.value
@@ -25,16 +26,16 @@ export const registrationStore = defineStore('registration', () => {
     })
 
     const setCache = (val: number) => {
-        cache.value = val
+        if (val > cache.value ){
+            cache.value = val
+        }
     }
-
 
     const configure = function (rt: number) {
         RT.value = rt
     }
 
     return {
-        RT,
         configure,
         activePage,
         next,

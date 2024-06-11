@@ -5,7 +5,7 @@ import type { Sex } from "~/scripts/entities/sex"
 export const signupComponent = [
     {
         title: 'Étudiant',
-        href: '/authentications/register?RT=0',
+        href: '/app/auth/register?RT=0',
         description: 'Créez un compte étudiant pour accéder à des tuteurs professionels.'
     },
     {
@@ -28,22 +28,22 @@ export const signupComponent = [
 export const loginComponent = [
     {
         title: 'Étudiant',
-        href: '/authentications/login?label=student',
+        href: '/app/auth/login?label=student',
         description: 'Accédez à votre espace étudiant en vous connectant ici.'
     },
     {
         title: 'Parent',
-        href: '/authentications/login?label=parent',
+        href: '/app/auth/login?label=parent',
         description: 'Connectez-vous à votre compte parent pour suivre la progression de votre enfant.'
     },
     {
         title: 'Tuteur',
-        href: '/authentications/login?label=tutor',
+        href: '/app/auth/login?label=tutor',
         description: 'Connectez-vous à votre compte tuteur pour gérer vos cours.'
     },
     {
         title: 'Professeur',
-        href: '/authentications/login?label=teacher',
+        href: '/app/auth/login?label=teacher',
         description: 'Identifiez-vous en tant que professeur pour suivre vos élèves.'
     },
 ]
