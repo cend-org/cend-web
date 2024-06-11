@@ -20,5 +20,8 @@ export const registrationFlow: Array<Array<IRegistrationFlow>> = [
         {component: PagesStudentAcademicCourse},
         {component: PagesStudentCoursePreference},
         {component: PagesStudentDisponibility},
-    ],
+    ], // for student
+    [], // for parent
+    [], // for tutor
+    [], // for teacher or professor
 ]
