@@ -23,6 +23,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "@radix-icons/vue": "^1.0.0",
+    "@tanstack/vue-table": "^8.17.3",
     "@vee-validate/zod": "^4.13.1",
     "@vueuse/core": "^10.10.1",
     "class-variance-authority": "^0.7.0",
