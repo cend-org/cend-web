@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import  { Sparkles, CalendarDays, Paperclip } from 'lucide-vue-next'
+import  { Sparkles, CalendarDays, Paperclip, LayoutDashboard } from 'lucide-vue-next'
 
 const navigations = [
+  {
+    icon: LayoutDashboard,
+    name: "Mon dashboard",
+    badge: 0,
+    link: "/app/dashboard"
+  },
   {
     icon: CalendarDays,
     name: "Mon calendrier",
@@ -36,7 +42,7 @@ const navigations = [
         >
           <Component :is="navigation.icon" />
           <span>{{ navigation.name }}</span>
-          <Badge class="ml-auto rounded-full">{{ navigation.badge }}</Badge>
+          <Badge class="ml-auto rounded-full" v-if="navigation.badge > 0">{{ navigation.badge }}</Badge>
         </NuxtLink>
       </div>
     </div>
