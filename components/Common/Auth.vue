@@ -3,18 +3,18 @@
 const items = [
   {
     img: "/image/google.svg",
-    text: "register_continue_with_google",
+    text: "continuer avec google",
   },
   {
     img: "/image/apple.svg",
-    text: "register_continue_with_apple",
+    text: "continuer avec Apple",
   },
   {
     img: "/image/fb.svg",
-    text: "register_continue_with_facebook",
+    text: "continuer avec facebook",
   },
   {
-    text: "register_continue_with_qrcode",
+    text: "connectez-vous avec un QR code",
   },
 ]
 </script>
@@ -24,7 +24,7 @@ const items = [
         v-for="item in items"
         class="cursor-pointer flex justify-content-between align-items-center w-full px-3 py-4 shadow">
       <img v-if="item.img" class="absolute ml-4" :src="item.img" alt="Image" width="20" />
-      <div class="w-full text-center">{{ $t(item.text) }}</div>
+      <div class="w-full text-center">{{ item.text }}</div>
     </div>
   </div>
   <p class="text-sm font-extralight text-gray-400 text-center py-10">

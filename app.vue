@@ -6,7 +6,4 @@ import {Toaster} from "~/components/ui/toast";
     <NuxtPage />
   </NuxtLayout>
   <Toaster />
-  <UNotifications />
-  <UModals />
-  <loading />
 </template>
