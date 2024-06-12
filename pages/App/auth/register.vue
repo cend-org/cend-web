@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'onboarding'
+})
+
 const registration = registrationStore()
 
 const { apply } = useRTGuard()

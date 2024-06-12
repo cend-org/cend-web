@@ -4,6 +4,10 @@ import {toTypedSchema} from "@vee-validate/zod";
 import * as z from "zod";
 import {useForm} from "vee-validate";
 
+definePageMeta({
+  layout: 'onboarding'
+})
+
 const { apply } = useRTGuard()
 const usr = userStore()
 
