@@ -27,7 +27,7 @@ function logout() {
 <!--      <DropdownMenuItem>Support</DropdownMenuItem>-->
       <DropdownMenuSeparator />
       <DropdownMenuItem class="p-0">
-        <Button @click="logout()" class="bg-transparent hover:bg-transparent shadow-none border-none w-full">
+        <Button @click="logout()" class="text-primary bg-transparent hover:bg-transparent shadow-none border-none w-full">
           Se déconnecter
         </Button>
       </DropdownMenuItem>

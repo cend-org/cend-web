@@ -1,0 +1,3 @@
+<template>
+  document page !
+</template>
