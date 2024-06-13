@@ -27,6 +27,7 @@ export const registrationStore = defineStore('registration', () => {
 
             return flow[AP.value]
         }
+        
     })
 
     const setCache = (val: number) => {
