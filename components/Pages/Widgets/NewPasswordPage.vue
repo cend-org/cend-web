@@ -52,7 +52,7 @@ const onSubmit = handleSubmit( async (values) => {
         </FormControl>
       </FormItem>
     </FormField>
-    <CommonFormSubmit />
+    <CommonFormSubmit  position="bottom"/>
     <div v-if="values.password !== values.passwordConfirm" class="text-red-700 py-5">
       <Alert>
         <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>

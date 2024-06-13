@@ -10,4 +10,5 @@ usr.configure(0)
     <NuxtPage />
   </NuxtLayout>
   <Toaster />
+  <Loading />
 </template>

@@ -7,7 +7,6 @@ export const useRTGuard = () => {
 
         if (!route.query['RT'] || isNaN(parseInt(rt))) {
             // return to dashboard
-            console.log("ATO VE?");
             navigateTo("/")
         }
 

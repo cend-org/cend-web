@@ -1,5 +1,11 @@
 import {
-    PagesAuthEmail, PagesAuthPassword, PagesAuthProfie
+    PagesAuthEmail, 
+    PagesAuthPassword, 
+    PagesAuthProfie, 
+    PagesAuthAcademicSchool, 
+    PagesAuthAcademicSubject, 
+    PagesAuthCoursePreference, 
+    PagesAuthDisponibility,
 
 } from "#components";
 import type {ComponentOptionsMixin, DefineComponent, PublicProps} from "@vue/runtime-core";
@@ -13,6 +19,10 @@ export const registrationFlow: Array<Array<IRegistrationFlow>> = [
         {component: PagesAuthEmail},
         {component:  PagesAuthPassword},
         {component:  PagesAuthProfie},
+        {component: PagesAuthAcademicSchool},
+        {component: PagesAuthAcademicSubject}, 
+        {component: PagesAuthCoursePreference},
+        {component: PagesAuthDisponibility}
     ], // for student
     [
         {component: PagesAuthEmail},
