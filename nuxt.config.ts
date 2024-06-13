@@ -1,4 +1,3 @@
-import { lang } from "./i18n/lang";
 import { environment } from "./scripts/environment";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -6,9 +5,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["shadcn-nuxt", "nuxt-graphql-client", '@pinia/nuxt', "@nuxtjs/tailwindcss"],
   css: ['~/assets/css/base.css', '~/assets/css/tailwind.css' ],
-  i18n: {
-    vueI18n: './i18n.config.ts' // if you are using custom path, default
-  },
   runtimeConfig: {
     public: {
       GQL_HOST: `${environment.api}${environment.query}`,
@@ -19,7 +15,11 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "CEND | APP",
+      meta: [
+        {charset: "utf-8"},
+        {name: "viewport", content: "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"},
+        {"http-equiv" : "X-UA-Compatible", content:"ie=edge"},
+      ]
     }
   },
   shadcn: {
