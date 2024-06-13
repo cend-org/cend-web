@@ -9,7 +9,6 @@ import {Popover, PopoverContent, PopoverTrigger} from "~/components/ui/popover";
 import {Button} from "~/components/ui/button";
 import {Calendar} from "~/components/ui/calendar";
 import {CalendarIcon} from "@radix-icons/vue";
-
 import { ref } from 'vue'
 import {
   CalendarDate,
@@ -19,6 +18,8 @@ import {
 } from '@internationalized/date'
 import {cn} from "~/lib/utils";
 import {toDate} from "date-fns";
+import { Languages } from "~/constants/languages";
+import { Sex } from "~/constants/Sex";
 
 
 const df = new DateFormatter('en-US', {
@@ -30,7 +31,8 @@ const df = new DateFormatter('en-US', {
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),
   lastname: z.string().min(1),
-  birthdate: z.string().refine(v => v, { message: 'A date of birth is required.' }),
+  //birthdate: z.string().refine(v => v, { message: 'A date of birth is required.' }),
+  langue: z.string().min(1),
   // sex: z.string(),
   // language: z.string(),
 }))
@@ -39,10 +41,10 @@ const { isFieldDirty, handleSubmit, values } = useForm({
   validationSchema: formSchema,
 })
 
-const value = computed({
-  get: () => values.birthdate ? parseDate(values.birthdate) : undefined,
-  set: val => val,
-})
+// const value = computed({
+//   get: () => values.birthdate ? parseDate(values.birthdate) : undefined,
+//   set: val => val,
+// })
 
 const onSubmit = handleSubmit( async (values) => {
   console.log(values)
@@ -83,7 +85,39 @@ const onSubmit = handleSubmit( async (values) => {
             </FormItem>
           </FormField>
         </div>
+       
       </div>
+      <div>
+          <FormField v-slot="{ componentField }" name="langue" :validate-on-blur="!isFieldDirty">
+            <FormItem>
+              <FormLabel>Date de naissance</FormLabel>
+              <FormControl v-bind="componentField">
+                <CommonFormDatePicker    />
+                <!-- placeholder="Votre Date de naissance" -->
+              </FormControl>
+            </FormItem>
+          </FormField>
+        </div>
+      <div>
+          <FormField v-slot="{ componentField }" name="langue" :validate-on-blur="!isFieldDirty">
+            <FormItem>
+              <FormLabel>Langue</FormLabel>
+              <FormControl v-bind="componentField">
+                <CommonFormSelect :items="Languages"  placeholder="Sélectionnnez votre langue" />
+              </FormControl>
+            </FormItem>
+          </FormField>
+        </div>
+        <div>
+          <FormField v-slot="{ componentField }" name="sex" :validate-on-blur="!isFieldDirty">
+            <FormItem>
+              <FormLabel>Sexe</FormLabel>
+              <FormControl v-bind="componentField">
+                <CommonFormSelect :items="Sex"  placeholder="Sélectionnnez votre sexe" />
+              </FormControl>
+            </FormItem>
+          </FormField>
+        </div>
 <!--      <FormField  name="birthdate" >-->
 <!--        <FormItem>-->
 <!--          <FormLabel>Votre date de naissance</FormLabel>-->
@@ -124,6 +158,7 @@ const onSubmit = handleSubmit( async (values) => {
 <!--          </FormControl>-->
 <!--        </FormItem>-->
 <!--      </FormField>-->
+
       <CommonFormSubmit />
     </form>
   </LayoutAuthentication>

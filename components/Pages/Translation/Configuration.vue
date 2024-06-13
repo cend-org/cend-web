@@ -4,21 +4,9 @@ import { Activity } from "lucide-vue-next";
 import {Input} from "~/components/ui/input";
 import {Label} from "~/components/ui/label";
 import {Textarea} from "~/components/ui/textarea";
+import { Languages } from "~/constants/languages";
 
-const languages = [
-  {
-    name: "Français FR",
-    value: 0
-  },
-  {
-    name: "Français CA",
-    value: 1
-  },
-  {
-    name: "English",
-    value: 2
-  },
-]
+const languages = ref(Languages);
 
 </script>
 <template>
