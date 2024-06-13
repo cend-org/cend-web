@@ -9,11 +9,12 @@ definePageMeta({
 })
 
 const { apply } = useRTGuard()
-const usr = userStore()
 
 watchEffect(() => {
   apply()
 })
+
+const usr = userStore()
 
 const authentication = authenticationStore()
 const loadingStore = useLoadingStore();

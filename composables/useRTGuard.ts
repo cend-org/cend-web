@@ -1,9 +1,9 @@
 export const useRTGuard = () => {
     function apply() {
         const route = useRoute()
-        const usr = userStore()
-
         const rt = <string>route.query['RT']
+
+        console.log(rt)
 
         if (!route.query['RT'] || isNaN(parseInt(rt))) {
             // return to dashboard
@@ -15,6 +15,7 @@ export const useRTGuard = () => {
             navigateTo("/")
         }
 
+        const usr = userStore()
         usr.configure(parseInt(<string>route.query['RT']))
     }
 

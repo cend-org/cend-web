@@ -3,11 +3,10 @@ definePageMeta({
   layout: 'onboarding'
 })
 
-const registration = registrationStore()
-
 const { apply } = useRTGuard()
-
 watchEffect(() => { apply() })
+
+const registration = registrationStore()
 
 </script>
 <template>
