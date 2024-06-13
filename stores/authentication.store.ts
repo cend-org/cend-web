@@ -6,6 +6,7 @@ export const authenticationStore = defineStore('authentication', () => {
     const token = useLocalStorage(environment.auth_token, "")
     const status = ref<Boolean>(false)
     const RT = useLocalStorage("RT", 0)
+    const AP = useLocalStorage("AP", 0)
 
     const connected = computed((): Boolean => {
         status.value = !(!token || token.value == "");
@@ -18,7 +19,7 @@ export const authenticationStore = defineStore('authentication', () => {
                     return false;
                 }
                 useGqlToken({
-                    token: `${token}`,
+                    token: `${token.value}`,
                     config: {
                         type: 'Bearer',
                         name: 'Authorization'
@@ -68,6 +69,12 @@ export const authenticationStore = defineStore('authentication', () => {
     const logout = () => {
         token.value = null
         status.value = false
+        RT.value = 0
+        AP.value = 0
+        localStorage.removeItem("token")
+        localStorage.removeItem("RT")
+        localStorage.removeItem("AP")
+        localStorage.removeItem("registration-cache")
     }
 
     const updateProfile = async(name: string, familyname: string, sex: string, lang: string, birthDate: string) =>{
