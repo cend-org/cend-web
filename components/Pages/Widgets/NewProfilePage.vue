@@ -27,7 +27,7 @@ const usr = userStore()
 const registration = registrationStore()
 const loadingStore = useLoadingStore();
 loadingStore.hide();
-
+let dateOfBirth = ref(undefined);
 // const df = new DateFormatter('en-US', {
 //   dateStyle: 'long',
 // })
@@ -37,15 +37,18 @@ loadingStore.hide();
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),
   lastname: z.string().min(1),
-  //birthdate: z.string().min(1),
+  birthdate: z.string().min(1),
   langue: z.string().min(1),
   sex: z.string().min(1),
   // language: z.string(),
 }))
 
-const { isFieldDirty, handleSubmit, values } = useForm({
+const { isFieldDirty, handleSubmit, setFieldValue, values } = useForm({
   validationSchema: formSchema,
-})
+});
+watch(dateOfBirth, (newVal) => {
+  setFieldValue('birthdate', `${newVal}`);
+});
 
 // const value = computed({
 //   get: () => values.birthdate ? parseDate(values.birthdate) : undefined,
@@ -55,7 +58,7 @@ const { isFieldDirty, handleSubmit, values } = useForm({
 const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
-    await usr.createProfile(values.name, values.lastname, parseInt(values.langue), parseInt(values.sex), new Date())
+    await usr.createProfile(values.name, values.lastname, parseInt(values.langue), parseInt(values.sex), new Date(values.birthdate))
     registration.next()
   }catch(e){
     loadingStore.hide();
@@ -69,6 +72,7 @@ const onSubmit = handleSubmit( async (values) => {
 <template>
     <form class="space-y-6" @submit="onSubmit">
       <div class="flex flex-row gap-x-2">
+       
           <div class="w-1/2">
             <FormField v-slot="{ componentField }" name="name" :validate-on-blur="!isFieldDirty">
               <FormItem>
@@ -80,6 +84,8 @@ const onSubmit = handleSubmit( async (values) => {
             </FormField>
           </div>
         <div class="w-1/2">
+
+        
           <FormField v-slot="{ componentField }" name="lastname" :validate-on-blur="!isFieldDirty">
             <FormItem>
               <FormLabel>Prénom</FormLabel>
@@ -91,16 +97,16 @@ const onSubmit = handleSubmit( async (values) => {
         </div>
        
       </div>
-      <!-- <div>
+      <div>
           <FormField v-slot="{ componentField }" name="dateOfBirth" :validate-on-blur="!isFieldDirty">
             <FormItem>
               <FormLabel>Date de naissance</FormLabel>
               <FormControl v-bind="componentField">
-                <CommonFormDatePicker  v-model:placeholder="value"  text="Votre Date de naissance" type="birth-date"/>
+                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date"/>
               </FormControl>
             </FormItem>
           </FormField>
-        </div> -->
+        </div>
       <div>
           <FormField v-slot="{ componentField }" name="langue" :validate-on-blur="!isFieldDirty">
             <FormItem>

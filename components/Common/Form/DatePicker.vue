@@ -60,6 +60,7 @@ const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttribu
   placeholder() {
     return today(getLocalTimeZone())
   },
+
   weekdayFormat: 'short',
   type: {
     required: true,
@@ -72,19 +73,26 @@ const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttribu
   hideIcon: {
     required: false,
     type: Boolean, 
-  }
+  }, 
+  yearMinus: {
+    required: false,
+    type: String, 
+  }, 
+
   
 })
+
 const emits = defineEmits<CalendarRootEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, placeholder: __, ...delegated } = props
+  const { class: _, placeholder: __,  ...delegated } = props
 
   return delegated
 })
 
+
 const duration: Duration = {
-  years: 18,
+  years: 0 ,
 }
 const placeholder = useVModel(props, 'modelValue', emits, {
   passive: true,
@@ -111,7 +119,7 @@ const df = new DateFormatter('fr-Fr', {
       <Button type="button"
         :class="['flex flex-row items-center justify-start h-12 bg-white text-foreground shadow-none border w-full hover:bg-transparent', props.class]">
         <CalendarIcon class="mr-2 h-4 w-4" v-if="!props.hideIcon" />
-        {{ placeholder ? df.format(placeholder.subtract(duration).toDate(getLocalTimeZone())) : props.text }}
+        {{ placeholder ? df.format(placeholder.subtract(duration).toDate(getLocalTimeZone())) : "Votre date de naissance" }}
       </Button>
     </PopoverTrigger>
     <PopoverContent class="w-auto p-0">

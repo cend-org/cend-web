@@ -51,11 +51,14 @@ import {
 } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import { LogIn } from 'lucide-vue-next'
+import { string } from 'zod'
 
 
 
 const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttributes['class'] }>(), {
     modelValue: undefined,
+    h: undefined,
+    m: undefined,
     placeholder() {
         return today(getLocalTimeZone())
     },
@@ -76,13 +79,17 @@ const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttribu
         type: String,
 
     },
+    hourTime: {
+        required: true, 
+        type: String,
+    }
 
 })
-const emits = defineEmits<CalendarRootEmits>()
+const emits = defineEmits<CalendarRootEmits>();
+
 
 const delegatedProps = computed(() => {
     const { class: _, placeholder: __, H: ___, M: ____, ...delegated } = props
-
     return delegated
 })
 
@@ -94,16 +101,15 @@ const placeholder = useVModel(props, 'modelValue', emits, {
     defaultValue: today(getLocalTimeZone()),
 }) as Ref<DateValue>
 
-const H = useVModel(props, 'modelValue', emits, {
+const H = useVModel(props, 'h', emits, {
     passive: true,
     defaultValue: '08' as any,
 }) as Ref<any>
 
-const M = useVModel(props, 'modelValue', emits, {
+const M = useVModel(props, 'm', emits, {
     passive: true,
-    defaultValue: '08' as any,
+    defaultValue: '00' as any,
 }) as Ref<any>
-
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 const formatter = useDateFormatter('fr')
@@ -121,11 +127,26 @@ const createHours = (() => {
 
 const createminutes = (() => {
     const hours: string[] = [];
-    for (let i = 0; i <= 60; i++) {
+    for (let i = 0; i <= 60 - 1; i++) {
         hours.push(i.toString().padStart(2, '0'));
     }
     return hours;
 });
+
+
+
+// watch(H, (newVal) => {
+//     emitEvent()
+// });
+
+// watch(M, (newVal) => {
+//     emitEvent()
+// });
+
+// function emitEvent(){
+//     let time = `${H.value} h: ${M.value}`;
+//     //emit('update:hourTime', time);
+// }
 
 </script>
 
@@ -133,8 +154,8 @@ const createminutes = (() => {
 
     <Popover>
         <PopoverTrigger as-child>
-            <Button type="button" :class="['', props.class]">
-                {{ H ? `${H} H: ${M}` : "02" }}
+            <Button type="button" :class="['text-center', props.class]">
+                {{ H ? `${H}h : ${M}` : "02" }}
             </Button>
         </PopoverTrigger>
         <PopoverContent class="w-auto p-0">
@@ -152,7 +173,7 @@ const createminutes = (() => {
                             </SelectTrigger>
                             <SelectContent class="max-h-[300px]">
                                 <SelectItem v-for="hour in createHours()" :key="hour.toString()" :value="hour">
-                                    {{ `${hour} H` }}
+                                    {{ `${hour}h ` }}
                                     <!-- {{ formatter.custom(toDate(month), { month: 'long' }) }} -->
                                 </SelectItem>
                             </SelectContent>

@@ -85,6 +85,7 @@ export const authenticationStore = defineStore('authentication', () => {
     }
 
     return {
+        token,
         status,
         connected,
         authenticate,

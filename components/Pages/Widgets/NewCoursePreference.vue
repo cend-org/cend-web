@@ -30,7 +30,7 @@ const onSubmit = handleSubmit(async (values) => {
 
         loadingStore.show();
         try {
-            await usr.setStudentCoursePreference(selectedItem.value.value);
+            await usr.setCoursePreference(selectedItem.value.value);
             registration.next()
         } catch (e) {
             loadingStore.hide();

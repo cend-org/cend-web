@@ -5,15 +5,14 @@
   </Button>
 </template> -->
 <template>
-  
   <div v-if="props.position == 'bottom'"
     class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-    <Button type="submit" class="w-full bg-color-main text-white hover:bg-green-800 h-12">
-      Continuer
+    <Button type="submit" :class="['w-full bg-color-main text-white hover:bg-green-800 h-12', props.classList]">
+      {{ props.title? props.title : 'Continuer'}}
     </Button>
   </div>
-  <Button v-else type="submit" class="w-full bg-color-main text-white hover:bg-green-800 h-12">
-    Continuer
+  <Button v-else type="submit" :class="['w-full bg-color-main text-white hover:bg-green-800 h-12', props.classList]">
+    {{ props.title? props.title : 'Continuer'}}
   </Button>
 </template>
 <script setup lang="ts">
@@ -22,5 +21,13 @@ const props = defineProps({
     required: false,
     type: String
   },
+  title: {
+    required: false, 
+    type: String,
+  },
+  classList: {
+    required: false, 
+    type: String,
+  }
 });
 </script>

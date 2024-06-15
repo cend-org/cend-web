@@ -31,7 +31,7 @@ const onSubmit = handleSubmit(async (values) => {
   if (selectedSchoolLevel != null) {
     loadingStore.show();
     try {
-      await usr.setAcademicLevel(selectedSchoolLevel.Id);
+      await usr.setAcademicLevel(selectedSchoolLevel.Id, selectedSchoolLevel);
       registration.next()
     } catch (e) {
       loadingStore.hide();

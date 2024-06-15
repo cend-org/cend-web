@@ -1,10 +1,13 @@
+import { useLocalStorage } from "@vueuse/core"
+
 export const useRTGuard = () => {
     function apply() {
         const route = useRoute()
         const rt = <string>route.query['RT']
+        const RT = useLocalStorage("RT", 0)
 
         console.log(rt)
-
+        RT.value = parseInt(rt);
         if (!route.query['RT'] || isNaN(parseInt(rt))) {
             // return to dashboard
             navigateTo("/")
@@ -14,7 +17,7 @@ export const useRTGuard = () => {
             navigateTo("/")
         }
 
-        const usr = userStore()
+        const usr = userStore();
         usr.configure(parseInt(<string>route.query['RT']))
     }
 

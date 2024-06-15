@@ -17,6 +17,9 @@ const registration = registrationStore()
 
 const loadingStore = useLoadingStore();
 const store = authenticationStore();
+// const route = useRoute();
+// const usr = userStore();
+// usr.configure(parseInt(<string>route.query['RT']))
 
 loadingStore.hide();
 
@@ -34,7 +37,7 @@ const onSubmit = handleSubmit( async (values) => {
     await store.authenticate(values.mail)
     registration.next()
   }catch(e){
-    loadingStore.show();
+    loadingStore.hide();
     toast({
       title: 'You submitted the following values:',
       description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),

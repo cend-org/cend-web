@@ -34,7 +34,7 @@ const onSubmit = handleSubmit(async (values) => {
 
         loadingStore.show();
         try {
-            await usr.setStudentAcademicSubject(transform.ToArrayObject(selectedSchoolSubject.value, 'CourseId', "Id"));
+            await usr.setAcademicSubject(transform.ToArrayObject(selectedSchoolSubject.value, 'CourseId', "Id"));
             registration.next()
         } catch (e) {
             loadingStore.hide();
