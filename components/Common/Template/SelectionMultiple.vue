@@ -20,7 +20,7 @@ const props = defineProps({
 
 const attrs = useAttrs();
 const filterText = ref('');
-const itemsPerPage = ref(6);
+const itemsPerPage = ref(5);
 const currentPage = ref(1);
 
 
@@ -89,7 +89,7 @@ emit('update:selectedItem', selectedItem);
     </div>
     
 
-    <div class="h-[54vh] space-y-2 overflow-y-scroll scroll-bar-none">
+    <div class="h-[50vh] space-y-2 overflow-y-scroll scroll-bar-none">
         <button type="button" @click="toggleSelectItem(item)"
             :class="['bg-gray-200 w-full h-[8vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item) ? 'bg-green-500 text-white' : '']"
             v-for="item in paginatedItems" :key="item.Id">

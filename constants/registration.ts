@@ -22,7 +22,14 @@ import {
     PagesAuthProfessorAcademicSchool,
     PagesAuthProfessorSearchStudent,
     PagesAuthProfessorConfirmation,
-    PagesAuthParentStudent
+    PagesAuthParentStudent,
+    PagesAuthParentLanguage,
+    PagesAuthParentAcademicSchool,
+    PagesAuthParentAcademicSubject,
+    PagesAuthParentCoursePreference,
+    PagesAuthParentDisponibility,
+    PagesAuthParentSuggestedTutor,
+    PagesAuthParentCongratulation
 
 
 } from "#components";
@@ -49,6 +56,13 @@ export const registrationFlow: Array<Array<IRegistrationFlow>> = [
         {component:  PagesAuthPassword},
         {component:  PagesAuthProfie},
         {component:  PagesAuthParentStudent},
+        {component:  PagesAuthParentLanguage},
+        {component:  PagesAuthParentAcademicSchool},
+        {component:  PagesAuthParentAcademicSubject},
+        {component:  PagesAuthParentCoursePreference},
+        {component:  PagesAuthParentDisponibility},
+        {component:  PagesAuthParentSuggestedTutor},
+        {component:  PagesAuthParentCongratulation},
         
     ], // for parent
     [

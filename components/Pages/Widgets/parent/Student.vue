@@ -11,8 +11,8 @@ const loadingStore = useLoadingStore();
 loadingStore.hide();
 
 const formSchema = toTypedSchema(z.object({
-  password: z.string().min(5),
-  passwordConfirm: z.string().min(5),
+  firstname: z.string().min(1),
+  lastname: z.string().min(1),
 }));
 
 const { isFieldDirty, handleSubmit, values } = useForm({
@@ -22,7 +22,7 @@ const { isFieldDirty, handleSubmit, values } = useForm({
 const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
-    await usr.createPassword(values.password)
+    await usr.createStudent(values.firstname, values.lastname)
     registration.next()
   }catch(e){
     loadingStore.hide();
@@ -36,30 +36,22 @@ const onSubmit = handleSubmit( async (values) => {
 </script>
 <template>
   <form class="space-y-6" @submit="onSubmit">
-    <FormField v-slot="{ componentField }" name="password" :validate-on-blur="!isFieldDirty">
+    <FormField v-slot="{ componentField }" name="firstname" :validate-on-blur="!isFieldDirty">
       <FormItem>
-        <FormLabel>Mots de passe</FormLabel>
+        <FormLabel>Nom</FormLabel>
         <FormControl v-bind="componentField">
-          <CommonFormInput type="password" placeholder="Votre mot de passe" />
+          <CommonFormInput type="text" placeholder="nom de votre jeûne" />
         </FormControl>
       </FormItem>
     </FormField>
-    <FormField v-slot="{ componentField }" name="passwordConfirm" :validate-on-blur="!isFieldDirty">
+    <FormField v-slot="{ componentField }" name="lastname" :validate-on-blur="!isFieldDirty">
       <FormItem>
-        <FormLabel>Confirmez votre mot de passe</FormLabel>
+        <FormLabel>Prenom</FormLabel>
         <FormControl v-bind="componentField">
-          <CommonFormInput type="password" placeholder="Confirmation de votre mots de passe" />
+          <CommonFormInput type="text" placeholder="Prenoms de votre jeûne" />
         </FormControl>
       </FormItem>
     </FormField>
     <CommonFormSubmit  position="bottom"/>
-    <div v-if="values.password !== values.passwordConfirm" class="text-red-700 py-5">
-      <Alert>
-        <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
-        <AlertDescription>
-          Les deux mots de passes ne se concordent pas !
-        </AlertDescription>
-      </Alert>
-    </div>
   </form>
 </template>

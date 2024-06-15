@@ -20,7 +20,7 @@ const props = defineProps({
 
 const attrs = useAttrs();
 const filterText = ref('');
-const itemsPerPage = ref(6);
+const itemsPerPage = ref(5);
 const currentPage = ref(1);
 const selectedItem = ref(props.selectedItem);
 watch(selectedItem, (newVal) => {
@@ -68,9 +68,9 @@ const emit = defineEmits(['update:selectedItem'])
     </span>
   </div>
 
-    <div class="h-[54vh] space-y-2 overflow-y-scroll scroll-bar-none">
+    <div class="h-[50vh] space-y-2 overflow-y-scroll scroll-bar-none">
         <button @click="onSelectItem(item)" type="button"
-            :class="['bg-gray-200 w-full h-[8vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm hover:bg-color-main hover:text-white', selectedItem && selectedItem.Id === item.Id ? 'bg-color-main text-white' : '']"
+            :class="['bg-gray-200 w-full h-[8vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm hover:bg-green-300 hover:text-gray-900', selectedItem && selectedItem.Id === item.Id ? 'bg-green-300' : '']"
             v-for="item in paginatedItems" :key="item.Id">
             <span>{{ item.Name }}</span>
         </button>

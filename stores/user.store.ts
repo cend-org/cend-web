@@ -8,7 +8,11 @@ export const userStore = defineStore('user', () => {
     let A_LVL_NAME = useLocalStorage('A_LVL_NAME', '')
     let A_SUBJ = useLocalStorage('A_SUBJ', '')
     let TUT = useLocalStorage("TUT", '')
+    let TUT_NAME = useLocalStorage("TUT_NAME", '')
     let PRF_STD = useLocalStorage('PRF_STD', false);
+    let STD_ID = useLocalStorage("STD_ID", 0);
+    let AVAIL_DATA = useLocalStorage("AVAIL_DATA",  '');
+    let HAS_TUT = useLocalStorage("HAS_TUT", false);
 
     const type = computed(() => {
         switch (RT.value) {
@@ -26,6 +30,29 @@ export const userStore = defineStore('user', () => {
         RT.value = rt
     }
 
+    const getCachedData = () =>{
+        return {
+            academicLevelId: A_LVL.value,
+            studentId: STD_ID.value, 
+            professorChoseStudent: PRF_STD.value, 
+            academicLevelNames: A_LVL_NAME.value, 
+            tutorName: TUT_NAME.value, 
+            academicCourses: A_SUBJ.value, 
+            hasTutor: HAS_TUT.value,
+            date: AVAIL_DATA.value,
+        }
+    }
+
+    const destroyCachedData = () =>{
+        A_LVL.value = 0;
+        STD_ID.value = 0;
+        PRF_STD.value = false;
+        A_LVL_NAME.value = "";
+        TUT_NAME.value = "";
+        A_SUBJ.value = "";
+        HAS_TUT.value = false;
+
+    }
     const createPassword = async (password: string) => {
         const { NewPassword: P } = await GqlNewPassword(
             {
@@ -71,10 +98,10 @@ export const userStore = defineStore('user', () => {
     }
 
     const setAcademicLevel = async (id: any, level?: any) => {
-        if (RT.value == 0 || RT.value == 1) { //cas Etudiant
+        if (RT.value == 0) { //cas Etudiant
             const { SetUserAcademicLevel: A } = await GqlSetUserAcademicLevel({ academicLevelId: id });
             A_LVL.value = id;
-            A_LVL_NAME.value = level.value.Id;
+            A_LVL_NAME.value = level.Name;
             return A;
         }
 
@@ -82,6 +109,13 @@ export const userStore = defineStore('user', () => {
             const { NewUserAcademicLevels: A } = await GqlNewUserAcademicLevels({ academicLevelIds: id });
             A_LVL.value = id;
             A_LVL_NAME.value = level.join(', ');
+            return A;
+        }
+
+        if (RT.value == 1) { //cas Etudiant
+            const { SetStudentAcademicLevelByParent: A } = await GqlSetStudentAcademicLevelByParent({academicLevelId: id, studentId: STD_ID.value});
+            A_LVL.value = id;
+            A_LVL_NAME.value = level.Name;
             return A;
         }
     };
@@ -101,7 +135,7 @@ export const userStore = defineStore('user', () => {
     const setAcademicSubject = async (courses: Array<any>, studentId?: any, courseNames?: Array<string>) => {
 
         if (RT.value == 1) {
-            const { NewStudentAcademicCoursesByParent: NA } = await GqlNewStudentAcademicCoursesByParent({ courses: courses, studentId: studentId });
+            const { NewStudentAcademicCoursesByParent: NA } = await GqlNewStudentAcademicCoursesByParent({ courses: courses, studentId:  STD_ID.value });
             A_SUBJ.value = courseNames?.join(", ")
             return NA;
         } else {
@@ -114,7 +148,7 @@ export const userStore = defineStore('user', () => {
 
     const setCoursePreference = async (preference: boolean, studentId?: any) => {
         if (RT.value == 1) {
-            const { UpdStudentAcademicCoursesPreferenceByParent: CP } = await GqlUpdStudentAcademicCoursesPreferenceByParent({ coursesPreferences: { IsOnline: preference }, studentId: studentId });
+            const { UpdStudentAcademicCoursesPreferenceByParent: CP } = await GqlUpdStudentAcademicCoursesPreferenceByParent({ coursesPreferences: { IsOnline: preference }, studentId: STD_ID.value });
             return CP;
 
         } else {
@@ -125,9 +159,15 @@ export const userStore = defineStore('user', () => {
 
     };
 
-    const createStudentDisponibility = async (date: Date) => {
-        const { NewUserAppointment: DISPO } = await GqlNewUserAppointment({ availability: { Availability: date } });
-        return DISPO;
+    const createDisponibility = async (date: Date) => {
+        AVAIL_DATA.value = date.toDateString();
+        if (RT.value == 1) {
+            const { NewUserAppointmentByParent: DISPO } = await GqlNewUserAppointmentByParent({ availability: { Availability: date }, studentId: STD_ID.value });
+            return DISPO;
+        }else{
+            const { NewUserAppointment: DISPO } = await GqlNewUserAppointment({ availability: { Availability: date } });
+            return DISPO;
+        }
 
     };
 
@@ -147,14 +187,23 @@ export const userStore = defineStore('user', () => {
         return TU;
     };
 
-    const acceptTutorStudent = async () => {
-        const { NewStudentTutor: RES } = await GqlNewStudentTutor({ tutorId: parseInt(TUT.value) });
-        return RES;
+    const acceptTutor = async (tutor: any) => {
+        TUT_NAME.value = `${tutor.Name} ${tutor.FamilyName}`
+        HAS_TUT.value = true
+        if (RT.value == 1) {
+            const { NewStudentTutorByParent: RES } = await GqlNewStudentTutorByParent({ tutorId: parseInt(TUT.value), studentId: STD_ID.value });
+            return RES;
+        }else{
+            const { NewStudentTutor: RES } = await GqlNewStudentTutor({ tutorId: parseInt(TUT.value) });
+            return RES;
+        }
+        
     };
     const getProfileImage = async () => {
         const { UserProfileImage: PRI } = await GqlUserProfileImage({ tutorId: parseInt(TUT.value) });
         return PRI;
     };
+    
     const getProfileVideo = async () => {
         const { UserVideoPresentation: PRV } = await GqlUserVideoPresentation({ tutorId: parseInt(TUT.value) });
         return PRV;
@@ -172,6 +221,20 @@ export const userStore = defineStore('user', () => {
     }
     const hasSelectedStudent = async (): Promise<boolean> => {
         return PRF_STD.value;
+    }
+
+    const createStudent = async (firstname: string, lastname: string) =>{
+        const { UserStudent: STD } = await GqlUserStudent({familyName: lastname, name: firstname});
+        if(STD){
+            STD_ID.value = parseInt(STD.Id);
+        }
+        
+        return STD;
+    }
+
+    const createLanguage = async (lang: any) =>{
+        const { UpdateStudentProfileByParent: STD } = await GqlUpdateStudentProfileByParent({profile:{Lang: lang.value}, studentId: STD_ID.value});
+        return STD;
     }
 
     const uploadFile = async (formData: FormData) => {
@@ -195,16 +258,20 @@ export const userStore = defineStore('user', () => {
         getAcademicSubject,
         setAcademicSubject,
         setCoursePreference,
-        createStudentDisponibility,
+        createDisponibility,
         getSuggestedTutor,
         getNewSuggestedTutor,
-        acceptTutorStudent,
+        acceptTutor,
         getProfileImage,
         getProfileVideo,
         uploadFile,
         createProfileDescription, 
         searchStudent, 
         selectStudent, 
-        hasSelectedStudent
+        hasSelectedStudent, 
+        createStudent, 
+        createLanguage, 
+        getCachedData, 
+        destroyCachedData
     }
 })

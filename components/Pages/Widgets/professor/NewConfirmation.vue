@@ -32,7 +32,9 @@
    loadingStore.show();
    try{
      // await usr.createProfileDescription(values.descriptionProfile, values.experiences, values.motivations);
+     usr.destroyCachedData();
      registration.next()
+     
    }catch(e){
      loadingStore.hide();
      toast({

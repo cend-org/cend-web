@@ -33,7 +33,6 @@ watch(filterStudent, (newValue) => {
   timeoutId.value = setTimeout(() => {
     onInputStoppedTyping();
   }, 2000) as unknown as number;
-  //currentPage.value = 1; // Reset page index on filter change
 });
 
 const  onInputStoppedTyping = async() => {
@@ -84,6 +83,7 @@ const continueWithoutStudent = () => {
   }, 500);
 }
 const emit = defineEmits(['update:selectedStudent']);
+
 </script>
 
 <template>

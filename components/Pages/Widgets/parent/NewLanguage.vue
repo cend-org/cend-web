@@ -1,22 +1,21 @@
 <template>
-   <form class="space-y-6" @submit="onSubmit">
-            <p>
-                Nous allons vérifier que tout est bon. Notre équipe vous enverra un e-mail de confirmation !
-            </p>
-           
-            <CommonFormSubmit position="bottom" classList="" />
-    </form>
+     <form class="space-y-6" @submit="onSubmit">
+        <CommonTemplateLanguage v-model:selectedLanguage="selectedLanguage"/>
+        <CommonFormSubmit position="bottom" />
+     </form>
+    
 </template>
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
 import { toast } from '~/components/ui/toast';
-
 
 const usr = userStore()
 const registration = registrationStore()
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 
+
+const selectedLanguage = ref(null as any);
 const { isFieldDirty, handleSubmit, values } = useForm({
   validationSchema: null,
 });
@@ -24,8 +23,7 @@ const { isFieldDirty, handleSubmit, values } = useForm({
 const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();
   try{
-    // await usr.createProfileDescription(values.descriptionProfile, values.experiences, values.motivations);
-    usr.destroyCachedData();
+    await usr.createLanguage(selectedLanguage.value)
     registration.next()
   }catch(e){
     loadingStore.hide();

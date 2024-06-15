@@ -10,6 +10,7 @@ const props = defineProps({
     type: String,
   }
 })
+
 const videoRef = ref<HTMLVideoElement | null>(null);
 let videoState = ref('pause');
 function pause() {
@@ -37,6 +38,10 @@ function fullScreen() {
         videoRef.value.requestFullscreen();
     }
 }
+
+onMounted(() => {
+    alert(props.videoLink) 
+});
 </script>
 
 <template>

@@ -20,27 +20,15 @@ watch(suggestedTutor, (newVal) => {
     emit('update:suggestedTutor', newVal);
 });
 
-let image = ref('');
-await usr.getSuggestedTutor().then(resp => {
+
+usr.getSuggestedTutor().then(resp => {
     loadingStore.show();
     suggestedTutor = resp as any;
-    getmedia();
+
     emit('update:suggestedTutor', suggestedTutor);
     loadingStore.hide();
-});
 
-async function getmedia(){
-    await usr.getProfileImage().then(resp=>{
-    if(resp){
-        console.log("======>", resp);
-    }
 });
-}
-// await usr.getProfileImage().then(resp=>{
-//     if(resp){
-//         console.log("======>", resp);
-//     }
-// });
 
 const { isFieldDirty, handleSubmit, values } = useForm({
     validationSchema: null,
@@ -48,7 +36,7 @@ const { isFieldDirty, handleSubmit, values } = useForm({
 
 
 const onSubmit = handleSubmit(async (values) => {
-    if (suggestedTutor.value) {
+    if (suggestedTutor) {
         loadingStore.show();
         try {
             await usr.acceptTutor(suggestedTutor.value);
