@@ -44,6 +44,7 @@ export const userStore = defineStore('user', () => {
     }
 
     const destroyCachedData = () =>{
+        let AP = useLocalStorage("AP", 0);
         A_LVL.value = 0;
         STD_ID.value = 0;
         PRF_STD.value = false;
@@ -203,7 +204,7 @@ export const userStore = defineStore('user', () => {
         const { UserProfileImage: PRI } = await GqlUserProfileImage({ tutorId: parseInt(TUT.value) });
         return PRI;
     };
-    
+
     const getProfileVideo = async () => {
         const { UserVideoPresentation: PRV } = await GqlUserVideoPresentation({ tutorId: parseInt(TUT.value) });
         return PRV;
