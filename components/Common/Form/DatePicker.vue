@@ -1,39 +1,3 @@
-<!-- <script setup lang="ts">
-import { ref } from 'vue'
-import {
-  DateFormatter,
-  type DateValue,
-  getLocalTimeZone,
-} from '@internationalized/date'
-
-import { CalendarIcon } from '@radix-icons/vue'
-import { Calendar } from '@/components/ui/calendar'
-import { Button } from '@/components/ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-
-const df = new DateFormatter('en-US', {
-  dateStyle: 'long',
-})
-
-const value = ref<DateValue>()
-
-</script>
-
-<template>
-  <Popover>
-    <PopoverTrigger as-child>
-      <Button class="flex flex-row items-center justify-start h-12 bg-white text-foreground shadow-none border w-full hover:bg-transparent">
-        <CalendarIcon class="mr-2 h-4 w-4" />
-        {{ value ? df.format(value.toDate(getLocalTimeZone())) : "Votre date de naissance" }}
-      </Button>
-    </PopoverTrigger>
-    <PopoverContent class="w-auto p-0">
-      <Calendar v-model="value" initial-focus />
-    </PopoverContent>
-  </Popover>
-</template> -->
-
-
 <script setup lang="ts">
 import { CalendarIcon } from '@radix-icons/vue'
 import { type HTMLAttributes, type Ref, computed } from 'vue'
@@ -50,12 +14,9 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
-import { LogIn } from 'lucide-vue-next'
-import { boolean } from 'zod'
 
 
-
-const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttributes['class'] }>(), {
+const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttributes['class']} & {minus: string}>(), {
   modelValue: undefined,
   placeholder() {
     return today(getLocalTimeZone())
@@ -69,30 +30,20 @@ const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttribu
   text: {
     required: true,
     type: String,
-  }, 
-  hideIcon: {
-    required: false,
-    type: Boolean, 
-  }, 
-  yearMinus: {
-    required: false,
-    type: String, 
-  }, 
-
-  
+  },
 })
-
+const attrs = useAttrs();
 const emits = defineEmits<CalendarRootEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, placeholder: __,  ...delegated } = props
+  const { class: _, placeholder: __, minus: ___,  ...delegated } = props
 
   return delegated
 })
 
 
 const duration: Duration = {
-  years: 0 ,
+  years: props.minus? parseInt(props.minus) : 0 ,
 }
 const placeholder = useVModel(props, 'modelValue', emits, {
   passive: true,
@@ -105,20 +56,14 @@ const df = new DateFormatter('fr-Fr', {
   dateStyle: 'long',
 }); 
 
-// watch(placeholder, (newVal) => {
-//     emit('update:placeholder', newVal);
-// });
-// const emit = defineEmits(['update:placeholder']);
-
 </script>
-
 <template>
 
   <Popover>
-    <PopoverTrigger as-child>
-      <Button type="button"
+    <PopoverTrigger as-child v-bind=attrs>
+      <Button  v-bind="attrs"  type="button"
         :class="['flex flex-row items-center justify-start h-12 bg-white text-foreground shadow-none border w-full hover:bg-transparent', props.class]">
-        <CalendarIcon class="mr-2 h-4 w-4" v-if="!props.hideIcon" />
+        <CalendarIcon class="mr-2 h-4 w-4"  />
         {{ placeholder ? df.format(placeholder.subtract(duration).toDate(getLocalTimeZone())) : "Votre date de naissance" }}
       </Button>
     </PopoverTrigger>
@@ -126,8 +71,8 @@ const df = new DateFormatter('fr-Fr', {
       <CalendarRoot v-slot="{ date, grid, weekDays }" v-model:placeholder="placeholder" v-bind="forwarded"
         :class="cn('rounded-md border p-3', props.class)" locale="fr">
         <CalendarHeader>
-          <CalendarHeading class="flex w-full items-center justify-between gap-2">
-            <Select :default-value="placeholder.month.toString()" @update:model-value="(v) => {
+          <CalendarHeading  class="flex w-full items-center justify-between gap-2">
+            <Select  :default-value="placeholder.month.toString()" @update:model-value="(v) => {
               if (!v || !placeholder) return;
               if (Number(v) === placeholder?.month) return;
               placeholder = placeholder.set({
@@ -186,7 +131,4 @@ const df = new DateFormatter('fr-Fr', {
       </CalendarRoot>
     </PopoverContent>
   </Popover>
-
-
-
 </template>

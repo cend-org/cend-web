@@ -2,6 +2,7 @@
 import { defineProps, defineEmits, ref, computed, watch } from 'vue';
 import { MagnifyingGlassIcon } from '@radix-icons/vue';
 import { Input } from '@/components/ui/input';
+import { LoaderCircle } from 'lucide-vue-next';
 
 const props = defineProps({
     items: {
@@ -19,6 +20,7 @@ const props = defineProps({
 });
 
 const attrs = useAttrs();
+const transform = trasnformStore();
 const filterText = ref('');
 const itemsPerPage = ref(5);
 const currentPage = ref(1);
@@ -36,7 +38,7 @@ const filteredItems = computed(() => {
         return props.items;
     }
     return props.items.filter(item =>
-        item.Name.toLowerCase().includes(filterText.value.toLowerCase())
+        transform.normalizeString(item.Name.toLowerCase()).includes(transform.normalizeString(filterText.value.toLowerCase()))
     );
 });
 
@@ -70,19 +72,21 @@ const resetIndex = () => {
 };
 const isSelected = (item: any) => {
    
-     return selectedItem.value.some(selectedItem => selectedItem?.Id === item.Id) ? 'bg-green-500' : '';
+     return selectedItem.value.some(selectedItem => selectedItem?.Id === item.Id) ? 'bg-[#3A9B23] text-white' : 'bg-gray-200';
 };
 
-// console.log(paginatedItems.value[0]);
-
-selectedItem.value.push(paginatedItems.value[0]);
-emit('update:selectedItem', selectedItem);
+watch(paginatedItems, (newVal) => {
+    if(selectedItem.value.length <= 0){
+        selectedItem.value.push(newVal[0]);
+        emit('update:selectedItem', selectedItem);
+    }
+});
 
 </script>
 
 <template>
     <div class="relative w-full items-center">
-        <Input type="text" :placeholder="searchPlaceholder" class="pl-10 h-12 text-lg" v-model="filterText" v-bind="attrs" />
+        <Input type="text" :placeholder="searchPlaceholder" class="pl-10 h-12 text-lg" v-model="filterText" v-bind=attrs />
         <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
             <MagnifyingGlassIcon class="size-6 text-muted-foreground" />
         </span>
@@ -90,8 +94,14 @@ emit('update:selectedItem', selectedItem);
     
 
     <div class="h-[50vh] space-y-2 overflow-y-scroll scroll-bar-none">
-        <button type="button" @click="toggleSelectItem(item)"
-            :class="['bg-gray-200 w-full h-[8vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item) ? 'bg-green-500 text-white' : '']"
+        <div class="h-full w-full" v-if="props.items && props.items.length <= 0">
+           <div class="w-full h-full flex flex-row gap-2 flex justify-center items-center">
+                <LoaderCircle class="animate-spin"></LoaderCircle>
+                chargement...
+           </div>
+        </div>
+        <button v-else type="button" @click="toggleSelectItem(item)"
+            :class="['w-full h-[8vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]"
             v-for="item in paginatedItems" :key="item.Id">
             <span>{{ item.Name }}</span>
         </button>

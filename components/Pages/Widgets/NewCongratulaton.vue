@@ -71,12 +71,12 @@ const onSubmit = handleSubmit(async (values) => {
 
     if (state.value == 'with_tutor_congrats') {
         registration.next();
-        usr.destroyCachedData();
+        await usr.destroyCachedData();
     }
 
     if(state.value == 'without_tutor'){
         registration.next();
-        usr.destroyCachedData();
+        await usr.destroyCachedData();
     }
 });
 </script>

@@ -2,9 +2,12 @@ import { useLocalStorage } from "@vueuse/core";
 import { environment } from "~/scripts/environment";
 
 export const userStore = defineStore('user', () => {
-    const authStore = authenticationStore();
+    const authStore = authenticationStore()
+
     const RT = useLocalStorage('RT', 0)
+
     let A_LVL = useLocalStorage("A_LVL", 0)
+
     let A_LVL_NAME = useLocalStorage('A_LVL_NAME', '')
     let A_SUBJ = useLocalStorage('A_SUBJ', '')
     let TUT = useLocalStorage("TUT", '')
@@ -13,6 +16,8 @@ export const userStore = defineStore('user', () => {
     let STD_ID = useLocalStorage("STD_ID", 0);
     let AVAIL_DATA = useLocalStorage("AVAIL_DATA",  '');
     let HAS_TUT = useLocalStorage("HAS_TUT", false);
+
+
 
     const type = computed(() => {
         switch (RT.value) {
@@ -44,6 +49,7 @@ export const userStore = defineStore('user', () => {
     }
 
     const destroyCachedData = () =>{
+        console.log("DESTROYING");
         let AP = useLocalStorage("AP", 0);
         A_LVL.value = 0;
         STD_ID.value = 0;
@@ -99,6 +105,7 @@ export const userStore = defineStore('user', () => {
     }
 
     const setAcademicLevel = async (id: any, level?: any) => {
+        console.log(id)
         if (RT.value == 0) { //cas Etudiant
             const { SetUserAcademicLevel: A } = await GqlSetUserAcademicLevel({ academicLevelId: id });
             A_LVL.value = id;
@@ -204,6 +211,11 @@ export const userStore = defineStore('user', () => {
         const { UserProfileImage: PRI } = await GqlUserProfileImage({ tutorId: parseInt(TUT.value) });
         return PRI;
     };
+    const getProfileImageThumb = async () =>{
+        
+        const { UserProfileImageThumb: PRI } = await GqlUserProfileImageThumb({ tutorId: parseInt(TUT.value) });
+        return PRI;
+    }
 
     const getProfileVideo = async () => {
         const { UserVideoPresentation: PRV } = await GqlUserVideoPresentation({ tutorId: parseInt(TUT.value) });
@@ -264,6 +276,7 @@ export const userStore = defineStore('user', () => {
         getNewSuggestedTutor,
         acceptTutor,
         getProfileImage,
+        getProfileImageThumb,
         getProfileVideo,
         uploadFile,
         createProfileDescription, 

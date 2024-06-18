@@ -39,9 +39,6 @@ function fullScreen() {
     }
 }
 
-onMounted(() => {
-    alert(props.videoLink) 
-});
 </script>
 
 <template>

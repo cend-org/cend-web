@@ -25,6 +25,15 @@
             <CommonFormSubmit position="bottom" />
 
         </form>
+        <div v-if="error" class="text-red-700 py-5">
+            <Alert>
+                <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+                <AlertDescription>
+                Format du fichier non prise en charge!
+                </AlertDescription>
+            </Alert>
+        </div>
+
     </div>
 </template>
 <script setup lang="ts">
@@ -43,6 +52,7 @@ const fileInput = ref<HTMLInputElement | null>(null);
 let pdfPhoto = ref("/image/upload.svg");
 let pdfName = ref();
 let photo = ref();
+const error = ref(false);
 function fileClick() {
     if (fileInput.value) {
         fileInput.value.click();
@@ -56,19 +66,9 @@ function onFileSelected() {
             let extension: string = file.name.substring(file?.name.lastIndexOf('.') + 1);
             let reader = new FileReader();
             if (!environment.accepted_file.includes(extension)) {
-                // toast.add(
-                //     {
-                //         id: "1",
-                //         title: 'Erreur!',
-                //         description: 'Type de fichier non prise en charge!',
-                //         icon: "i-heroicons-exclamation-triangle",
-                //         color: "red",
-                //         ui: {
-                //             background: "bg-red-100"
-                //         }
-                //     },
-                // );
+                error.value = true
             } else {
+                error.value = false
                 photo.value = file;
                 pdfName.value = file.name;
                 // pdfPhoto.value = '/image/upload-modify.svg'
@@ -103,7 +103,6 @@ const onSubmit = handleSubmit(async (values) => {
                 loadingStore.hide();
             }
         });
-        registration.next()
     } catch (e) {
         loadingStore.hide();
         toast({

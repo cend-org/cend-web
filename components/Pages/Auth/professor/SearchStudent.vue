@@ -1,5 +1,5 @@
 <template>
-    <LayoutAuthentication title="Quels sont les matière que vous pouvez enseignez ?">
+    <LayoutAuthentication title="Quel est le nom de votre étudiant ?">
       <PagesWidgetsProfessorNewSearchStudent />
     </LayoutAuthentication>
 </template>

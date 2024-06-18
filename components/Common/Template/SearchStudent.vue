@@ -63,7 +63,8 @@ const onSelectItem = (item: any) => {
 };
 
 const isSelected = (item: any) => {
-  return item.Id === selectedStudent.value?.Id ? 'bg-green-200' : '';
+   
+  return item.Id === selectedStudent.value?.Id ? 'bg-[#3A9B23] text-white' : 'bg-gray-200';
 };
 
 const resetIndex = () => {
@@ -87,29 +88,30 @@ const emit = defineEmits(['update:selectedStudent']);
 </script>
 
 <template>
-  <div class="relative w-full  items-center py-2">
-    <Input type="text" :placeholder="searchPlaceholder" class="pl-10  h-12 text-lg"  v-bind="attrs"  v-model="filterStudent" />
+  <div class="relative w-full  items-center">
+    <Input type="text" :placeholder="searchPlaceholder" class="pl-10  h-10 text-lg"  v-bind="attrs"  v-model="filterStudent" />
     <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
       <MagnifyingGlassIcon class="size-6 text-muted-foreground" />
     </span>
   </div>
-  <div class="w-full flex justify-end py-1">
+  <div class="w-full flex justify-end">
     <Button @click="continueWithoutStudent()" type="button" class="bg-light-green ring-0 text-gray-900" size="xs" color="white"
        >Continuer sans votre etudiant ?</Button>
   </div>
-  <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
+  <div class="h-[50vh] space-y-2 overflow-y-scroll scroll-bar-none">
     <button @click="onSelectItem(item)" type="button"
-      :class="['bg-gray-200 w-full h-[8.1vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]"
+      :class="['w-full h-[8.1vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]"
       v-for="item in paginatedItems">
       <span>{{ item.Name }} {{ item.FamilyName }}</span>
     </button>
-    <div class="w-full flex justify-end" v-if="(currentPage * itemsPerPage) <= filteredItems.length && paginatedItems.length > 0">
+    
+    <div class="w-full flex justify-end" v-if="(currentPage * itemsPerPage) < filteredItems.length && paginatedItems.length > 0">
         <button @click="loadMoreItems" type="button" class="btn-secondary">
            voir d'autres ?
         </button>
     </div>
 
-    <div  class="w-full flex justify-end" v-if="(currentPage * itemsPerPage) >= filteredItems.length && paginatedItems.length > 0">
+    <div  class="w-full flex justify-end" v-if="(currentPage * itemsPerPage) >= filteredItems.length && currentPage > 1">
         <button @click="resetIndex()" type="button" class="btn-secondary">
            retour à la premiére liste
         </button>

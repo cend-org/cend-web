@@ -102,7 +102,7 @@ const onSubmit = handleSubmit( async (values) => {
             <FormItem>
               <FormLabel>Date de naissance</FormLabel>
               <FormControl v-bind="componentField">
-                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date"/>
+                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date" minus="18"/>
               </FormControl>
             </FormItem>
           </FormField>

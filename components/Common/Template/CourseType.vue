@@ -19,7 +19,9 @@ const onSelectItem = (item: any) => {
     selectedItem.value = item;
     emit('update:selectedItem', item);
 };
-
+const isSelected = (item: any) => {
+ return item.title == selectedItem.value.title ? 'bg-[#3A9B23] text-white' : 'bg-gray-200';
+};
 selectedItem.value = props.items[0];
 const emit = defineEmits(['update:selectedItem'])
 </script>
@@ -27,10 +29,10 @@ const emit = defineEmits(['update:selectedItem'])
 <template>
   <div class="h-[55vh] space-y-2 overflow-y-scroll scroll-bar-none">
     <button @click="onSelectItem(item)" type="button"
-      :class="['bg-gray-100 w-full h-[10vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', selectedItem && selectedItem.title == item.title ? 'bg-green-500 text-white' : '']"
+      :class="['w-full h-[10vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm', isSelected(item)]"
       v-for="item in props.items">
-      <div>{{ item.title }}</div>
-      <div class="text-xs  poppins-regular font-normal">{{item.description}}</div>
+      <div class="text-xl">{{ item.title }}</div>
+      <div class="text-xs">{{item.description}}</div>
     </button>
   </div>
 </template>

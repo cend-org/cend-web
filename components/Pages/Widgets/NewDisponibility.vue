@@ -23,7 +23,7 @@ const dispo_1 = ref({
 
 
 
-const dispo_date = ref('' as any);
+const dispo_date = ref(undefined)
 
 loadingStore.hide();
 
@@ -49,7 +49,7 @@ const h1 = computed({
 onMounted(() => {
     setFieldValue('dispo_0', `${dispo_0.value.hour}:${dispo_0.value.minute}`);
     setFieldValue('dispo_1', `${dispo_1.value.hour}:${dispo_1.value.minute}`);
-    setFieldValue('dispo_date', `${dispo_date}`);
+    setFieldValue('dispo_date', `${new Date()}`);
 });
 
 watch(dispo_0.value, (newVal) => {
@@ -60,10 +60,14 @@ watch(dispo_1.value, (newVal) => {
     setFieldValue('dispo_1', `${newVal.hour}:${newVal.minute}`)
 });
 
+watch(dispo_date, (newVal) => {
+    setFieldValue('dispo_date', `${newVal}`)
+});
+
 const onSubmit = handleSubmit(async (values) => {
     loadingStore.show();
     try {
-        await usr.createDisponibility(transform.HoursToCurrentDate(values.dispo_0, new Date()));
+        await usr.createDisponibility(transform.HoursToCurrentDate(values.dispo_0, new Date(values.dispo_date)));
         registration.next()
     } catch (e) {
         loadingStore.hide();
@@ -99,12 +103,13 @@ const onSubmit = handleSubmit(async (values) => {
             <div class="w-full flex justify-end">
                 <div class="flex flex-row gap-2">
                     <span> ou </span>
+                    
                     <FormField v-slot="{ componentField }" name="date" :validate-on-blur="!isFieldDirty">
                         <FormItem>
                             <FormControl class="" v-bind="componentField">
                                 <div
                                     class="text-color-main text-center bg-gray-200 w-[150px] h-[25px] rounded-lg text-center">
-                                    <CommonFormDatePicker class="w-full h-full" :hideIcon="false" />
+                                    <CommonFormDatePicker v-model:modelValue="dispo_date" class="w-full h-full" :hideIcon="false" minus="0"/>
                                     <!--  v-model:placeholder="dispo_date"  -->
                                 </div>
                             </FormControl>

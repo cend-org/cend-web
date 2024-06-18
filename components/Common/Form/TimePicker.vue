@@ -54,7 +54,7 @@ import { LogIn } from 'lucide-vue-next'
 import { string } from 'zod'
 
 
-
+const attrs = useAttrs();
 const props = withDefaults(defineProps<CalendarRootProps & { class?: HTMLAttributes['class'] }>(), {
     modelValue: undefined,
     h: undefined,
@@ -153,7 +153,7 @@ const createminutes = (() => {
 <template>
 
     <Popover>
-        <PopoverTrigger as-child>
+        <PopoverTrigger as-child v-bind:attrs >
             <Button type="button" :class="['text-center', props.class]">
                 {{ H ? `${H}h : ${M}` : "02" }}
             </Button>

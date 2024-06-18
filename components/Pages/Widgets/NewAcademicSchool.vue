@@ -14,7 +14,7 @@ import { toast } from '~/components/ui/toast';
 const usr = userStore()
 const registration = registrationStore()
 const loadingStore = useLoadingStore();
-let selectedSchoolLevel = null as any;
+let selectedSchoolLevel = ref( null as any);
 
 let schoolList = ref([]);
 usr.getAcademicLevels().then(resp => {
@@ -31,7 +31,7 @@ const onSubmit = handleSubmit(async (values) => {
   if (selectedSchoolLevel != null) {
     loadingStore.show();
     try {
-      await usr.setAcademicLevel(selectedSchoolLevel.Id, selectedSchoolLevel);
+      await usr.setAcademicLevel(selectedSchoolLevel.value.Id, selectedSchoolLevel.value);
       registration.next()
     } catch (e) {
       loadingStore.hide();

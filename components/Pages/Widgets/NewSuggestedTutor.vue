@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate';
+import { boolean } from 'zod';
 import { toast } from '~/components/ui/toast';
 
 const usr = userStore()
@@ -10,7 +11,7 @@ const props = defineProps({
     suggestedTutor: {
         type: Object as any,
         default: () => undefined
-    }
+    },
 });
 
 let suggestedTutor = ref(props.suggestedTutor);
@@ -20,28 +21,12 @@ watch(suggestedTutor, (newVal) => {
     emit('update:suggestedTutor', newVal);
 });
 
-let image = ref('');
 await usr.getSuggestedTutor().then(resp => {
-    loadingStore.show();
-    suggestedTutor = resp as any;
-    getmedia();
-    emit('update:suggestedTutor', suggestedTutor);
-    loadingStore.hide();
+       // loadingStore.show();
+        suggestedTutor = resp as any;
+        emit('update:suggestedTutor', suggestedTutor);
+        //loadingStore.hide();
 });
-
-async function getmedia(){
-    await usr.getProfileImage().then(resp=>{
-    if(resp){
-        console.log("======>", resp);
-    }
-});
-}
-// await usr.getProfileImage().then(resp=>{
-//     if(resp){
-//         console.log("======>", resp);
-//     }
-// });
-
 const { isFieldDirty, handleSubmit, values } = useForm({
     validationSchema: null,
 })
@@ -66,31 +51,40 @@ const onSubmit = handleSubmit(async (values) => {
 
 });
 
-loadingStore.hide();
+
+// loadingStore.hide();
 function continueWithoutTutor() {
-    suggestedTutor.value = undefined;
+    loadingStore.show();
+    setTimeout(() => {
+        loadingStore.hide();
+        suggestedTutor.value = undefined;
+    }, 500);
+   
 }
+
+
 function chooseOtherTutor() {
     loadingStore.show();
     usr.getNewSuggestedTutor().then(resp => {
         suggestedTutor = resp as any;
+        
         emit('update:suggestedTutor', suggestedTutor);
         loadingStore.hide();
 
     });
 }
-
+loadingStore.hide();
 </script>
 
 <template>
     <div>
         <form class="space-y-6" @submit="onSubmit">
-            <CommonTemplateProfile v-if="suggestedTutor" :userData="suggestedTutor" image="" video="" />
+            <CommonTemplateProfile v-if="suggestedTutor" :userData="suggestedTutor" />
             <div class="w-full flex flex-col gap-1 text-xs justify-end" v-if="suggestedTutor">
                 <div @click="chooseOtherTutor()" class="flex justify-end"><Button type="button"
                         class="h-8 bg-color-light text-gray-800">Choisir un autre tuteur
                         ?</Button></div>
-                <div @click="continueWithoutTutor()" class="flex justify-end"><Button
+                <div @click="continueWithoutTutor()" stype="button" class="flex justify-end"><Button
                         class="h-8 bg-color-light text-gray-800">Continuer sans tuteur
                         pour le moment ?</Button></div>
             </div>

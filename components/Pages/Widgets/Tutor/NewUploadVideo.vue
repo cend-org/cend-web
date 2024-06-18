@@ -19,6 +19,14 @@
             <CommonFormSubmit position="bottom" />
 
         </form>
+        <div v-if="error" class="text-red-700 py-5">
+            <Alert>
+                <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+                <AlertDescription>
+                Format du vidéo non prise en charge!
+                </AlertDescription>
+            </Alert>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
@@ -37,6 +45,7 @@ const fileInput = ref<HTMLInputElement | null>(null);
 let videoLink = ref('')
 let profilePhoto = ref("/image/upload.svg");
 let video = ref();
+let error = ref(false);
 
 function fileClick() {
     if (fileInput.value) {
@@ -51,19 +60,9 @@ function onFileSelected() {
             let extension: string = file.name.substring(file?.name.lastIndexOf('.') + 1);
             let reader = new FileReader();
             if (!environment.accepted_video.includes(extension)) {
-                // toast.add(
-                //     {
-                //         id: "1",
-                //         title: 'Erreur!',
-                //         description: 'Type de photo non prise en charge!',
-                //         icon: "i-heroicons-exclamation-triangle",
-                //         color: "red",
-                //         ui: {
-                //             background: "bg-red-100"
-                //         }
-                //     },
-                // );
+                error.value = true;
             } else {
+                error.value = false;
                 video.value = file;
                 reader.readAsDataURL(file);
                 reader.onload = (event) => {
@@ -102,10 +101,6 @@ const onSubmit = handleSubmit(async (values) => {
                 loadingStore.hide();
             }
         });
-        // await usr.uploadFile(formData).then(resp=>{
-        //     registration.next()
-        // });
-       
     } catch (e) {
         loadingStore.hide();
         toast({
