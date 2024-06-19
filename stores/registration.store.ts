@@ -23,7 +23,7 @@ export const registrationStore = defineStore('registration', () => {
             navigateTo("/")
             return registrationFlow[0][0]
         }else{
-           RT.value =  parseInt(<string>route.query['RT'])
+            RT.value =  parseInt(<string>route.query['RT'])
             const flow = registrationFlow[RT.value]
 
             if (flow.length <= AP.value) {

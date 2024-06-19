@@ -55,7 +55,7 @@ function onFileSelected() {
     if (fileInput.value) {
         if (fileInput.value.files?.length != null && fileInput.value.files?.length > 0) {
             let file = fileInput.value.files[0];
-            let extension: string = file.name.substring(file?.name.lastIndexOf('.') + 1);
+            let extension: string = file.name.substring(file?.name.lastIndexOf('.') + 1).toLowerCase();
             let reader = new FileReader();
             if (!environment.accepted_photos.includes(extension)) {
                 error.value = true
@@ -93,7 +93,7 @@ const onSubmit = handleSubmit(async (values) => {
             }
         };
         fetch(`${environment.api}${environment.upload_url}`, options).then((res) => {
-            if(res.status ==200){
+            if(res.status == 200){
                 registration.next();
             }else{
                 loadingStore.hide();

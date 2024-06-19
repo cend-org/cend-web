@@ -3,9 +3,7 @@ import { environment } from "~/scripts/environment";
 
 export const userStore = defineStore('user', () => {
     const authStore = authenticationStore()
-
     const RT = useLocalStorage('RT', 0)
-
     let A_LVL = useLocalStorage("A_LVL", 0)
 
     let A_LVL_NAME = useLocalStorage('A_LVL_NAME', '')
@@ -49,7 +47,6 @@ export const userStore = defineStore('user', () => {
     }
 
     const destroyCachedData = () =>{
-        console.log("DESTROYING");
         let AP = useLocalStorage("AP", 0);
         A_LVL.value = 0;
         STD_ID.value = 0;
@@ -105,7 +102,6 @@ export const userStore = defineStore('user', () => {
     }
 
     const setAcademicLevel = async (id: any, level?: any) => {
-        console.log(id)
         if (RT.value == 0) { //cas Etudiant
             const { SetUserAcademicLevel: A } = await GqlSetUserAcademicLevel({ academicLevelId: id });
             A_LVL.value = id;
@@ -113,7 +109,7 @@ export const userStore = defineStore('user', () => {
             return A;
         }
 
-        if (RT.value == 2 || RT.value == 3) { //cas Tuteur
+        if (RT.value == 2 || RT.value == 3) { //cas Tuteur ou professeur
             const { NewUserAcademicLevels: A } = await GqlNewUserAcademicLevels({ academicLevelIds: id });
             A_LVL.value = id;
             A_LVL_NAME.value = level.join(', ');

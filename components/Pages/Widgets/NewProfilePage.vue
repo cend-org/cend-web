@@ -40,7 +40,6 @@ const formSchema = toTypedSchema(z.object({
   birthdate: z.string().min(1),
   langue: z.string().min(1),
   sex: z.string().min(1),
-  // language: z.string(),
 }))
 
 const { isFieldDirty, handleSubmit, setFieldValue, values } = useForm({
@@ -50,10 +49,13 @@ watch(dateOfBirth, (newVal) => {
   setFieldValue('birthdate', `${newVal}`);
 });
 
-// const value = computed({
-//   get: () => values.birthdate ? parseDate(values.birthdate) : undefined,
-//   set: val => val,
-// })
+onMounted(() => {
+    let nowDateYear =  new Date().getFullYear();
+    let nowDate  = new Date();
+    let date = nowDate.setFullYear(nowDateYear - 18);
+    let datetime = new Date(date).toDateString();
+    setFieldValue('birthdate', datetime);
+});
 
 const onSubmit = handleSubmit( async (values) => {
   loadingStore.show();

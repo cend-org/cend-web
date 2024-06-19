@@ -34,7 +34,6 @@ export const environment = {
         'flv',   // Flash Video
         'webm',  // WebM Video
         'mpeg',  // MPEG Video
-        'mpg'    // MPEG Video
     ],
     accepted_file: [
         'pdf',   // Portable Document Format

@@ -20,6 +20,8 @@ function getMedias() {
   usr.getProfileImageThumb().then(resp => {
     if (resp) {
       image.value = resp as string;
+    }else{
+      image.value = '/image/avatar.svg';
     }
   }, error => {
     image.value = '/image/avatar.svg';
@@ -28,6 +30,8 @@ function getMedias() {
   usr.getProfileVideo().then(resp => {
     if (resp) {
       video.value = resp as string;
+    }else{
+      video.value = '' as any;
     }
   }, error => {
     video.value = '' as any;
