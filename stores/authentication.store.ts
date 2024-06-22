@@ -1,22 +1,30 @@
-import {LocalStorageGetItem, LocalStorageremoveItem, LocalStorageSetItem} from "~/scripts/local-storage";
 import {environment} from "~/scripts/environment";
 import {jwtDecode} from "jwt-decode";
+import {useLocalStorage} from "@vueuse/core";
 
 export const authenticationStore = defineStore('authentication', () => {
+    const token = useLocalStorage(environment.auth_token, "")
     const status = ref<Boolean>(false)
+    const RT = useLocalStorage("RT", 0)
+    const AP = useLocalStorage("AP", 0)
 
     const connected = computed((): Boolean => {
-        let token = LocalStorageGetItem(environment.auth_token)
+        status.value = !(!token || token.value == "");
 
-        if (!token || token === "") status.value = false
-
-        if (status.value ){
+        if (status.value){
             try {
-                const decodedToken = jwtDecode(token!);
+                const decodedToken = jwtDecode(token.value!);
                 const expToken = decodedToken.exp;
                 if (expToken != null && expToken < Date.now() / 1000) {
                     return false;
                 }
+                useGqlToken({
+                    token: `${token.value}`,
+                    config: {
+                        type: 'Bearer',
+                        name: 'Authorization'
+                    }
+                });
             } catch (e) {
                 console.log(token)
                 console.log(e)
@@ -26,7 +34,8 @@ export const authenticationStore = defineStore('authentication', () => {
         return status.value
     })
 
-    const authenticate = async (email: string, type: number) => {
+    const authenticate = async (email: string) => {
+        const type = RT.value
         let Token : {T: string} | null | undefined
         switch (type){
             case 0:
@@ -47,19 +56,25 @@ export const authenticationStore = defineStore('authentication', () => {
                 break
         }
 
-        LocalStorageSetItem(environment.auth_token, Token?.T);
+        token.value = Token?.T
         status.value = true
     }
 
     const login = async (email: string, password: string) => {
         const { Login } = await GqlLogin({email: email, password: password})
-        LocalStorageSetItem(environment.auth_token, Login?.T)
+        token.value = Login?.T
         status.value = true
     }
 
     const logout = () => {
-        LocalStorageremoveItem(environment.auth_token)
+        token.value = null
         status.value = false
+        RT.value = 0
+        AP.value = 0
+        localStorage.removeItem("token")
+        localStorage.removeItem("RT")
+        localStorage.removeItem("AP")
+        localStorage.removeItem("registration-cache")
     }
 
     const updateProfile = async(name: string, familyname: string, sex: string, lang: string, birthDate: string) =>{
@@ -70,6 +85,7 @@ export const authenticationStore = defineStore('authentication', () => {
     }
 
     return {
+        token,
         status,
         connected,
         authenticate,

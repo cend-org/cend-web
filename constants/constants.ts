@@ -1,6 +1,3 @@
-import type { CourseType } from "~/scripts/entities/course-type";
-import type { Langue } from "~/scripts/entities/langue";
-import type { Sex } from "~/scripts/entities/sex"
 
 export const signupComponent = [
     {
@@ -10,17 +7,17 @@ export const signupComponent = [
     },
     {
         title: 'Parent',
-        href: '/authentications/register/parent/email',
+        href: '/app/auth/register?RT=1',
         description: 'Créez un compte parent pour suivre et soutenir la progression de votre enfant.'
     },
     {
         title: 'Tuteur',
-        href: '/authentications/register/tutor/email',
+        href: '/app/auth/register?RT=2',
         description: 'Devenez tuteur et aidez les étudiants à réussir.'
     },
     {
         title: 'Professeur',
-        href: '/authentications/register/teacher/email',
+        href: '/app/auth/register?RT=3',
         description: 'Enregistrez-vous en tant que professeur pour soutenir la progression de vos élèves.'
     },
 ]
@@ -28,22 +25,22 @@ export const signupComponent = [
 export const loginComponent = [
     {
         title: 'Étudiant',
-        href: '/app/auth/login?label=student',
+        href: '/app/auth/login?RT=0',
         description: 'Accédez à votre espace étudiant en vous connectant ici.'
     },
     {
         title: 'Parent',
-        href: '/app/auth/login?label=parent',
+        href: '/app/auth/login?RT=1',
         description: 'Connectez-vous à votre compte parent pour suivre la progression de votre enfant.'
     },
     {
         title: 'Tuteur',
-        href: '/app/auth/login?label=tutor',
+        href: '/app/auth/login?RT=2',
         description: 'Connectez-vous à votre compte tuteur pour gérer vos cours.'
     },
     {
         title: 'Professeur',
-        href: '/app/auth/login?label=teacher',
+        href: '/app/auth/login?RT=3',
         description: 'Identifiez-vous en tant que professeur pour suivre vos élèves.'
     },
 ]
@@ -70,51 +67,3 @@ export const aboutComponent  = [
         description: 'Comprenez le fonctionnement de nos services en quelques étapes simples.'
     },
 ];
-
-export const sexComponent: Array<Sex> = [
-    {
-        label: "Homme", 
-        value: "0"
-    }, 
-    {
-        label: "Femme", 
-        value: "1"
-    }, 
-    {
-        label: "Autre", 
-        value: "2"
-    }
-];
-
-export const langueComponent: Array<Langue> = [
-    {
-        label: "Français CA", 
-        value: "0", 
-        default: 'par défaut',
-
-    }, 
-    {
-        label: "Français FR", 
-        value: "1", 
-        default: '',
-    }, 
-    {
-        label: "Anglais EN", 
-        value: "2", 
-        default: '',
-    }
-];
-
-export const studentTypeComponent: Array<CourseType> = [
-    {
-        label: "En ligne", 
-        value: true, 
-        description: 'Economique, rapide, certains d\'avoir le meilleur tuteur pour vous',
-
-    }, 
-    {
-        label: "Présentiel", 
-        value: false, 
-        description: "Option prémium, séléction plus limitee de candidat"
-    }, 
-]

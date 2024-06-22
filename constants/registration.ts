@@ -1,9 +1,37 @@
 import {
-    PagesStudentAbout,
-    PagesStudentAcademicCourse,
-    PagesStudentAcademicLevel, PagesStudentCoursePreference, PagesStudentDisponibility,
-    PagesStudentEmail,
-    PagesStudentPassword
+    PagesAuthEmail, 
+    PagesAuthPassword, 
+    PagesAuthProfie, 
+    PagesAuthAcademicSchool, 
+    PagesAuthAcademicSubject, 
+    PagesAuthCoursePreference, 
+    PagesAuthDisponibility,
+    PagesAuthSuggestedTutor,
+    PagesAuthCongratulation,
+    PagesAuthTutorAcademicSchool,
+    PagesAuthTutorAcademicSubject,
+    PagesAuthTutorUploadCv,
+    PagesAuthTutorUploadPhoto,
+    PagesAuthTutorDescriptionProfile,
+    PagesAuthTutorUploadVideo,
+    PagesAuthTutorCoursePreference,
+    PagesAuthTutorRenumeration, 
+    PagesAuthTutorConfirmation,
+    PagesAuthProfessorUploadPhoto,
+    PagesAuthProfessorAcademicSubject,
+    PagesAuthProfessorAcademicSchool,
+    PagesAuthProfessorSearchStudent,
+    PagesAuthProfessorConfirmation,
+    PagesAuthParentStudent,
+    PagesAuthParentLanguage,
+    PagesAuthParentAcademicSchool,
+    PagesAuthParentAcademicSubject,
+    PagesAuthParentCoursePreference,
+    PagesAuthParentDisponibility,
+    PagesAuthParentSuggestedTutor,
+    PagesAuthParentCongratulation
+
+
 } from "#components";
 import type {ComponentOptionsMixin, DefineComponent, PublicProps} from "@vue/runtime-core";
 
@@ -13,15 +41,53 @@ interface IRegistrationFlow {
 
 export const registrationFlow: Array<Array<IRegistrationFlow>> = [
     [
-        {component: PagesStudentEmail},
-        {component: PagesStudentPassword},
-        {component: PagesStudentAbout},
-        {component: PagesStudentAcademicLevel},
-        {component: PagesStudentAcademicCourse},
-        {component: PagesStudentCoursePreference},
-        {component: PagesStudentDisponibility},
+        {component: PagesAuthEmail},
+        {component: PagesAuthPassword},
+        {component: PagesAuthProfie},
+        {component: PagesAuthAcademicSchool},
+        {component: PagesAuthAcademicSubject}, 
+        {component: PagesAuthCoursePreference},
+        {component: PagesAuthDisponibility},
+        {component: PagesAuthSuggestedTutor}, 
+        {component: PagesAuthCongratulation}
     ], // for student
-    [], // for parent
-    [], // for tutor
-    [], // for teacher or professor
+    [
+        {component: PagesAuthEmail},
+        {component:  PagesAuthPassword},
+        {component:  PagesAuthProfie},
+        {component:  PagesAuthParentStudent},
+        {component:  PagesAuthParentLanguage},
+        {component:  PagesAuthParentAcademicSchool},
+        {component:  PagesAuthParentAcademicSubject},
+        {component:  PagesAuthParentCoursePreference},
+        {component:  PagesAuthParentDisponibility},
+        {component:  PagesAuthParentSuggestedTutor},
+        {component:  PagesAuthParentCongratulation},
+        
+    ], // for parent
+    [
+        {component: PagesAuthEmail},
+        {component:  PagesAuthPassword},
+        {component:  PagesAuthProfie},
+        {component: PagesAuthTutorAcademicSchool}, 
+        {component: PagesAuthTutorAcademicSubject}, 
+        {component: PagesAuthTutorUploadPhoto},
+        {component: PagesAuthTutorUploadCv},
+        {component: PagesAuthTutorDescriptionProfile},
+        {component: PagesAuthTutorUploadVideo},
+        {component: PagesAuthTutorCoursePreference}, 
+        {component: PagesAuthTutorRenumeration},
+        {component: PagesAuthTutorConfirmation},
+        
+    ], // for tutor
+    [
+        {component: PagesAuthEmail},
+        {component:  PagesAuthPassword},
+        {component:  PagesAuthProfie},
+        {component: PagesAuthProfessorAcademicSchool}, 
+        {component: PagesAuthProfessorAcademicSubject}, 
+        {component: PagesAuthProfessorUploadPhoto},
+        {component: PagesAuthProfessorSearchStudent},
+        {component: PagesAuthProfessorConfirmation},
+    ], // for teacher or professor
 ]

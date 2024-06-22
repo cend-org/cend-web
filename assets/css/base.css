@@ -51,6 +51,10 @@ body{
     background-color: #008000 !important;
 }
 
+.bg-color-light{
+    background-color: #d0f0d0 !important;
+}
+
 
 *{
     font-family: 'Uber Move Text', sans-serif !Important;

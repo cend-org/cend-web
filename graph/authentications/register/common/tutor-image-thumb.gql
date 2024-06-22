@@ -1,0 +1,3 @@
+query UserProfileImageThumb($tutorId : Int!) {
+    UserProfileImageThumb(userId: $tutorId)
+}

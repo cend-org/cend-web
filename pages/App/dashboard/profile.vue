@@ -1,0 +1,3 @@
+<template>
+  Profile page !
+</template>

@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 const props = defineProps({
   items: {
     required: true,
@@ -7,36 +15,21 @@ const props = defineProps({
   placeholder: {
     required: true,
     type: String,
-  }, 
-  componentField: {
-    required: true,
-    type: Object,
-  }, 
+  }
 })
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 </script>
+
 <template>
-  <div class="relative w-full items-center">
-      <Select v-bind="componentField">
-        <SelectTrigger class="w-full h-12">
-          <SelectValue :placeholder="props.placeholder" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectItem v-for="item in props.items" :value="item.value">
-              {{ item.label }}
-            </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-  </div>
+  <Select>
+    <SelectTrigger  class="w-full h-12">
+      <SelectValue :placeholder="props.placeholder" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectItem v-for="item in props.items" :value="item.value.toString()">
+            {{item.name}}
+        </SelectItem>
+      </SelectGroup>
+    </SelectContent>
+  </Select>
 </template>

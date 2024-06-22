@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CircleUser  } from 'lucide-vue-next'
+import { CircleUser, SquareUser, Bolt, LogOut } from 'lucide-vue-next'
 
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
@@ -12,6 +12,19 @@ function logout() {
   navigateTo('/');
 }
 
+const navigations = [
+  {
+    icon: SquareUser,
+    name: "Mon profile",
+    link: "/app/dashboard/profile",
+  },
+  {
+    icon: Bolt,
+    name: "Paramètre",
+    link: "/app/dashboard/setting",
+  },
+]
+
 </script>
 <template>
   <DropdownMenu>
@@ -21,15 +34,23 @@ function logout() {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" class="border-none shadow w-[200px] rounded-sm">
-      <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
+<!--      <DropdownMenuLabel>-->
+<!--      </DropdownMenuLabel>-->
 <!--      <DropdownMenuSeparator />-->
-<!--      <DropdownMenuItem>Settings</DropdownMenuItem>-->
-<!--      <DropdownMenuItem>Support</DropdownMenuItem>-->
+      <DropdownMenuItem v-for="navigation in navigations">
+        <NuxtLink class="w-full h-full" :to="navigation.link">
+          <div class="flex flex-row w-full">
+            <div >{{ navigation.name }}</div>
+            <Component class="ml-auto" :is="navigation.icon" />
+          </div>
+        </NuxtLink>
+      </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem class="p-0">
-        <Button @click="logout()" class="bg-transparent hover:bg-transparent shadow-none border-none w-full">
-          Se déconnecter
-        </Button>
+      <DropdownMenuItem @click="logout()">
+        <div class="flex flex-row w-full">
+          <div>Se déconnecter</div>
+          <LogOut class="ml-auto" />
+        </div>
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

@@ -1,10 +1,15 @@
 <template>
-  <div class="sticky top-0 left-0 w-full" style="z-index: 3 !important;">
-    <NavigationMain />
-  </div>
-  <div class="">
-    <slot />
+  <div class="grid grid-cols-6">
+    <div class="w-full h-screen shadow-lg">
+      <NavigationAppSide />
+    </div>
+    <div class="col-span-5 px-20">
+      <div>
+        <NavigationApp />
+      </div>
+      <div>
+        <slot />
+      </div>
+    </div>
   </div>
 </template>
-<script setup lang="ts">
-</script>
