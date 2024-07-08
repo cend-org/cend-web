@@ -7,10 +7,11 @@ export default defineNuxtConfig({
   css: ['~/assets/css/base.css', '~/assets/css/tailwind.css' ],
   runtimeConfig: {
     public: {
-      GQL_HOST: `${environment.api}${environment.query}`,
+      GQL_HOST: `${process.env.API_ENDPOINT}${environment.query}`,
       'graphql-client': {
 
-      }
+      }, 
+      API_ENDPOINT: process.env.API_ENDPOINT,
     }
   },
   app: {
