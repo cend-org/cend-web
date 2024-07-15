@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, computed, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { MagnifyingGlassIcon } from '@radix-icons/vue';
 import { Input } from '@/components/ui/input'
 import { LoaderCircle } from 'lucide-vue-next';
@@ -12,7 +12,7 @@ const props = defineProps({
     searchPlaceholder: {
         required: true,
         type: String
-    }, 
+    },
     selectedItem: {
         type: Object,
         default: null,
@@ -88,7 +88,7 @@ const isSelected = (item: any) => {
                 chargement...
            </div>
         </div>
-        <button v-else @click="onSelectItem(item)" type="button" 
+        <button v-else @click="onSelectItem(item)" type="button"
             :class="['w-full h-[8vh] text-left pl-3 poppins-bold text-lg lg:text-sm xl:text-sm 2xl:text-sm hover:bg-[#3A9B23] hover:text-white', isSelected(item)]"
             v-for="item in paginatedItems" :key="item.Id">
             <span>{{ item.Name }}</span>

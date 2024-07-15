@@ -38,7 +38,7 @@ export const environment = {
     accepted_file: [
         'pdf',   // Portable Document Format
     ],
-    api: "http://cendapp.ca:8087",
+    api: "http://localhost:8087",
     upload_url: '/upload',
     query: '/query'
 }
