@@ -17,12 +17,8 @@ const registration = registrationStore()
 
 const loadingStore = useLoadingStore();
 const store = authenticationStore();
-// const route = useRoute();
-// const usr = userStore();
-// usr.configure(parseInt(<string>route.query['RT']))
-
+const error = ref("");
 loadingStore.hide();
-
 const formSchema = toTypedSchema(z.object({
   mail: z.string().email('*').min(5),
 }))
@@ -36,18 +32,23 @@ const onSubmit = handleSubmit( async (values) => {
   try{
     await store.authenticate(values.mail)
     registration.next()
-  }catch(e){
+  }catch(e: any){
     loadingStore.hide();
-    toast({
-      title: 'You submitted the following values:',
-      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
-    })
+    error.value = e.gqlErrors[0].message 
   }
 })
 
 </script>
 <template>
   <form class="space-y-6" @submit="onSubmit">
+    <div v-if="error.length > 0" class="text-red-700 py-5">
+      <Alert>
+        <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+        <AlertDescription>
+          {{ error }}
+        </AlertDescription>
+      </Alert>
+    </div>
     <FormField v-slot="{ componentField }" name="mail" :validate-on-blur="!isFieldDirty">
       <FormItem>
         <FormLabel>Email</FormLabel>

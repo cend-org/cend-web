@@ -28,6 +28,7 @@ const registration = registrationStore()
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 let dateOfBirth = ref(undefined);
+let error = ref("")
 // const df = new DateFormatter('en-US', {
 //   dateStyle: 'long',
 // })
@@ -62,17 +63,22 @@ const onSubmit = handleSubmit( async (values) => {
   try{
     await usr.createProfile(values.name, values.lastname, parseInt(values.langue), parseInt(values.sex), new Date(values.birthdate))
     registration.next()
-  }catch(e){
+  }catch(e: any){
     loadingStore.hide();
-    toast({
-      title: 'You submitted the following values:',
-      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
-    })
+    error.value = e.gqlErrors[0].message 
   }
 })
 </script>
 <template>
     <form class="space-y-6" @submit="onSubmit">
+      <div v-if="error.length > 0" class="text-red-700 py-5">
+      <Alert>
+        <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+        <AlertDescription>
+          {{ error }}
+        </AlertDescription>
+      </Alert>
+    </div>
       <div class="flex flex-row gap-x-2">
        
           <div class="w-1/2">

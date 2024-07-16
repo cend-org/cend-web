@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import {authenticationStore} from "~/stores/authentication.store";
 
 const store = authenticationStore()
-
+ 
 function logout() {
   store.logout()
   navigateTo('/');
@@ -27,7 +27,7 @@ const navigations = [
 
 </script>
 <template>
-  <DropdownMenu>
+  <DropdownMenu  v-if="!store.isAuthRoute">
     <DropdownMenuTrigger as-child>
       <Button variant="secondary" size="icon" class="rounded-full">
         <CircleUser class="h-5 w-5" />

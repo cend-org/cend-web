@@ -33,7 +33,7 @@ const { isFieldDirty, handleSubmit, values } = useForm({
 
 
 const onSubmit = handleSubmit(async (values) => {
-    if (suggestedTutor.value) {
+    if (suggestedTutor?.value) {
         loadingStore.show();
         try {
             await usr.acceptTutor(suggestedTutor.value);

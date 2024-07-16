@@ -3,19 +3,22 @@
    <div class="py-5 px-0 lg:px-5 md:px-5">
       <div class="px-5 lg:px-10 md:px-10">
          <div>
-            <span class="text-2xl text-main-green font-bold">{{ $t('about_about_us') }}</span>
+            <span class="text-2xl text-main-green font-bold">À propos de nous</span>
          </div>
          <div>
-            <p>{{ $t('welcome_to_cend_universe') }}: <span class="font-bold">{{ $t('connection') }}</span>, <span
-                  class="font-bold">{{ $t('education') }}</span>, <span class="font-bold">{{ $t('innovative') }}</span>,
-               <span class="font-bold">{{ $t('dynamic') }}</span>.</p>
+            <p>Bienvenue dans l'univers de CEND: <span class="font-bold">Connexion</span>, <span
+                  class="font-bold">Enseignement</span>, <span class="font-bold">Novateur</span>,
+               <span class="font-bold">Dynamique</span>.
+            </p>
          </div>
          <div class="pt-4">
             <div class="pb-4">
-               <span class="font-bold ">{{ $t('nav_who_we_are') }}</span>
+               <span class="font-bold ">Qui sommes nous?</span>
             </div>
-            <p class="text-sm font-light" id="our-mission">{{ $t('who_we_are_description_a') }}</p>
-            <p class="text-sm font-light">{{ $t('who_we_are_description_b') }}</p>
+            <p class="text-sm font-light" id="our-mission">"Chez Cend, nous sommes passionnés par l'éducation et
+               convaincus que chaque étudiant mérite un soutien personalisé pour atteindre son plein potentiel.</p>
+            <p class="text-sm font-light">C'est pourquoi nous avons créé une application révolutionaire personalisée
+               dans le monde entier.</p>
             <p class="text-sm font-light">Notre application simplifie la communication entre étudiants, parents, tuteurs
                et professeurs, tout en offrant une platforme de tutorat en ligne et en personne, adaptée à tous les
                niveaux scolaires, de la première année à l'université.</p>
@@ -23,7 +26,7 @@
          </div>
          <div class="pt-4">
             <div class="pb-4">
-               <span class="font-bold"> {{ $t('nav_our_mission') }}</span>
+               <span class="font-bold"> Notre mission</span>
             </div>
             <p class="text-sm font-light">Notre mission chez CEND est de rendre la réusite scolaire accessible à tous et
                donc, de permettre à tous les jeunes partout sur la planète d'atteindre leur job de rêve.</p>
@@ -101,3 +104,13 @@
       </div>
    </div>
 </template>
+<script setup lang="ts">
+   const loading = useLoadingStore();
+   const store = authenticationStore();
+   
+    setPageLayout(store.connected? "default": "onboarding");
+    loading.hide();
+   // definePageMeta({
+   //    layout: false,
+   // });
+</script>

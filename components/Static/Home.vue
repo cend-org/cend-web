@@ -7,16 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {loginComponent} from "~/constants/constants";
+import { loginComponent } from "~/constants/constants";
 </script>
 <template>
   <div class="w-full px-4 md:px-32">
-    <div class="flex flex-col-reverse md:flex-row  w-full py-20 md:pt-40 md:pb-32">
-      <div class="w-full text-3xl md:w-1/2 md:text-7xl font-semibold text-center">Connectez-vous <br /> pour accéder <br /> <span class="text-primary-700">à votre compte !</span> </div>
+    <div class="flex flex-col-reverse md:flex-row  w-full py-20 md:pt-40 md:pb-32 gap-8 lg:gap-0 xl:gap-0 2xl:gap-0">
+      <div class="w-full text-3xl md:w-1/2 md:text-7xl font-semibold text-center">Connectez-vous <br /> pour accéder
+        <br /> <span class="text-primary-700">à votre compte !</span> </div>
       <div class="w-full md:w-1/2 flex flex-row justify-center items-center">
-        <div class="">
-        </div>
-        <!--        <img src="/image/cend_logo.png" alt="" class="w-1/3" />-->
+        <img src="/image/cend_logo.png" alt="" class="w-1/3" />
       </div>
     </div>
     <div class="grid gap-3 p-4 md:grid-cols-2 px-1 md:px-32">
