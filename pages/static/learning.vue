@@ -96,13 +96,10 @@
   </div>
 </div></template>
 
-<script>
-const loading = useLoadingStore();
-loading.hide();
-export default {
-  name: 'AboutUs'
-}
-definePageMeta({
-      layout: 'onboarding'
-});
+<script setup>
+  const loading = useLoadingStore();
+  loading.hide();
+  definePageMeta({
+        layout: 'onboarding'
+  });
 </script>

@@ -22,7 +22,7 @@
             <p class="text-sm font-light">Notre application simplifie la communication entre étudiants, parents, tuteurs
                et professeurs, tout en offrant une platforme de tutorat en ligne et en personne, adaptée à tous les
                niveaux scolaires, de la première année à l'université.</p>
-            <p-divider type="dashed" />
+               <Separator />
          </div>
          <div class="pt-4">
             <div class="pb-4">
@@ -35,7 +35,7 @@
             <p class="text-sm font-light">Chez CEND nous croyons que l'apprentissage ne devrait pas connaître de
                frontières, c'est pourquoi nous avons conçu une plateforme qui favorise l'inclusion, la rapidité et la
                simplicité d'utilisation.</p>
-            <p-divider type="dashed" />
+               <Separator />
          </div>
          <div>
             <div class="py-4">
@@ -105,6 +105,7 @@
    </div>
 </template>
 <script setup lang="ts">
+   import { Separator } from '@/components/ui/separator'
    const loading = useLoadingStore();
    const store = authenticationStore();
    

@@ -74,7 +74,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 const loading = useLoadingStore();
 loading.hide();
 definePageMeta({

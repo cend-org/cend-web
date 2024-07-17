@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, computed, watch } from 'vue';
+import {  ref, computed, watch } from 'vue';
 const props = defineProps({
     items: {
         required: true,

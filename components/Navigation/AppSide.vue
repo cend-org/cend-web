@@ -25,11 +25,23 @@ const navigations = [
 
 </script>
 <template>
-  <div class="w-full h-screen shadow-lg"  v-if="store.connected">
-    <div class="flex flex-col gap-y-10 py-4 px-5">
+  <!-- v-if="store.connected" -->
+  <div class="h-screen border-r-2 shadow-md"  >
+    <div class="h-full flex flex-col justify-between">
+        <section class="top w-full">
+            <div class="">
+              <div class="w-[100px] h-[100px] bg-red-300"></div>
+            </div>
+        </section>
+
+        <section class="bottom">
+            dsqdsq
+        </section>
+    </div>
+    <!-- <div class="flex flex-col gap-y-10 py-4 px-5">
       <div class="flex flex-col">
-        <span class="text-3xl font-bold text-primary">CEND</span>
-        <span class="text-3xl font-semibold">Compte étudiant</span>
+        <span class="text-4xl font-bold text-primary">CEND</span>
+        <span class="text-sm font-semibold text-gray-400">Compte étudiant</span>
       </div>
       <div>
         <Button class="border-none rounded-none w-full h-12 flex flex-row gap-x-2">
@@ -46,7 +58,7 @@ const navigations = [
           <Badge class="ml-auto rounded-full" v-if="navigation.badge > 0">{{ navigation.badge }}</Badge>
         </NuxtLink>
       </div>
-    </div>
+    </div> -->
   </div>
 
 </template>

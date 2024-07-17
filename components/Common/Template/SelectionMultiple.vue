@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, computed, watch } from 'vue';
+import {  ref, computed, watch } from 'vue';
 import { MagnifyingGlassIcon } from '@radix-icons/vue';
 import { Input } from '@/components/ui/input';
 import { LoaderCircle } from 'lucide-vue-next';
