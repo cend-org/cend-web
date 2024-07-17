@@ -6,7 +6,7 @@ const store = authenticationStore()
 <template>
   <div>
     <nav class="bg-color-main w-full flex flex-row items-center justify-between text-white px-3 py-2 gap-x-2 md:px-5 lg:px-20 xl:px-32">
-      <div class="flex flex-row">
+      <div class="flex flex-row items-center">
         <NavigationItemTitle />
         <NavigationItemLearnWithCend />
         <NavigationItemTutoring />
