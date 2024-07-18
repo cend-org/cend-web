@@ -11,6 +11,7 @@ const props = defineProps({
   }
 })
 
+
 const videoRef = ref<HTMLVideoElement | null>(null);
 let videoState = ref('pause');
 function pause() {

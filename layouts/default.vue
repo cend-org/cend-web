@@ -3,7 +3,7 @@
   <NavigationApp/>
   <div class="flex flex-row w-full">
     <NavigationAppSide/>
-    <div class="p-5">
+    <div class="p-5 w-5/6">
       <slot />
     </div>
   </div>

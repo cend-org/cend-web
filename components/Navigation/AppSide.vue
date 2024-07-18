@@ -29,7 +29,7 @@ const navigationsBottom = [
   {
     icon: UserRound,
     name: "Profile",
-    link: "/app/dashboard"
+    link: "/app/dashboard/profile"
   },
   {
     icon: BarChartBig,
@@ -74,8 +74,8 @@ const navigationsBottom = [
       </section>
       <div>
         <Separator />
-        <section class="bottom px-10">
-          <div class="w-full h-full py-4 flex flex-col gap-1 justify-center">
+        <section class="bottom ">
+          <!-- <div class="w-full h-full py-4 flex flex-col gap-1 justify-center">
             <Button v-for="navigation in navigationsBottom"
               class=" flex justify-between w-full bg-transparent text-gray-700 border-none shadow-none hover:border-none hover:shadow-none hover:bg-transparent">
               <div class="w-full">
@@ -85,7 +85,14 @@ const navigationsBottom = [
                {{ navigation.name }}
               </div>
             </Button>
-          </div>
+          </div> -->
+          <NuxtLink v-for="navigation in navigationsBottom" :to="navigation.link"
+          class=" border-l-2 border-transparent text-xl flex flex-row gap-x-3 cursor-pointer px-3 py-4 hover:bg-primary-foreground hover:border-l-2 hover:border-l-primary"
+          active-class=" bg-primary-foreground border-l-2 border-l-primary">
+
+          <Component :is="navigation.icon" />
+          <span>{{ navigation.name }}</span>
+        </NuxtLink>
         </section>
       </div>
 
