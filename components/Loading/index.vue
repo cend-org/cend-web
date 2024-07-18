@@ -2,11 +2,26 @@
 import { useLoadingStore } from '~/composables/loading';
 
 const loadingStore = useLoadingStore();
+const router = useRouter();
+const route = useRoute()
+function simulateLoading(){
+  setTimeout(() => {
+      loadingStore.hide()
+    }, 1000);
+}
+
+router.beforeEach((to, from) => {
+  loadingStore.show();
+  simulateLoading();
+})
+// watch(() => route.path, () => {
+//     simulateLoading();
+//   }, {immediate: true, deep: true})
 </script>
 
 <template>
-  <div v-if="loadingStore.loadingState" class="absolute top-0 left-0 h-full w-full"
-    style="z-index: 1001 !important; background-color: rgb(200 200 200 / 66%);">
+  <div v-if="loadingStore.loadingState" class="absolute top-0 left-0 h-full w-full overflow-hidden"
+    style="z-index: 1001 !important; background-color: rgb(200 200 200 / 66%); position: fixed;  width: 100%; height: 100%;">
     <div class="h-full w-full flex justify-center items-center">
       <div class="shadow-lg rounded-lg p-3 bg-white text-md">
         <div class="flex flex-col w-full items-center relative">

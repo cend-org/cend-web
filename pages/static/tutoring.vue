@@ -76,7 +76,6 @@
 
 <script setup>
 const loading = useLoadingStore();
-loading.hide();
 definePageMeta({
    layout: 'onboarding'
 });

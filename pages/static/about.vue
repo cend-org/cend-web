@@ -110,7 +110,6 @@
    const store = authenticationStore();
    
     setPageLayout(store.connected? "default": "onboarding");
-    loading.hide();
    // definePageMeta({
    //    layout: false,
    // });

@@ -19,7 +19,6 @@ const usr = userStore()
 
 const authentication = authenticationStore()
 const loadingStore = useLoadingStore();
-loadingStore.hide();
 let error = ref(false)
 const formSchema = toTypedSchema(z.object({
   email: z.string().email('*').min(5),
