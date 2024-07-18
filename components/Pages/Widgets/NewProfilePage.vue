@@ -58,7 +58,6 @@ const { isFieldDirty, handleSubmit, setFieldValue, values } = useForm({
 });
 
 setFieldValue('birthdate', getDateMinusYears(yearMinus));
-console.log(values)
 
 watch(dateOfBirth, (newVal) => {
   setFieldValue('birthdate', `${newVal}`);

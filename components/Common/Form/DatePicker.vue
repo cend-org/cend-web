@@ -55,16 +55,21 @@ const formatter = useDateFormatter('fr')
 const df = new DateFormatter('fr-Fr', {
   dateStyle: 'long',
 }); 
+const YearAdd:number = parseInt(props.minus)!=0?0:70;
+
+// YearMinus != 0? 0 : 70
 
 function yearList(): number[] {
   const currentYear = new Date().getFullYear();
-      const startYear = currentYear - 70;
-      const endYear = currentYear + 0;
-      const years = [];
-      for (let year = startYear; year <= endYear; year++) {
-        years.push(year);
-      }
-      return years;
+  const startYear = currentYear - 70;
+  
+  const endYear = currentYear + YearAdd;
+
+  const years = [];
+  for (let year = startYear; year <= endYear; year++) {
+    years.push(year);
+  }
+  return years;
 }
 
 </script>
@@ -102,8 +107,6 @@ function yearList(): number[] {
             </Select>
 
             <Select :default-value="placeholder.year.toString()" @update:model-value="(v) => {
-              console.log('V===>  ', v);
-              console.log('placeholder===> ', placeholder);
               if (!v || !placeholder) return;
               if (Number(v) === placeholder?.year) return;
               placeholder = placeholder.set({
