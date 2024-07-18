@@ -47,7 +47,7 @@ const duration: Duration = {
 }
 const placeholder = useVModel(props, 'modelValue', emits, {
   passive: true,
-  defaultValue: today(getLocalTimeZone()),
+  defaultValue: today(getLocalTimeZone()).subtract(duration),
 }) as Ref<DateValue>
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
@@ -55,6 +55,17 @@ const formatter = useDateFormatter('fr')
 const df = new DateFormatter('fr-Fr', {
   dateStyle: 'long',
 }); 
+
+function yearList(): number[] {
+  const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 70;
+      const endYear = currentYear + 0;
+      const years = [];
+      for (let year = startYear; year <= endYear; year++) {
+        years.push(year);
+      }
+      return years;
+}
 
 </script>
 <template>
@@ -64,7 +75,7 @@ const df = new DateFormatter('fr-Fr', {
       <Button  v-bind="attrs"  type="button"
         :class="['flex flex-row items-center justify-start h-12 bg-white text-foreground shadow-none border w-full hover:bg-transparent', props.class]">
         <CalendarIcon class="mr-2 h-4 w-4"  />
-        {{ placeholder ? df.format(placeholder.subtract(duration).toDate(getLocalTimeZone())) : "Votre date de naissance" }}
+        {{ df.format(placeholder.toDate(getLocalTimeZone()))}}
       </Button>
     </PopoverTrigger>
     <PopoverContent class="w-auto p-0">
@@ -90,7 +101,9 @@ const df = new DateFormatter('fr-Fr', {
               </SelectContent>
             </Select>
 
-            <Select :default-value="props.placeholder.year.toString()" @update:model-value="(v) => {
+            <Select :default-value="placeholder.year.toString()" @update:model-value="(v) => {
+              console.log('V===>  ', v);
+              console.log('placeholder===> ', placeholder);
               if (!v || !placeholder) return;
               if (Number(v) === placeholder?.year) return;
               placeholder = placeholder.set({
@@ -101,9 +114,16 @@ const df = new DateFormatter('fr-Fr', {
                 <SelectValue placeholder="Select year" />
               </SelectTrigger>
               <SelectContent class="max-h-[200px]">
-                <SelectItem v-for="yearValue in createDecade({ dateObj: date, startIndex: -70, endIndex: 1 })"
+                
+                <!-- <SelectItem v-for="yearValue in createDecade({ dateObj: date, startIndex: -70, endIndex: 1 })"
                   :key="yearValue.toString()" :value="yearValue.year.toString()">
-                  {{ yearValue.year }}
+                  {{ yearValue.subtract(duration).year }}
+                </SelectItem> -->
+                <SelectItem 
+                  v-for="year in yearList()"
+                  :key="year.toString()" 
+                  :value="year.toString()">
+                  {{ year }}
                 </SelectItem>
               </SelectContent>
             </Select>

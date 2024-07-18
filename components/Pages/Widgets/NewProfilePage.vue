@@ -20,6 +20,7 @@ import {cn} from "~/lib/utils";
 import {toDate} from "date-fns";
 import { Languages } from "~/constants/languages";
 import { Sex } from "~/constants/sex";
+import { LogIn } from "lucide-vue-next";
 
 
 
@@ -29,33 +30,38 @@ const loadingStore = useLoadingStore();
 loadingStore.hide();
 let dateOfBirth = ref(undefined);
 let error = ref("")
+const yearMinus = "18"
 // const df = new DateFormatter('en-US', {
 //   dateStyle: 'long',
 // })
 
+function getDateMinusYears(years: string): string {
+  let nowDateYear =  new Date().getFullYear();
+    let nowDate  = new Date();
+    let date = nowDate.setFullYear(nowDateYear - parseInt(years));
+    const isoDateString = new Date(date).toISOString().split('T')[0] + 'T00:00:00.000';
+   return isoDateString;
+}
 
 
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),
   lastname: z.string().min(1),
-  birthdate: z.string().min(1),
+  birthdate: z.string().min(1), //.default(getDateMinusYears(parseInt(yearMinus))),
   langue: z.string().min(1),
   sex: z.string().min(1),
 }))
 
+
 const { isFieldDirty, handleSubmit, setFieldValue, values } = useForm({
   validationSchema: formSchema,
 });
+
+setFieldValue('birthdate', getDateMinusYears(yearMinus));
+console.log(values)
+
 watch(dateOfBirth, (newVal) => {
   setFieldValue('birthdate', `${newVal}`);
-});
-
-onMounted(() => {
-    let nowDateYear =  new Date().getFullYear();
-    let nowDate  = new Date();
-    let date = nowDate.setFullYear(nowDateYear - 18);
-    let datetime = new Date(date).toDateString();
-    setFieldValue('birthdate', datetime);
 });
 
 const onSubmit = handleSubmit( async (values) => {
@@ -110,7 +116,7 @@ const onSubmit = handleSubmit( async (values) => {
             <FormItem>
               <FormLabel>Date de naissance</FormLabel>
               <FormControl v-bind="componentField">
-                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date" minus="18"/>
+                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date" :minus="yearMinus"/>
               </FormControl>
             </FormItem>
           </FormField>

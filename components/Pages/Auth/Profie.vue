@@ -1,5 +1,5 @@
 <template>
-    <LayoutAuthentication title="Veuillez remplir les informations suivantes :">
+    <LayoutAuthentication title="Veuillez remplir les informations suivantes:">
       <PagesWidgetsNewProfilePage />
     </LayoutAuthentication>
 </template>

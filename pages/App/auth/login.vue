@@ -50,7 +50,7 @@ const onSubmit = handleSubmit( async (values) => {
       <Alert>
         <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
         <AlertDescription>
-         Login ou mots de passe invalide !
+          La connection à échoué. Veuillez re-vérifier vos coordonnées et réessayer ! 
         </AlertDescription>
       </Alert>
     </div>

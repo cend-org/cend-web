@@ -1,5 +1,5 @@
 <template>
-  <LayoutAuthentication title="Indiquez votre numéro de téléphone ou votre adresse e-mail.">
+  <LayoutAuthentication title="Veuilez ajouter votre nouveau mot de passe.">
     <PagesWidgetsNewPasswordPage />
   </LayoutAuthentication>
 </template>

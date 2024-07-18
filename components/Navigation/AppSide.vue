@@ -75,7 +75,6 @@ const navigationsBottom = [
       <div>
         <Separator />
         <section class="bottom px-10">
-
           <div class="w-full h-full py-4 flex flex-col gap-1 justify-center">
             <Button v-for="navigation in navigationsBottom"
               class=" flex justify-between w-full bg-transparent text-gray-700 border-none shadow-none hover:border-none hover:shadow-none hover:bg-transparent">
