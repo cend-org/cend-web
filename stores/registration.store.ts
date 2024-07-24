@@ -5,7 +5,7 @@ export const registrationStore = defineStore('registration', () => {
     const usr = userStore();
     let RT = useLocalStorage("RT", 0)
     const AP = useLocalStorage("AP", 0)
-    const cache = useLocalStorage("registration-cache",0)
+    const cache = useLocalStorage("registration-cache", 0)
     const route = useRoute();
 
 
@@ -19,20 +19,19 @@ export const registrationStore = defineStore('registration', () => {
 
     const compos = computed(()=>{
         
+        
         if (isNaN(RT.value) || RT.value == undefined) {
             navigateTo("/")
             return registrationFlow[0][0]
-        }else{
+        }
+        else{
             RT.value =  parseInt(<string>route.query['RT'])
             const flow = registrationFlow[RT.value]
-
-            if (flow.length <= AP.value) {
-               return navigateTo("/")
+            if (flow.length <= AP.value){
+                return navigateTo("/")
             }
             return flow[AP.value]
-        }
-       
-        
+        } 
     })
 
     const setCache = (val: number) => {

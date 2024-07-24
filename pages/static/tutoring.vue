@@ -74,9 +74,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Tutorat'
-}
+<script setup>
+const loading = useLoadingStore();
+definePageMeta({
+   layout: 'onboarding'
+});
 </script>
 

@@ -5,6 +5,7 @@ import {useLocalStorage} from "@vueuse/core";
 export const authenticationStore = defineStore('authentication', () => {
     const token = useLocalStorage(environment.auth_token, "")
     const status = ref<Boolean>(false)
+    const route  = useRoute()
     const RT = useLocalStorage("RT", 0)
     const AP = useLocalStorage("AP", 0)
 
@@ -32,6 +33,10 @@ export const authenticationStore = defineStore('authentication', () => {
         }
 
         return status.value
+    })
+
+    const isAuthRoute = computed((): Boolean => {
+        return route.path.startsWith("/app/auth/")? true: false  
     })
 
     const authenticate = async (email: string) => {
@@ -69,12 +74,16 @@ export const authenticationStore = defineStore('authentication', () => {
     const logout = () => {
         token.value = null
         status.value = false
-        RT.value = 0
-        AP.value = 0
+        
+        localStorage.removeItem("RT")
+        localStorage.removeItem("AP")
         localStorage.removeItem("token")
         localStorage.removeItem("RT")
         localStorage.removeItem("AP")
         localStorage.removeItem("registration-cache")
+        localStorage.removeItem("AVAIL_DATA")
+        RT.value = 0
+        AP.value = 0
     }
 
     const updateProfile = async(name: string, familyname: string, sex: string, lang: string, birthDate: string) =>{
@@ -88,6 +97,7 @@ export const authenticationStore = defineStore('authentication', () => {
         token,
         status,
         connected,
+        isAuthRoute,
         authenticate,
         logout,
         updateProfile,

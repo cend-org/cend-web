@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import {  ref, computed, watch } from 'vue';
 import { MagnifyingGlassIcon } from '@radix-icons/vue';
 import { Input } from '@/components/ui/input';
 import { LoaderCircle } from 'lucide-vue-next';
@@ -71,7 +71,7 @@ const resetIndex = () => {
     currentPage.value = 1;
 };
 const isSelected = (item: any) => {
-
+   
      return selectedItem.value.some(selectedItem => selectedItem?.Id === item.Id) ? 'bg-[#3A9B23] text-white' : 'bg-gray-200';
 };
 
@@ -91,7 +91,7 @@ watch(paginatedItems, (newVal) => {
             <MagnifyingGlassIcon class="size-6 text-muted-foreground" />
         </span>
     </div>
-
+    
 
     <div class="h-[50vh] space-y-2 overflow-y-scroll scroll-bar-none">
         <div class="h-full w-full" v-if="props.items && props.items.length <= 0">

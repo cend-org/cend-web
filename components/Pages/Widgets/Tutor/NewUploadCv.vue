@@ -42,7 +42,7 @@ import { toast } from '~/components/ui/toast';
 import { environment } from '~/scripts/environment';
 import { FiletypesEnum } from '~/scripts/files';
 
-
+const runtimeConfig = useRuntimeConfig();
 const loadingStore = useLoadingStore();
 const registration = registrationStore();
 const authStore = authenticationStore();
@@ -96,7 +96,7 @@ const onSubmit = handleSubmit(async (values) => {
                 'Authorization': `Bearer ${authStore.token}`,
             }
         };
-        fetch(`${environment.api}${environment.upload_url}`, options).then((res) => {
+        fetch(`${runtimeConfig.public.API_ENDPOINT}${environment.upload_url}`, options).then((res) => {
             if(res.status ==200){
                 registration.next();
             }else{

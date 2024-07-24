@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import {  ref, computed, watch } from 'vue';
 import { MagnifyingGlassIcon } from '@radix-icons/vue';
 import { Input } from '@/components/ui/input';
 
@@ -9,7 +9,7 @@ const props = defineProps({
     searchPlaceholder: {
         required: true,
         type: String
-    },
+    }, 
     selectedStudent: {
         type: Object,
         default: null,
@@ -63,7 +63,7 @@ const onSelectItem = (item: any) => {
 };
 
 const isSelected = (item: any) => {
-
+   
   return item.Id === selectedStudent.value?.Id ? 'bg-[#3A9B23] text-white' : 'bg-gray-200';
 };
 
@@ -104,7 +104,7 @@ const emit = defineEmits(['update:selectedStudent']);
       v-for="item in paginatedItems">
       <span>{{ item.Name }} {{ item.FamilyName }}</span>
     </button>
-
+    
     <div class="w-full flex justify-end" v-if="(currentPage * itemsPerPage) < filteredItems.length && paginatedItems.length > 0">
         <button @click="loadMoreItems" type="button" class="btn-secondary">
            voir d'autres ?

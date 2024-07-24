@@ -1,15 +1,17 @@
 <template>
-  <div class="grid grid-cols-6">
-    <div class="w-full h-screen shadow-lg">
-      <NavigationAppSide />
-    </div>
-    <div class="col-span-5 px-20">
-      <div>
-        <NavigationApp />
-      </div>
-      <div>
-        <slot />
-      </div>
+<div class="w-full flex flex-col">
+  <NavigationApp/>
+  <div class="flex flex-row w-full">
+    <NavigationAppSide/>
+    <div class="p-5 w-5/6">
+      <slot />
     </div>
   </div>
+  <!-- <div class="w-full flex flex-row">
+    <NavigationAppSide class="w-1/6" />
+    <div class="w-full">
+        <slot />
+      </div>
+  </div> -->
+</div>
 </template>

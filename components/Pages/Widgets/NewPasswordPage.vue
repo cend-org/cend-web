@@ -36,6 +36,14 @@ const onSubmit = handleSubmit( async (values) => {
 </script>
 <template>
   <form class="space-y-6" @submit="onSubmit">
+    <div v-if="values.password !== values.passwordConfirm" class="text-red-700 py-5">
+      <Alert>
+        <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+        <AlertDescription>
+          Les deux mots de passes ne se concordent pas !
+        </AlertDescription>
+      </Alert>
+    </div>
     <FormField v-slot="{ componentField }" name="password" :validate-on-blur="!isFieldDirty">
       <FormItem>
         <FormLabel>Mots de passe</FormLabel>
@@ -53,13 +61,5 @@ const onSubmit = handleSubmit( async (values) => {
       </FormItem>
     </FormField>
     <CommonFormSubmit  position="bottom"/>
-    <div v-if="values.password !== values.passwordConfirm" class="text-red-700 py-5">
-      <Alert>
-        <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
-        <AlertDescription>
-          Les deux mots de passes ne se concordent pas !
-        </AlertDescription>
-      </Alert>
-    </div>
   </form>
 </template>

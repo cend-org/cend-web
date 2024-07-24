@@ -70,7 +70,6 @@ const onSubmit = handleSubmit(async (values) => {
         await usr.createDisponibility(transform.HoursToCurrentDate(values.dispo_1, new Date()));
         registration.next()
     } catch (e) {
-        console.log(e)
         loadingStore.hide();
         toast({
             title: 'You submitted the following values:',
@@ -109,7 +108,8 @@ const onSubmit = handleSubmit(async (values) => {
                             <FormControl class="" v-bind="componentField">
                                 <div
                                     class="text-color-main text-center bg-gray-200 w-[150px] h-[25px] rounded-lg text-center">
-                                    <CommonFormDatePicker v-on:update:modelValue="dispo_date" class="w-full h-full" :hideIcon="false" />
+                                    <CommonFormDatePicker v-on:update:modelValue="dispo_date" class="w-full h-full"  minus="0" />
+                                    <!-- <CommonFormTimePicker class="w-full h-full" v-model:h="dispo_date" v-model:m="dispo_0.minute"/> -->
                                     <!--  v-model:placeholder="dispo_date"  -->
                                 </div>
                             </FormControl>

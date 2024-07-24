@@ -96,8 +96,9 @@
   </div>
 </div></template>
 
-<script>
-export default {
-  name: 'AboutUs'
-}
+<script setup>
+  const loading = useLoadingStore();
+  definePageMeta({
+        layout: 'onboarding'
+  });
 </script>

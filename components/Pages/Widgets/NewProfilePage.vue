@@ -20,6 +20,7 @@ import {cn} from "~/lib/utils";
 import {toDate} from "date-fns";
 import { Languages } from "~/constants/languages";
 import { Sex } from "~/constants/sex";
+import { LogIn } from "lucide-vue-next";
 
 
 
@@ -28,33 +29,38 @@ const registration = registrationStore()
 const loadingStore = useLoadingStore();
 loadingStore.hide();
 let dateOfBirth = ref(undefined);
+let error = ref("")
+const yearMinus = "18"
 // const df = new DateFormatter('en-US', {
 //   dateStyle: 'long',
 // })
 
+function getDateMinusYears(years: string): string {
+  let nowDateYear =  new Date().getFullYear();
+    let nowDate  = new Date();
+    let date = nowDate.setFullYear(nowDateYear - parseInt(years));
+    const isoDateString = new Date(date).toISOString().split('T')[0] + 'T00:00:00.000';
+   return isoDateString;
+}
 
 
 const formSchema = toTypedSchema(z.object({
   name: z.string().min(1),
   lastname: z.string().min(1),
-  birthdate: z.string().min(1),
+  birthdate: z.string().min(1), //.default(getDateMinusYears(parseInt(yearMinus))),
   langue: z.string().min(1),
   sex: z.string().min(1),
 }))
 
+
 const { isFieldDirty, handleSubmit, setFieldValue, values } = useForm({
   validationSchema: formSchema,
 });
+
+setFieldValue('birthdate', getDateMinusYears(yearMinus));
+
 watch(dateOfBirth, (newVal) => {
   setFieldValue('birthdate', `${newVal}`);
-});
-
-onMounted(() => {
-    let nowDateYear =  new Date().getFullYear();
-    let nowDate  = new Date();
-    let date = nowDate.setFullYear(nowDateYear - 18);
-    let datetime = new Date(date).toDateString();
-    setFieldValue('birthdate', datetime);
 });
 
 const onSubmit = handleSubmit( async (values) => {
@@ -62,17 +68,22 @@ const onSubmit = handleSubmit( async (values) => {
   try{
     await usr.createProfile(values.name, values.lastname, parseInt(values.langue), parseInt(values.sex), new Date(values.birthdate))
     registration.next()
-  }catch(e){
+  }catch(e: any){
     loadingStore.hide();
-    toast({
-      title: 'You submitted the following values:',
-      description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(e, null, 2))),
-    })
+    error.value = e.gqlErrors[0].message 
   }
 })
 </script>
 <template>
     <form class="space-y-6" @submit="onSubmit">
+      <div v-if="error.length > 0" class="text-red-700 py-5">
+      <Alert>
+        <AlertTitle class="font-bold text-red-500">Attention !</AlertTitle>
+        <AlertDescription>
+          {{ error }}
+        </AlertDescription>
+      </Alert>
+    </div>
       <div class="flex flex-row gap-x-2">
        
           <div class="w-1/2">
@@ -104,7 +115,7 @@ const onSubmit = handleSubmit( async (values) => {
             <FormItem>
               <FormLabel>Date de naissance</FormLabel>
               <FormControl v-bind="componentField">
-                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date" minus="18"/>
+                <CommonFormDatePicker  v-model:modelValue="dateOfBirth"  text="Votre Date de naissance" type="birth-date" :minus="yearMinus"/>
               </FormControl>
             </FormItem>
           </FormField>

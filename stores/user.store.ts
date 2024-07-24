@@ -2,6 +2,7 @@ import { useLocalStorage } from "@vueuse/core";
 import { environment } from "~/scripts/environment";
 
 export const userStore = defineStore('user', () => {
+    const runtimeConfig = useRuntimeConfig();
     const authStore = authenticationStore()
     const RT = useLocalStorage('RT', 0)
     let A_LVL = useLocalStorage("A_LVL", 0)
@@ -254,7 +255,7 @@ export const userStore = defineStore('user', () => {
                 'Authorization': `Bearer ${authStore.token}`,
             }
         };
-        fetch(`${environment.api}${environment.upload_url}`, options);
+        fetch(`${runtimeConfig.public.API_ENDPOINT}${environment.upload_url}`, options);
     }
     return {
         RT,
