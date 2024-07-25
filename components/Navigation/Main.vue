@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {authenticationStore} from "~/stores/authentication.store";
 const store = authenticationStore()
+
 </script>
 
 <template>
@@ -13,9 +14,7 @@ const store = authenticationStore()
         <NavigationItemAbout  class="hidden lg:block"/>
       </div>
       <div class="flex flex-row gap-x-2" v-if="!store.connected">
-        <NuxtLink to="/static/help"  class="py-2 px-3 rounded-full cursor-pointer hover:bg-green-700 hidden lg:block">
-          <span>Aide</span>
-        </NuxtLink>
+        <NavigationItemHelp />
         <NavigationItemLogin />
         <NavigationItemRegister  />
         <div class="hidden">

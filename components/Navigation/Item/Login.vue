@@ -1,5 +1,5 @@
 <template>
-  <Popover>
+  <Popover v-if="!buttonManager.isAuthRoute">
     <PopoverTrigger>
       <div class="move font-normal px-3 py-2 rounded-full cursor-pointer hover:bg-green-700">
         Se connecter
@@ -22,4 +22,6 @@
 <script setup lang="ts">
 import {Popover, PopoverContent, PopoverTrigger} from "~/components/ui/popover";
 import  { loginComponent } from "~/constants/constants";
+import { buttonManagerStore } from "~/stores/buttons.manager.store";
+const buttonManager = buttonManagerStore();
 </script>

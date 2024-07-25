@@ -27,9 +27,12 @@ export const registrationStore = defineStore('registration', () => {
         else{
             RT.value =  parseInt(<string>route.query['RT'])
             const flow = registrationFlow[RT.value]
-            if (flow.length <= AP.value){
-                return navigateTo("/")
+            if (AP.value >= flow.length){
+                return navigateTo("/app/dashboard")
             }
+            // if (flow.length <= AP.value){
+            //     return navigateTo("/")
+            // }
             return flow[AP.value]
         } 
     })

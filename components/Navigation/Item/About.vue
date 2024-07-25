@@ -1,5 +1,17 @@
+
+<script setup lang="ts">
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList, NavigationMenuTrigger
+} from "~/components/ui/navigation-menu";
+import { aboutComponent} from "~/constants/constants";
+import { buttonManagerStore } from "~/stores/buttons.manager.store";
+const buttonManager = buttonManagerStore()
+</script>
 <template>
-  <NavigationMenu>
+  <NavigationMenu v-if="!buttonManager.isAuthRoute">
     <NavigationMenuList class="bg-transparent">
       <NavigationMenuItem class="rounded-full cursor-pointer hover:bg-green-700 active:bg-green-700">
         <NavigationMenuTrigger class="p-3 rounded-full cursor-pointer bg-transparent hover:bg-green-700 hover:text-white active:bg-green-700 focus:bg-green-700 focus:text-white" style="background: transparent!important;">
@@ -25,12 +37,3 @@
     </NavigationMenuList>
   </NavigationMenu>
 </template>
-<script setup lang="ts">
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList, NavigationMenuTrigger
-} from "~/components/ui/navigation-menu";
-import { aboutComponent} from "~/constants/constants";
-</script>
