@@ -11,7 +11,7 @@ import { MessagesSquare } from 'lucide-vue-next'
       <NavigationItemTheme />
       <MessagePin />
       <NavigationItemDownload />
-      <NavigationItemNotification />
+       <NotificationPin />
       <NavigationItemAvatar />
     </div>
   </div>

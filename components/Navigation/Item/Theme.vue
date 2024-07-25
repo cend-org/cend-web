@@ -1,8 +1,17 @@
 <template>
-  <Button class="bg-gray-100 border-0 shadow-none text-gray-600 rounded-xl hover:bg-gray-100 hover:text-primary" size="icon">
-    <Sun class="w-6 h-6  hover:rotate-12" />
+  <Button @click="toggleTheme()" class="bg-gray-100 border-0 shadow-none text-gray-600 rounded-xl hover:bg-gray-100 hover:text-primary" size="icon">
+    <Sun v-if="theme == ThemeEnum.DARK" class="w-6 h-6  hover:rotate-12" />
+    <Moon v-if="theme == ThemeEnum.LIGHT" class="w-6 h-6  hover:rotate-12" />
   </Button>
 </template>
 <script setup lang="ts">
-import { Sun } from 'lucide-vue-next'
+import { Moon, Sun } from 'lucide-vue-next'
+enum ThemeEnum{
+  LIGHT, DARK
+}
+let theme = ref(ThemeEnum.LIGHT)
+function toggleTheme(){
+  theme.value = theme.value == ThemeEnum.DARK? ThemeEnum.LIGHT : ThemeEnum.DARK;
+}
+
 </script>
