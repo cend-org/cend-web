@@ -21,7 +21,7 @@ import { Bell } from "lucide-vue-next";
 </style>
 <template>
     <Sheet>
-        <SheetTrigger as-child>
+        <SheetTrigger asChild>
             <Button
                 class="relative bg-gray-100 border-0 shadow-none text-gray-600 rounded-xl hover:bg-gray-100 hover:text-primary"
                 size="icon">
@@ -37,8 +37,7 @@ import { Bell } from "lucide-vue-next";
             </SheetHeader>
             <NotificationBox />
             <SheetFooter>
-                <SheetClose as-child>
-                </SheetClose>
+                <SheetClose asChild></SheetClose>
             </SheetFooter>
         </SheetContent>
     </Sheet>
