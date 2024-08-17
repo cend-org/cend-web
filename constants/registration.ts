@@ -1,4 +1,6 @@
 import {
+    PagesAuthLanguage,
+    PagesAuthList,
     PagesAuthEmail, 
     PagesAuthPassword, 
     PagesAuthProfie, 
@@ -41,6 +43,8 @@ interface IRegistrationFlow {
 
 export const registrationFlow: Array<Array<IRegistrationFlow>> = [
     [
+        {component: PagesAuthLanguage},
+        {component:PagesAuthList},
         {component: PagesAuthEmail},
         {component: PagesAuthPassword},
         {component: PagesAuthProfie},
@@ -52,6 +56,8 @@ export const registrationFlow: Array<Array<IRegistrationFlow>> = [
         {component: PagesAuthCongratulation}
     ], // for student
     [
+        {component: PagesAuthLanguage},
+        {component:PagesAuthList},
         {component: PagesAuthEmail},
         {component:  PagesAuthPassword},
         {component:  PagesAuthProfie},
@@ -66,6 +72,8 @@ export const registrationFlow: Array<Array<IRegistrationFlow>> = [
         
     ], // for parent
     [
+        {component: PagesAuthLanguage},
+        {component:PagesAuthList},
         {component: PagesAuthEmail},
         {component:  PagesAuthPassword},
         {component:  PagesAuthProfie},
@@ -81,6 +89,8 @@ export const registrationFlow: Array<Array<IRegistrationFlow>> = [
         
     ], // for tutor
     [
+        {component: PagesAuthLanguage},
+        {component:PagesAuthList},
         {component: PagesAuthEmail},
         {component:  PagesAuthPassword},
         {component:  PagesAuthProfie},

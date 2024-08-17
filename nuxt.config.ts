@@ -2,15 +2,12 @@ import { environment } from "./scripts/environment";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   devtools: { enabled: true },
-  modules: ["shadcn-nuxt", "nuxt-graphql-client", '@pinia/nuxt', "@nuxtjs/tailwindcss"],
+  modules: ["shadcn-nuxt", '@pinia/nuxt', "@nuxtjs/tailwindcss"],
   css: ['~/assets/css/base.css', '~/assets/css/tailwind.css' ],
   runtimeConfig: {
     public: {
-      GQL_HOST: `${process.env.API_ENDPOINT}${environment.query}`,
-      'graphql-client': {
-
-      }, 
       API_ENDPOINT: process.env.API_ENDPOINT,
     }
   },

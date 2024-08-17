@@ -33,8 +33,9 @@ const onSubmit = handleSubmit( async (values) => {
     await store.authenticate(values.mail)
     registration.next()
   }catch(e: any){
+    alert(e.message);
     loadingStore.hide();
-    error.value = e.gqlErrors[0].message 
+    //error.value = e.gqlErrors[0].message 
   }
 })
 

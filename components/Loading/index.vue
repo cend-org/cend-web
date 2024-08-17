@@ -20,7 +20,7 @@ router.beforeEach((to, from) => {
 </script>
 
 <template>
-  <div v-if="loadingStore.loadingState" class="absolute top-0 left-0 h-full w-full overflow-hidden"
+  <!-- <div v-if="loadingStore.loadingState" class="absolute top-0 left-0 h-full w-full overflow-hidden"
     style="z-index: 1001 !important; background-color: rgb(200 200 200 / 66%); position: fixed;  width: 100%; height: 100%;">
     <div class="h-full w-full flex justify-center items-center">
       <div class="shadow-lg rounded-lg p-3 bg-white text-md">
@@ -33,5 +33,5 @@ router.beforeEach((to, from) => {
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>

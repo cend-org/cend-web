@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { loginComponent } from "~/constants/constants";
+let selctedLanguage = ref("4");
 </script>
 <template>
   <div class="w-full px-4 md:px-32">

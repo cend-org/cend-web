@@ -7,15 +7,23 @@
 <template>
   <div v-if="props.position == 'bottom'"
     class="absolute left-0 bottom-0 lg:relative xl:relative 2xl:relative p-3 lg:p-0 xl:p-0 2xl:p-0 w-full">
-    <Button type="submit" :class="['w-full bg-color-main text-white hover:bg-green-800 h-12', props.classList]">
-      {{ props.title? props.title : 'Continuer'}}
+    <Button :disabled="loadingStore.loadingState" type="submit" :class="['w-full bg-color-main text-white hover:bg-green-800  w-full h-16 text-lg rounded-none', props.classList]">
+      {{ props.title? props.title : 'Continuer'}} 
+      <LoaderCircle v-if="loadingStore.loadingState"   class="ml-4 animate-spin"/> 
     </Button>
+    
   </div>
-  <Button v-else type="submit" :class="['w-full bg-color-main text-white hover:bg-green-800 h-12', props.classList]">
-    {{ props.title? props.title : 'Continuer'}}
+  <div v-else class="">
+    <Button :disabled="loadingStore.loadingState" type="submit" :class="['w-full bg-color-main text-white hover:bg-green-800 w-full h-16 text-lg rounded-none', props.classList]">
+      {{ props.title? props.title : 'Continuer'}}
+      <LoaderCircle v-if="loadingStore.loadingState"   class="ml-4 animate-spin"/>
   </Button>
+
+  </div>
 </template>
 <script setup lang="ts">
+import{LoaderCircle} from 'lucide-vue-next';
+const loadingStore = useLoadingStore();
 const props = defineProps({
   position: {
     required: false,

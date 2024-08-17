@@ -67,3 +67,5 @@ export const aboutComponent  = [
         description: 'Comprenez le fonctionnement de nos services en quelques étapes simples.'
     },
 ];
+
+export const staticToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcyMzgxMzUyOCwiZXhwIjoxNzIzODk5OTI4fQ.-wNB30MQYeFnB_Ai3I6HauMHMPU3dQ92cbYPjr0sts8';
